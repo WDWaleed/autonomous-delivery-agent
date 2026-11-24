@@ -1,0 +1,9 @@
+{
+  "assigned_twists": [
+    "fog_partial_observability",
+    "one_way_streets"
+  ],
+  "slip_probability": 0.23,
+  "adversary": "chaser",
+  "adversary_search_depth": 6
+}
