@@ -15,6 +15,11 @@
   - `-1`: Blocked obstacle (Impassable)
   - Invariant: $1 \le c_0 < c_1 < c_2 < c_3 \le 9$.
 
+### 1.1 Cost Map & Sentinel Convention
+- **Vectorized Cost Map:** $C \in \mathbb{R}^{n \times n}$ represents entry traversal costs.
+- **Sentinel for Blocked Cells:** Blocked obstacles (`-1`) are assigned $C[r, c] = +\infty$ (`np.inf`).
+- **Mathematical Rationale:** Preserves strictly positive transition costs ($C[r, c] > 0$) for traversable cells per D3 and D15, while ensuring Dijkstra, Bellman-Ford, and heuristic distance fields natively treat blocked obstacles as unreachable.
+
 ## 2. Actions & Deterministic Nominal Transitions
 - **Cardinal Actions:**
   - North: $(-1, 0)$

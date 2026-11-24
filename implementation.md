@@ -408,9 +408,9 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M0.4.
 - **Tasks:**
-  - [ ] `delivery/world/grid.py` `GridWorld`: grid, passable bool mask, entering-cost map (`int32`, blocked sentinel), terrain lookup table, flat neighbour table `[n²,4]` (−1 off-grid/blocked), and move-cost table `[n²,4]`, built with vectorised NumPy rather than per-cell Python loops.
-  - [ ] Helpers `idx(r,c)`, `rc(p)`.
-  - [ ] Tests: lookup correctness, blocked impassable, neighbour symmetry for ordinary two-way edges, border handling, start/stops passable. Directional twists are applied later and must not be incorrectly asserted symmetric.
+  - [x] `delivery/world/grid.py` `GridWorld`: grid, passable bool mask, entering-cost map (`int32`, blocked sentinel), terrain lookup table, flat neighbour table `[n²,4]` (−1 off-grid/blocked), and move-cost table `[n²,4]`, built with vectorised NumPy rather than per-cell Python loops.
+  - [x] Helpers `idx(r,c)`, `rc(p)`.
+  - [x] Tests: lookup correctness, blocked impassable, neighbour symmetry for ordinary two-way edges, border handling, start/stops passable. Directional twists are applied later and must not be incorrectly asserted symmetric.
 - **Acceptance:** `pytest -q`; grid arrays agree with a small hand-constructed reference.
 - **COMMIT:** `feat(world): build NumPy grid, cost map and neighbour tables (vectorised)`
 
