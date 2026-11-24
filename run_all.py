@@ -96,15 +96,21 @@ def parse_args():
     return parser.parse_args()
 
 
+STAGE_ALIASES = {
+    "partA_benchmark": "stage1_world_benchmark",
+}
+
+
 def main():
     args = parse_args()
     print_banner()
 
-    target_stages = [s.strip() for s in args.only.split(",") if s.strip()] if args.only else STAGES
+    raw_stages = [s.strip() for s in args.only.split(",") if s.strip()] if args.only else STAGES
+    target_stages = [STAGE_ALIASES.get(s, s) for s in raw_stages]
     invalid_stages = [s for s in target_stages if s not in STAGES]
     if invalid_stages:
         print(f"Error: Unknown stages requested: {invalid_stages}", file=sys.stderr)
-        print(f"Available stages: {STAGES}", file=sys.stderr)
+        print(f"Available stages: {STAGES} (aliases: {list(STAGE_ALIASES.keys())})", file=sys.stderr)
         sys.exit(1)
 
     results_dir = PROJECT_ROOT / "results"
@@ -132,12 +138,21 @@ def main():
     for stage_name in target_stages:
         stage_start = time.perf_counter()
         print(f"[{stage_name}] Starting...")
-        # Stubs for subsequent milestones
-        status = "COMPLETED_STUB"
+        meta = {}
+        if stage_name == "stage1_world_benchmark":
+            from delivery.experiments.stages.stage1_world_benchmark import run_stage1
+            res = run_stage1(quick=args.quick)
+            status = res.get("status", "COMPLETED")
+            meta = {"max_speedup": res.get("max_speedup")}
+        else:
+            # Stubs for subsequent milestones
+            status = "COMPLETED_STUB"
+
         elapsed = time.perf_counter() - stage_start
         manifest["stages"][stage_name] = {
             "status": status,
             "duration_seconds": round(elapsed, 4),
+            **meta,
         }
         print(f"[{stage_name}] {status} in {elapsed:.4f}s")
 

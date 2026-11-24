@@ -1,0 +1,16 @@
+% Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)
+\begin{table}[htbp]
+\centering
+\caption{Runtime Comparison and Speedup Factor: Pure-Python Loop vs NumPy Vectorized World Construction | \stampline}
+\label{tab:partA_speedup}
+\begin{tabular}{rrrrrrr}
+\toprule
+Grid Size (N) & Total Cells & Loop Mean (ms) & Loop 95\% CI (ms) & Vectorized Mean (ms) & Vec 95\% CI (ms) & Speedup (x) \\
+\midrule
+20 & 400 & 0.403000 & 0.069000 & 0.198000 & 0.007000 & 2.030000 \\
+22 & 484 & 0.479000 & 0.056000 & 0.219000 & 0.011000 & 2.190000 \\
+30 & 900 & 2.601000 & 3.611000 & 0.354000 & 0.043000 & 7.350000 \\
+\bottomrule
+\end{tabular}
+
+\end{table}

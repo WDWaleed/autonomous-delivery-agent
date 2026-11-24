@@ -417,9 +417,9 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 #### M1.2 Loop reference and benchmark
 
 - **Tasks:**
-  - [ ] `world/reference_loops.py`: pure-Python cost-map, passability-mask and move-cost reference; tests assert exact equality with vectorised output.
-  - [ ] Benchmark stage `partA_benchmark`: sizes `[20, 30, instance n, 200, 1000]`; at least 30 repeats for ordinary sizes and fewer documented repeats for 1000×1000 if runtime is excessive. Include warm-ups; measure median and mean, variability, speed-up, absolute time saved and paired confidence intervals where appropriate.
-  - [ ] Stamped table `partA_speedup` and log-scale figure.
+  - [x] `world/reference_loops.py`: pure-Python cost-map, passability-mask and move-cost reference; tests assert exact equality with vectorised output.
+  - [x] Benchmark stage `partA_benchmark`: sizes `[20, 30, instance n, 200, 1000]`; at least 30 repeats for ordinary sizes and fewer documented repeats for 1000×1000 if runtime is excessive. Include warm-ups; measure median and mean, variability, speed-up, absolute time saved and paired confidence intervals where appropriate.
+  - [x] Stamped table `partA_speedup` and log-scale figure.
 - **Acceptance:** `python run_all.py --only partA_benchmark --quick`; no hard requirement that speed-up exceed 1 at every size. The report explains NumPy overhead on small arrays and observed crossover behaviour.
 - **COMMIT:** `feat(bench): vectorised vs loop cost-map benchmark`
 
