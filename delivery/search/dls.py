@@ -18,6 +18,7 @@ def depth_limited_search(
     limits: Optional[Limits] = None,
     shared_metrics: Optional[Metrics] = None,
     start_time: Optional[float] = None,
+    check_cycle: bool = True,
 ) -> SearchResult:
     """Executes Depth-Limited Search to a specified depth bound.
 
@@ -56,7 +57,7 @@ def depth_limited_search(
     stack: List[Tuple[Node, List[Tuple[Tuple[int, int, int, Tuple[Any, ...]], int, float]], int]] = []
     initial_succs = problem.successors(root.state)
     stack.append((root, initial_succs, 0))
-    on_path: Set[Tuple[int, int, int, Tuple[Any, ...]]] = {root.state}
+    on_path: Set[Tuple[int, int, int, Tuple[Any, ...]]] = {root.state} if check_cycle else set()
 
     cutoff_occurred = False
 
@@ -86,7 +87,8 @@ def depth_limited_search(
         if child_idx >= len(succs):
             # All children processed; pop and remove from on_path
             stack.pop()
-            on_path.discard(curr_node.state)
+            if check_cycle:
+                on_path.discard(curr_node.state)
             continue
 
         # Get next child
@@ -95,7 +97,7 @@ def depth_limited_search(
         stack[-1] = (curr_node, succs, child_idx + 1)
 
         # Cycle avoidance on current path
-        if next_state in on_path:
+        if check_cycle and next_state in on_path:
             continue
 
         child_node = curr_node.child(next_state, action, step_cost)
@@ -131,7 +133,8 @@ def depth_limited_search(
 
         metrics.expanded_nodes += 1
         child_succs = problem.successors(child_node.state)
-        on_path.add(child_node.state)
+        if check_cycle:
+            on_path.add(child_node.state)
         stack.append((child_node, child_succs, 0))
 
     metrics.duration_seconds = time.perf_counter() - t0

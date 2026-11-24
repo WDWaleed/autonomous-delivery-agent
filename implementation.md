@@ -634,11 +634,11 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M4.3 and M4.4.
 - **Tasks:**
-  - [ ] `search/compact.py`: deterministic compact scenarios (crop/window, retain nearest 2–3 stops) with solution depth ≤ `D_max` (default 14–16).
-  - [ ] Stage `partB_ids_memory`: sweep stored-record budgets (1k, 5k, 20k, 100k). Seek documented scenarios where A\*/UCS/BFS exceed the record budget while IDS completes within it. Do not guarantee this outcome for every map.
-  - [ ] Measure extra expansions/runtime and actual peak bytes separately.
-  - [ ] Ablation: IDS with versus without on-path cycle check; without it should demonstrate repeated-cycle blow-up on a cyclic fixture or reach a resource limit.
-  - [ ] Curves of peak stored records/bytes and expansions versus depth.
+  - [x] `search/compact.py`: deterministic compact scenarios (crop/window, retain nearest 2–3 stops) with solution depth ≤ `D_max` (default 14–16).
+  - [x] Stage `partB_ids_memory`: sweep stored-record budgets (1k, 5k, 20k, 100k). Seek documented scenarios where A\*/UCS/BFS exceed the record budget while IDS completes within it. Do not guarantee this outcome for every map.
+  - [x] Measure extra expansions/runtime and actual peak bytes separately.
+  - [x] Ablation: IDS with versus without on-path cycle check; without it should demonstrate repeated-cycle blow-up on a cyclic fixture or reach a resource limit.
+  - [x] Curves of peak stored records/bytes and expansions versus depth.
 - **Acceptance:** the stored-record rule is identical across algorithms; conclusions do not claim a physical RAM limit from record counts.
 - **COMMIT:** `feat(experiments): compare IDS and A* under stored-node budgets`
 
@@ -1094,7 +1094,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M5.2 Proof and consistency/exhaustive checks
 - [x] M5.3 Heuristic comparison
 - [x] M5.4 Inadmissible variant gap analysis
-- [ ] M5.5 IDS vs A\* under stored-record budget
+- [x] M5.5 IDS vs A\* under stored-record budget
 - [ ] M5.6 Six-algorithm table — **v0.2.0**
 - [ ] M6.1 Game model and A6 rules confirmation
 - [ ] M6.2 Minimax and Alpha-Beta

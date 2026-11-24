@@ -18,6 +18,7 @@ def iterative_deepening_search(
     problem: DeliveryProblem,
     max_depth: int = 100,
     limits: Optional[Limits] = None,
+    check_cycle: bool = True,
 ) -> SearchResult:
     """Executes Iterative Deepening Search (IDS).
 
@@ -52,6 +53,7 @@ def iterative_deepening_search(
             limits=active_limits,
             shared_metrics=metrics,
             start_time=start_time,
+            check_cycle=check_cycle,
         )
 
         if res.status == SearchStatus.SUCCESS:
