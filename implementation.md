@@ -732,10 +732,10 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M7.3 and M7.4.
 - **Tasks:**
-  - [ ] `game/tuning.py`: predeclared small grid or seeded random search over weights. Avoid a combinatorial 3^5 full game sweep unless profiling proves practical; set a fixed tuning budget (e.g. capped candidate count and a smaller fixed tuning-game set).
-  - [ ] Tuning seeds are disjoint from frozen evaluation seeds and never inspected during tuning. Cache by full configuration/seed/source hash.
-  - [ ] Tie-break by mean cost after the primary outcome criterion; write `config/tuned_weights.json` and raw tuning results; heatmap/table.
-  - [ ] Optional branch `exp/eval-tuning`.
+  - [x] `game/tuning.py`: predeclared small grid or seeded random search over weights. Avoid a combinatorial 3^5 full game sweep unless profiling proves practical; set a fixed tuning budget (e.g. capped candidate count and a smaller fixed tuning-game set).
+  - [x] Tuning seeds are disjoint from frozen evaluation seeds and never inspected during tuning. Cache by full configuration/seed/source hash.
+  - [x] Tie-break by mean cost after the primary outcome criterion; write `config/tuned_weights.json` and raw tuning results; heatmap/table.
+  - [x] Optional branch `exp/eval-tuning`.
 - **Acceptance:** chosen weights are fixed before evaluation-set run; no evaluation leakage.
 - **COMMIT:** `feat(tuning): tune evaluation weights by game experiments`
 
@@ -1103,7 +1103,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M7.2 Hybrid agent
 - [x] M7.3 Evaluation function
 - [x] M7.4 Slip and replanning analysis
-- [ ] M7.5 Weight tuning on disjoint seeds
+- [x] M7.5 Weight tuning on disjoint seeds
 - [ ] M7.6 Final games — **v0.3.0**
 - [ ] M8.1 LLM client/backend
 - [ ] M8.2 Tools
