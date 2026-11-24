@@ -368,12 +368,12 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 #### M0.2 🛑 Collect inputs (A0, A1, A2)
 
 - **Tasks:**
-  - [ ] Ask A0 (deadline and viva date).
-  - [ ] Ask A1: full names and CMS IDs of all members (3–4), and confirm the exact member-ID set used to generate the group's canonical instance with `oel_instance.py`. Write `config/members.json` and `config/run.yaml` (initial defaults: `n_scenarios: 30`, `n_games: 50`, `window_radius: 4`, `kappa: 1.5`, `return_to_depot: false`, limits from D13).
-  - [ ] Tell the user about D14 (script gives 3–6 stops while brief says 4–6). This is documented as a source discrepancy; it does not require the instructor to enter custom data or block implementation. Do not claim a three-stop generated instance satisfies the brief's stated four-stop minimum.
-  - [ ] Ask A2. Explain that the third twist needs a one-paragraph proposal, instructor approval and uniqueness. Offer Appendix B candidates; recommend Fragile Parcel as the lowest-risk option, subject to assigned-twist compatibility.
-  - [ ] Explain that M2.5 implementation waits for instructor approval, while unrelated framework/search work may proceed.
-  - [ ] Tell the user an LLM key or local model is needed at M8; the key stays in their local `.env` and must never be exposed in logs or commits.
+  - [x] Ask A0 (deadline and viva date).
+  - [x] Ask A1: full names and CMS IDs of all members (3–4), and confirm the exact member-ID set used to generate the group's canonical instance with `oel_instance.py`. Write `config/members.json` and `config/run.yaml` (initial defaults: `n_scenarios: 30`, `n_games: 50`, `window_radius: 4`, `kappa: 1.5`, `return_to_depot: false`, limits from D13).
+  - [x] Tell the user about D14 (script gives 3–6 stops while brief says 4–6). This is documented as a source discrepancy; it does not require the instructor to enter custom data or block implementation. Do not claim a three-stop generated instance satisfies the brief's stated four-stop minimum.
+  - [x] Ask A2. Explain that the third twist needs a one-paragraph proposal, instructor approval and uniqueness. Offer Appendix B candidates; recommend Fragile Parcel as the lowest-risk option, subject to assigned-twist compatibility.
+  - [x] Explain that M2.5 implementation waits for instructor approval, while unrelated framework/search work may proceed.
+  - [x] Tell the user an LLM key or local model is needed at M8; the key stays in their local `.env` and must never be exposed in logs or commits.
 - **Acceptance:** member file and run config are validated; unresolved approval items are explicitly tracked.
 - **COMMIT:** `chore(config): add group members and run configuration`
 

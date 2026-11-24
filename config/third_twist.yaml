@@ -1,0 +1,8 @@
+name: "fragile_parcel"
+title: "Fragile Parcel"
+proposal: >
+  While the fragile parcel is undelivered, mud and ford cells are illegal to traverse.
+  Once the fragile parcel has been delivered to its designated stop, normal terrain traversal rules apply.
+  This restriction directly modifies legal transitions in the state space without requiring extra state variables.
+status: "pending_instructor_approval"
+approved: false
