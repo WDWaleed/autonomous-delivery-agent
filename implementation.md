@@ -1095,7 +1095,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M5.3 Heuristic comparison
 - [x] M5.4 Inadmissible variant gap analysis
 - [x] M5.5 IDS vs A\* under stored-record budget
-- [ ] M5.6 Six-algorithm table — **v0.2.0**
+- [x] M5.6 Six-algorithm table — **v0.2.0**
 - [ ] M6.1 Game model and A6 rules confirmation
 - [ ] M6.2 Minimax and Alpha-Beta
 - [ ] M6.3 Move ordering and pruning experiment
