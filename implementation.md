@@ -439,11 +439,11 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M1.1 and M1.3.
 - **Tasks:**
-  - [ ] `twists/base.py`, `twists/protocols.py`, `twists/registry.py`: minimal Twist identity/generation base plus optional capability protocols from §7.2. Reserve all eight twist names and fixed registry order.
-  - [ ] `TwistStack` composes enabled twists, validates conflicts, builds extra-state layout, action filters, deterministic cost/transition hooks, simulator-only stochastic hooks, percept hooks and relaxed edges.
-  - [ ] Persist generated twist data in `instances/<id>/twists.json`.
-  - [ ] `twists_enabled` flags in config/overrides.
-  - [ ] Tests: empty stack reproduces base dynamics; toggling a stateful twist changes state layout consistently; a twist without a capability does not require a dummy hook; registry ordering is deterministic.
+  - [x] `twists/base.py`, `twists/protocols.py`, `twists/registry.py`: minimal Twist identity/generation base plus optional capability protocols from §7.2. Reserve all eight twist names and fixed registry order.
+  - [x] `TwistStack` composes enabled twists, validates conflicts, builds extra-state layout, action filters, deterministic cost/transition hooks, simulator-only stochastic hooks, percept hooks and relaxed edges.
+  - [x] Persist generated twist data in `instances/<id>/twists.json`.
+  - [x] `twists_enabled` flags in config/overrides.
+  - [x] Tests: empty stack reproduces base dynamics; toggling a stateful twist changes state layout consistently; a twist without a capability does not require a dummy hook; registry ordering is deterministic.
 - **Acceptance:** `pytest -q`; transition-spec skeleton updated.
 - **COMMIT:** `feat(twists): add twist plugin framework and registry`
 
@@ -1076,7 +1076,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [ ] M1.1 Grid world
 - [ ] M1.2 Loop reference and benchmark
 - [ ] M1.3 Distance fields and renderer
-- [ ] M2.1 Twist framework
+- [x] M2.1 Twist framework
 - [ ] M2.2 Assigned twist A
 - [ ] M2.3 Assigned twist B
 - [ ] M2.4 Twist interplay and relaxed-graph contract tests
