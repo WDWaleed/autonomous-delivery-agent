@@ -1,6 +1,7 @@
 """Adversarial game modeling, Minimax, Alpha-Beta pruning, and move ordering (§7.3, §7.5, M6)."""
 
 from delivery.game.alphabeta import alphabeta_search
+from delivery.game.evaluation import EvalWeights, MultiFeatureEvaluator, make_default_evaluator
 from delivery.game.minimax import minimax_search
 from delivery.game.ordering import make_own_ordering, make_random_ordering, natural_ordering
 from delivery.game.rivals import ChaserRival, chaser_eval
@@ -41,4 +42,7 @@ __all__ = [
     "make_own_ordering",
     "ChaserRival",
     "chaser_eval",
+    "EvalWeights",
+    "MultiFeatureEvaluator",
+    "make_default_evaluator",
 ]

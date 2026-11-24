@@ -709,10 +709,10 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M7.2.
 - **Tasks:**
-  - [ ] `game/evaluation.py`: at least four normalised features with documented ranges/weights, e.g. (1) remaining route cost via own heuristic, (2) delivered fraction, (3) saturated rival distance/threat, (4) rival threat to next-leg cells, (5) escape mobility, (6) twist-specific resource/time margin.
-  - [ ] Features must be scaled so no ordinary evaluation can exceed terminal utility bounds. Define signs and monotonic expectations carefully; “farther rival is better” is conditional on route/capture feasibility, not a universal rule if the rival is blocking an exit.
-  - [ ] `docs/eval_design.md`: justification, sign, scaling, twist interaction, why it differs from textbook evaluation.
-  - [ ] Tests for stated monotonic properties on controlled states, not arbitrary states where features legitimately interact.
+  - [x] `game/evaluation.py`: at least four normalised features with documented ranges/weights, e.g. (1) remaining route cost via own heuristic, (2) delivered fraction, (3) saturated rival distance/threat, (4) rival threat to next-leg cells, (5) escape mobility, (6) twist-specific resource/time margin.
+  - [x] Features must be scaled so no ordinary evaluation can exceed terminal utility bounds. Define signs and monotonic expectations carefully; “farther rival is better” is conditional on route/capture feasibility, not a universal rule if the rival is blocking an exit.
+  - [x] `docs/eval_design.md`: justification, sign, scaling, twist interaction, why it differs from textbook evaluation.
+  - [x] Tests for stated monotonic properties on controlled states, not arbitrary states where features legitimately interact.
 - **🛑 A7 (optional):** user reviews feature list and rationale.
 - **Acceptance:** features bounded/normalised; tests and docs agree.
 - **COMMIT:** `feat(game): own evaluation function` and `docs(game): evaluation design`
@@ -1101,7 +1101,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M6.3 Move ordering and pruning experiment
 - [x] M7.1 Assigned rival strategy
 - [x] M7.2 Hybrid agent
-- [ ] M7.3 Evaluation function
+- [x] M7.3 Evaluation function
 - [ ] M7.4 Slip and replanning analysis
 - [ ] M7.5 Weight tuning on disjoint seeds
 - [ ] M7.6 Final games — **v0.3.0**
