@@ -721,10 +721,10 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M7.2 and M7.3.
 - **Tasks:**
-  - [ ] Stage `partC_slip`: sweep `{0, 0.1, 0.2, 0.3, 0.5, instance value}` on the same paired seeds.
-  - [ ] Metrics: slip attempts, actual displacements, replan triggers (count and per 100 agent moves), extra cost paired against slip=0, capture rate, predicted versus realised delivery cost, deterministic predicted outcomes versus realised outcomes.
-  - [ ] Analyse slips into costly terrain/toward rival, mismatch between deterministic rival replies and realised play, replanning effectiveness and behaviour at 0.5.
-  - [ ] Figures/tables with mean ± CI or Wilson CI as appropriate.
+  - [x] Stage `partC_slip`: sweep `{0, 0.1, 0.2, 0.3, 0.5, instance value}` on the same paired seeds.
+  - [x] Metrics: slip attempts, actual displacements, replan triggers (count and per 100 agent moves), extra cost paired against slip=0, capture rate, predicted versus realised delivery cost, deterministic predicted outcomes versus realised outcomes.
+  - [x] Analyse slips into costly terrain/toward rival, mismatch between deterministic rival replies and realised play, replanning effectiveness and behaviour at 0.5.
+  - [x] Figures/tables with mean ± CI or Wilson CI as appropriate.
 - **Acceptance:** same scenario seeds across slip probabilities; distinguish model predictions from stochastic outcomes.
 - **COMMIT:** `feat(experiments): slip probability and replanning analysis`
 
@@ -1102,7 +1102,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M7.1 Assigned rival strategy
 - [x] M7.2 Hybrid agent
 - [x] M7.3 Evaluation function
-- [ ] M7.4 Slip and replanning analysis
+- [x] M7.4 Slip and replanning analysis
 - [ ] M7.5 Weight tuning on disjoint seeds
 - [ ] M7.6 Final games — **v0.3.0**
 - [ ] M8.1 LLM client/backend

@@ -78,6 +78,8 @@ class HybridAgent(Agent):
         tactical_depth: Optional[int] = None,
         eval_fn: Optional[EvalFn] = None,
         kappa: float = 1.5,
+        c_star: Optional[float] = None,
+        l_star: Optional[int] = None,
     ):
         self.instance = instance
         self.world = world or GridWorld(instance)
@@ -95,10 +97,15 @@ class HybridAgent(Agent):
         ]
         self.own_order = make_own_ordering(stop_fields=self.stop_fields)
 
-        # Canonical baseline for WindowGame
-        self.c_star, self.l_star, self.certified = compute_canonical_baseline(
-            instance, world=self.world, twists=self.twists
-        )
+        # Canonical baseline for WindowGame (reuse if precomputed)
+        if c_star is not None and l_star is not None:
+            self.c_star: Optional[float] = float(c_star)
+            self.l_star: Optional[int] = int(l_star)
+            self.certified: bool = True
+        else:
+            self.c_star, self.l_star, self.certified = compute_canonical_baseline(
+                instance, world=self.world, twists=self.twists
+            )
 
         # Episode state
         self.plan_actions: List[int] = []
