@@ -69,9 +69,12 @@ def distance_field(
             for d_idx in range(4):
                 v = world.neighbor_table[u, d_idx]
                 if v != -1:
-                    # In undirected base world, edge cost u -> v equals entering cost of v
-                    # For reverse search on base world, cost is still the forward entering cost
-                    cost = float(world.move_cost_table[u, d_idx])
+                    if reverse:
+                        # For reverse Dijkstra from target, an incoming edge is w -> u.
+                        # The cost to traverse w -> u is the entry cost of u!
+                        cost = float(world.cost_map[world.rc(u)])
+                    else:
+                        cost = float(world.move_cost_table[u, d_idx])
                     edges.append((v, cost))
 
         for v, cost in edges:

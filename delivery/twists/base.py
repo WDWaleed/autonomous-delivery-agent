@@ -65,7 +65,11 @@ class RelaxedGraph:
         for d in range(4):
             v = self.world.neighbor_table[u, d]
             if v != -1:
-                cost = float(self.world.move_cost_table[u, d])
+                if reverse:
+                    # Reverse Dijkstra: incoming edge is w -> u with entry cost of u
+                    cost = float(self.world.cost_map[self.world.rc(u)])
+                else:
+                    cost = float(self.world.move_cost_table[u, d])
                 edges.append((v, cost))
         return edges
 
