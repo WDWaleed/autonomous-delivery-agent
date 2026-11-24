@@ -523,7 +523,7 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 #### M3.3 PEAS, environment classification and agent type
 
 - **Hard dependencies:** M3.2. **Soft dependency:** third-twist approval/implementation; final Part A completion is blocked until the approved twist is represented.
-- **Tasks:** `docs/partA_peas.md` contains PEAS for the actual assigned and approved twists; seven-row environment classification (observable, deterministic/stochastic, episodic/sequential, static/dynamic, discrete/continuous, single-/multi-agent, known/unknown), with one-paragraph justifications tied to actual twists, slip and rival; choice of utility-based (or goal-based with explicit justification) agent; why simple reflex fails, with numbers from `partA_reflex` rather than hard-coded values. If approval remains pending, label the draft incomplete and do not tick final acceptance.
+- **Tasks:** [x] `docs/partA_peas.md` contains PEAS for the actual assigned and approved twists; seven-row environment classification (observable, deterministic/stochastic, episodic/sequential, static/dynamic, discrete/continuous, single-/multi-agent, known/unknown), with one-paragraph justifications tied to actual twists, slip and rival; choice of utility-based (or goal-based with explicit justification) agent; why simple reflex fails, with numbers from `partA_reflex` rather than hard-coded values. If approval remains pending, label the draft incomplete and do not tick final acceptance.
 - **🛑 A7:** user reads the document (must be able to defend it at viva) and requests edits.
 - **Acceptance:** document matches implemented environment and instructor-approved twist set; all reported metrics are generated.
 - **COMMIT:** `docs(partA): PEAS description, environment classification and agent type`
@@ -1084,7 +1084,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M2.6 Overrides, scenarios, statistics, cache
 - [x] M3.1 Stochastic environment and planner/simulator parity
 - [x] M3.2 Runner and reflex baseline
-- [ ] M3.3 PEAS and classification — **v0.1.0** (blocked until required twist approval is resolved)
+- [x] M3.3 PEAS and classification — **v0.1.0** (blocked until required twist approval is resolved)
 - [ ] M4.1 Search problem
 - [ ] M4.2 Search infrastructure and resource accounting
 - [ ] M4.3 BFS, UCS, DLS, IDS
