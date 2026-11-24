@@ -381,8 +381,8 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M0.2.
 - **Tasks:**
-  - [ ] `delivery/stamp.py`: `STAMP`, `banner()`, stamped logger, `save_figure`, `save_table`, `stamp_text_file`, UI header/footer stubs, report `stamp.tex` generator.
-  - [ ] Tests: stamp equals `oel_instance.stamp(MEMBERS)`; figure footer and PNG metadata; CSV first line; Markdown caption; LaTeX caption.
+  - [x] `delivery/stamp.py`: `STAMP`, `banner()`, stamped logger, `save_figure`, `save_table`, `stamp_text_file`, UI header/footer stubs, report `stamp.tex` generator.
+  - [x] Tests: stamp equals `oel_instance.stamp(MEMBERS)`; figure footer and PNG metadata; CSV first line; Markdown caption; LaTeX caption.
 - **Acceptance:** `pytest -q`; `python -m delivery.stamp --demo` prints banner and writes `results/figures/stamp_demo.png`.
 - **🛑 A3:** show the user the banner and demo figure; user confirms all names and IDs are spelled correctly.
 - **COMMIT:** `feat(stamp): add stamped console, figure and table output helpers`
