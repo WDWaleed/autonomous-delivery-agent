@@ -1,0 +1,230 @@
+"""Visualization and rendering helpers for the delivery grid city.
+
+Produces publication-quality stamped figures for reports and UI demos.
+"""
+
+from __future__ import annotations
+
+from pathlib import Path
+from typing import Any, List, Optional, Tuple, Union
+
+import matplotlib.colors as mcolors
+import matplotlib.patches as patches
+import matplotlib.pyplot as plt
+import numpy as np
+
+from delivery.instance import Instance, get_canonical_instance
+from delivery.stamp import banner, save_figure
+from delivery.world.grid import GridWorld
+
+# Terrain colors: Road, Grass, Mud, Ford, Blocked
+TERRAIN_COLORS = {
+    "road": "#e8eaf6",      # Soft light grey/indigo
+    "grass": "#c8e6c9",     # Pale green
+    "mud": "#d7ccc8",       # Warm sandy brown
+    "ford": "#bbdefb",      # Light sky blue
+    "blocked": "#263238",   # Dark charcoal
+}
+
+TERRAIN_CMAP = mcolors.ListedColormap([
+    TERRAIN_COLORS["blocked"],  # -1 -> 0 in mapped index
+    TERRAIN_COLORS["road"],     #  0 -> 1
+    TERRAIN_COLORS["grass"],    #  1 -> 2
+    TERRAIN_COLORS["mud"],      #  2 -> 3
+    TERRAIN_COLORS["ford"],     #  3 -> 4
+])
+
+BOUNDS = [-1.5, -0.5, 0.5, 1.5, 2.5, 3.5]
+NORM = mcolors.BoundaryNorm(BOUNDS, TERRAIN_CMAP.N)
+
+
+def render_grid_world(
+    instance: Instance,
+    path: Optional[List[Tuple[int, int]]] = None,
+    rival_pos: Optional[Tuple[int, int]] = None,
+    name: str = "canonical_grid",
+    title: Optional[str] = None,
+    output_dir: Optional[Path] = None,
+    report_copy: bool = True,
+) -> Tuple[Path, Path]:
+    """Renders the grid city with terrain types, obstacles, depot, stops, rival, and optional path."""
+    n = instance.n
+    grid = instance.grid
+
+    fig, ax = plt.subplots(figsize=(8, 8))
+
+    # Draw terrain grid
+    im = ax.imshow(
+        grid,
+        cmap=TERRAIN_CMAP,
+        norm=NORM,
+        origin="upper",
+        extent=(0, n, n, 0),
+    )
+
+    # Grid line overlays
+    ax.set_xticks(np.arange(0, n + 1, 1), minor=True)
+    ax.set_yticks(np.arange(0, n + 1, 1), minor=True)
+    ax.grid(which="minor", color="#ffffff", linestyle="-", linewidth=0.5, alpha=0.6)
+    ax.tick_params(which="minor", size=0)
+
+    # Major ticks
+    tick_step = 5 if n >= 20 else 2
+    ax.set_xticks(np.arange(0, n, tick_step))
+    ax.set_yticks(np.arange(0, n, tick_step))
+
+    # Mark Start / Depot (Green Square)
+    sr, sc = instance.start
+    depot_patch = patches.Rectangle(
+        (sc + 0.15, sr + 0.15),
+        0.7,
+        0.7,
+        linewidth=2,
+        edgecolor="#1b5e20",
+        facecolor="#4caf50",
+        zorder=4,
+        label="Start Depot",
+    )
+    ax.add_patch(depot_patch)
+    ax.text(
+        sc + 0.5,
+        sr + 0.5,
+        "D",
+        color="white",
+        ha="center",
+        va="center",
+        fontweight="bold",
+        fontsize=11,
+        zorder=5,
+    )
+
+    # Mark Delivery Stops (Red Circles with stop numbers)
+    for idx, (stop_r, stop_c) in enumerate(instance.delivery_stops):
+        stop_patch = patches.Circle(
+            (stop_c + 0.5, stop_r + 0.5),
+            0.35,
+            linewidth=2,
+            edgecolor="#b71c1c",
+            facecolor="#f44336",
+            zorder=4,
+            label="Delivery Stop" if idx == 0 else "",
+        )
+        ax.add_patch(stop_patch)
+        ax.text(
+            stop_c + 0.5,
+            stop_r + 0.5,
+            str(idx + 1),
+            color="white",
+            ha="center",
+            va="center",
+            fontweight="bold",
+            fontsize=10,
+            zorder=5,
+        )
+
+    # Mark Rival Agent (Purple Diamond)
+    if rival_pos is not None:
+        rr, rc = rival_pos
+        rival_poly = patches.Polygon(
+            [(rc + 0.5, rr + 0.1), (rc + 0.9, rr + 0.5), (rc + 0.5, rr + 0.9), (rc + 0.1, rr + 0.5)],
+            linewidth=2,
+            edgecolor="#4a148c",
+            facecolor="#ab47bc",
+            zorder=6,
+            label=f"Rival ({instance.adversary.capitalize()})",
+        )
+        ax.add_patch(rival_poly)
+        ax.text(
+            rc + 0.5,
+            rr + 0.5,
+            "R",
+            color="white",
+            ha="center",
+            va="center",
+            fontweight="bold",
+            fontsize=10,
+            zorder=7,
+        )
+
+    # Optional path trace overlay
+    if path and len(path) > 1:
+        path_c = [c + 0.5 for _, c in path]
+        path_r = [r + 0.5 for r, _ in path]
+        ax.plot(
+            path_c,
+            path_r,
+            color="#e65100",
+            linewidth=3,
+            linestyle="--",
+            alpha=0.9,
+            zorder=3,
+            label="Planned Path",
+        )
+
+    # Legend for terrain types and entities
+    legend_elements = [
+        patches.Patch(facecolor=TERRAIN_COLORS["road"], edgecolor="#888", label=f"Road (${instance.terrain_cost['road']}$)"),
+        patches.Patch(facecolor=TERRAIN_COLORS["grass"], edgecolor="#888", label=f"Grass (${instance.terrain_cost['grass']}$)"),
+        patches.Patch(facecolor=TERRAIN_COLORS["mud"], edgecolor="#888", label=f"Mud (${instance.terrain_cost['mud']}$)"),
+        patches.Patch(facecolor=TERRAIN_COLORS["ford"], edgecolor="#888", label=f"Ford (${instance.terrain_cost['ford']}$)"),
+        patches.Patch(facecolor=TERRAIN_COLORS["blocked"], edgecolor="#888", label="Obstacle (-1)"),
+        depot_patch,
+        patches.Patch(facecolor="#f44336", edgecolor="#b71c1c", label="Delivery Stop"),
+    ]
+    if rival_pos is not None:
+        legend_elements.append(rival_poly)
+
+    ax.legend(
+        handles=legend_elements,
+        loc="upper left",
+        bbox_to_anchor=(1.02, 1),
+        borderaxespad=0.0,
+        fontsize=9,
+        framealpha=0.95,
+    )
+
+    plot_title = title or f"Autonomous Delivery Agent City Grid ({instance.id}) — {n}x{n}"
+    ax.set_title(plot_title, fontsize=12, fontweight="bold", pad=12)
+    ax.set_xlabel("Grid Column", fontsize=10)
+    ax.set_ylabel("Grid Row", fontsize=10)
+
+    png_path, pdf_path = save_figure(fig, name, output_dir=output_dir, report_copy=report_copy)
+    plt.close(fig)
+    return png_path, pdf_path
+
+
+def render_world(
+    world_or_inst: Any,
+    route: Optional[List[Tuple[int, int]]] = None,
+    agent: Optional[Tuple[int, int]] = None,
+    rival: Optional[Tuple[int, int]] = None,
+    layers: Tuple[str, ...] = (),
+    name: str = "world_overview",
+    output_dir: Optional[Path] = None,
+    report_copy: bool = True,
+) -> Tuple[Path, Path]:
+    """Top-level renderer interface specified in milestone M1.3."""
+    inst = world_or_inst.instance if hasattr(world_or_inst, "instance") else world_or_inst
+    return render_grid_world(
+        inst,
+        path=route,
+        rival_pos=rival,
+        name=name,
+        output_dir=output_dir,
+        report_copy=report_copy,
+    )
+
+
+def main():
+    print(banner("GRID WORLD RENDERER"))
+    inst = get_canonical_instance()
+    png_path, pdf_path = render_grid_world(inst, name="canonical_grid")
+    render_world(inst, name="world_overview")
+    print(f"Rendered canonical city grid to:")
+    print(f"  PNG: {png_path}")
+    print(f"  PDF: {pdf_path}")
+    print(f"  Overview: results/figures/world_overview.png")
+
+
+if __name__ == "__main__":
+    main()

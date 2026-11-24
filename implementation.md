@@ -426,9 +426,9 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 #### M1.3 Own distance fields and renderer
 
 - **Tasks:**
-  - [ ] `world/distance.py`: own `heapq` Dijkstra `distance_field(world, source, reverse=False, edge_model=None)`. Directed reverse-Dijkstra must be correct for distances from arbitrary positions to a fixed target. `edge_model` permits one-way/tunnel and other deterministic relaxed edges.
-  - [ ] Tests against own Bellman–Ford oracle on random small directed and undirected graphs.
-  - [ ] `viz/render.py` `render_world(world, route=None, agent=None, rival=None, layers=())`, colour-blind-safe terrain palette, start/stops/blocked marked and optional route polyline. Save only through `save_figure`.
+  - [x] `world/distance.py`: own `heapq` Dijkstra `distance_field(world, source, reverse=False, edge_model=None)`. Directed reverse-Dijkstra must be correct for distances from arbitrary positions to a fixed target. `edge_model` permits one-way/tunnel and other deterministic relaxed edges.
+  - [x] Tests against own Bellman–Ford oracle on random small directed and undirected graphs.
+  - [x] `viz/render.py` `render_world(world, route=None, agent=None, rival=None, layers=())`, colour-blind-safe terrain palette, start/stops/blocked marked and optional route polyline. Save only through `save_figure`.
 - **Acceptance:** `pytest -q`; Dijkstra and oracle agree on fixtures.
 - **🛑 A7:** open `results/figures/world_overview.png` and confirm the map looks right.
 - **COMMIT:** `feat(world): own Dijkstra distance fields and world renderer`
