@@ -60,6 +60,9 @@ class DeliveryEnv:
         rng: Optional[np.random.Generator] = None,
         seed: Optional[int] = None,
         enable_third_twist: bool = False,
+        enable_rival: bool = False,
+        rival_start: Optional[Tuple[int, int]] = None,
+        rival_depth: Optional[int] = None,
     ):
         self.world = world
         self.instance = world.instance
@@ -95,7 +98,11 @@ class DeliveryEnv:
         self.agent_pos: Tuple[int, int] = self.start
         self.delivered_mask: int = 0
         self.extra_state: Tuple[Any, ...] = ()
+        self.enable_rival: bool = bool(enable_rival or rival_start is not None)
+        self.rival_start: Optional[Tuple[int, int]] = rival_start
+        self.rival_depth: int = int(rival_depth or self.instance.adversary_search_depth or 6)
         self.rival_pos: Optional[Tuple[int, int]] = None
+        self.captured: bool = False
         self.step_count: int = 0
         self.total_cost: float = 0.0
         self.done: bool = False
@@ -103,9 +110,24 @@ class DeliveryEnv:
 
         self.reset()
 
+    def _default_rival_start(self) -> Tuple[int, int]:
+        """Selects a passable cell farthest from agent start."""
+        best_pos = self.start
+        best_dist = -1
+        sr, sc = self.start
+        for r in range(self.world.n):
+            for c in range(self.world.n):
+                if self.world.passable[r, c] and (r, c) != self.start:
+                    d = abs(r - sr) + abs(c - sc)
+                    if d > best_dist:
+                        best_dist = d
+                        best_pos = (r, c)
+        return best_pos
+
     def reset(
         self,
         start_pos: Optional[Tuple[int, int]] = None,
+        rival_pos: Optional[Tuple[int, int]] = None,
     ) -> Dict[str, Any]:
         """Resets the environment to initial state and returns initial percept."""
         self.agent_pos = start_pos or self.start
@@ -113,7 +135,15 @@ class DeliveryEnv:
         self.step_count = 0
         self.total_cost = 0.0
         self.done = False
+        self.captured = False
         self.events_log = []
+        if rival_pos is not None:
+            self.rival_pos = rival_pos
+            self.enable_rival = True
+        elif self.enable_rival:
+            self.rival_pos = self.rival_start or self._default_rival_start()
+        else:
+            self.rival_pos = None
 
         # Reset twist extra state
         self.extra_state = self.twists.initial_extra_state(self.world)
@@ -137,6 +167,7 @@ class DeliveryEnv:
         """Constructs the agent percept dictionary."""
         percept: Dict[str, Any] = {
             "agent_pos": self.agent_pos,
+            "rival_pos": self.rival_pos,
             "delivered_mask": self.delivered_mask,
             "undelivered_stops": [
                 pos for idx, pos in enumerate(self.stops) if not (self.delivered_mask & (1 << idx))
@@ -270,19 +301,25 @@ class DeliveryEnv:
         self.step_count += 1
         self.total_cost += step_cost
 
-        # Auto-delivery check
-        new_deliveries = []
-        if self.agent_pos in self.stop_indices:
-            stop_idx = self.stop_indices[self.agent_pos]
-            if not (self.delivered_mask & (1 << stop_idx)):
-                self.delivered_mask |= (1 << stop_idx)
-                new_deliveries.append(stop_idx)
+        # D7 Capture precedence before delivery completion
+        if self.rival_pos is not None and self.agent_pos == self.rival_pos:
+            self.captured = True
+            self.done = True
+            new_deliveries = []
+        else:
+            # Auto-delivery check
+            new_deliveries = []
+            if self.agent_pos in self.stop_indices:
+                stop_idx = self.stop_indices[self.agent_pos]
+                if not (self.delivered_mask & (1 << stop_idx)):
+                    self.delivered_mask |= (1 << stop_idx)
+                    new_deliveries.append(stop_idx)
 
         # Fog perceptual update
         if self.fog_twist is not None:
             self.fog_twist.compute_percept(self.agent_pos, self.world)
 
-        if self.delivered_mask == self.target_mask:
+        if self.delivered_mask == self.target_mask and not self.captured:
             self.done = True
 
         event = {
@@ -304,6 +341,47 @@ class DeliveryEnv:
 
         return self.get_percept(), step_cost, event
 
-    def step_rival(self, rival_action: Optional[int] = None) -> None:
-        """Stub hook for rival adversary transitions (wired in Part C)."""
-        pass
+    def step_rival(self, rival_action: Optional[int] = None) -> Optional[int]:
+        """Executes one rival adversary transition and checks D7 capture."""
+        if self.rival_pos is None or self.done:
+            return None
+
+        if rival_action is None:
+            from delivery.game.rivals import ChaserRival
+            from delivery.game.window import RIVAL, GameState, WindowGame
+
+            game = WindowGame(
+                self.instance,
+                world=self.world,
+                twists=self.twists,
+                window_radius=None,
+            )
+            state = GameState(
+                agent_pos=self.agent_pos,
+                rival_pos=self.rival_pos,
+                delivered_mask=self.delivered_mask,
+                extra_state=self.extra_state,
+                turn=RIVAL,
+                agent_cost=self.total_cost,
+                steps=self.step_count,
+            )
+            rival = ChaserRival(depth=min(4, self.rival_depth))
+            rival_action, _ = rival.choose_action(game, state)
+
+        if rival_action != WAIT:
+            dr, dc = ACTION_DELTAS[rival_action]
+            nr, nc = self.rival_pos[0] + dr, self.rival_pos[1] + dc
+            if (
+                self.world.in_bounds(nr, nc)
+                and self.world.passable[nr, nc]
+                and self.twists.is_action_legal(
+                    self.rival_pos, rival_action, (nr, nc), (), self.world
+                )
+            ):
+                self.rival_pos = (nr, nc)
+
+        if self.rival_pos == self.agent_pos:
+            self.captured = True
+            self.done = True
+
+        return rival_action

@@ -123,6 +123,17 @@ def run(
         )
         trace.append(step_record)
 
+        if env.captured:
+            return RunnerResult(
+                success=False,
+                total_cost=env.total_cost,
+                total_steps=step_num,
+                trajectory=trajectory,
+                trace=trace,
+                delivered_mask=env.delivered_mask,
+                failure_reason="CAPTURED_BY_RIVAL",
+            )
+
         if env.is_done():
             return RunnerResult(
                 success=True,
@@ -133,6 +144,19 @@ def run(
                 delivered_mask=env.delivered_mask,
                 failure_reason=None,
             )
+
+        if env.rival_pos is not None:
+            env.step_rival()
+            if env.captured:
+                return RunnerResult(
+                    success=False,
+                    total_cost=env.total_cost,
+                    total_steps=step_num,
+                    trajectory=trajectory,
+                    trace=trace,
+                    delivered_mask=env.delivered_mask,
+                    failure_reason="CAPTURED_BY_RIVAL",
+                )
 
     # Reached step cap
     failure_reason = "STEP_CAP_EXCEEDED"

@@ -1100,7 +1100,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M6.2 Minimax and Alpha-Beta
 - [x] M6.3 Move ordering and pruning experiment
 - [x] M7.1 Assigned rival strategy
-- [ ] M7.2 Hybrid agent
+- [x] M7.2 Hybrid agent
 - [ ] M7.3 Evaluation function
 - [ ] M7.4 Slip and replanning analysis
 - [ ] M7.5 Weight tuning on disjoint seeds
