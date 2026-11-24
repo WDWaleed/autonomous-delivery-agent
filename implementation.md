@@ -657,13 +657,13 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M5.
 - **Tasks:**
-  - [ ] `game/window.py` `WindowGame` per D12, using complete `GameState` in §7.3. Base game actions are N/E/S/W/WAIT; add twist-specific actions when enabled (e.g. deliberate TELEPORT for tunnel endpoints). Implement `legal_actions(state, player)` so it returns only actions legal under terrain, one-way restrictions, resources, turn and active twist rules. Extract square Chebyshev window and document boundary restriction.
-  - [ ] Terminal tests: capture, theft, completed delivery with κ threshold, excessive-cost draw, step-cap draw. Implement same-cell capture and a reusable edge-swap capture helper; document that a pure alternating one-action-at-a-time model ordinarily resolves same-cell contact immediately, while edge-swap detection is retained for any paired/joint transition and replay semantics required by the brief.
-  - [ ] Define `C*` and canonical action count `L*` on the same deterministic instance/twist/constraint configuration without rival/slip. Canonical route selection minimises `(total_cost, action_count, action-rank sequence)`; use N,E,S,W, then WAIT, then enabled twist actions in registry order. Use the resulting `L*` in `T_max = 4 × L* + 20`. If the optimal cost cannot be certified, mark the game scenario uncertified and do not invent a threshold.
-  - [ ] Define terminal utility: `+M` for win, `-M` for loss, `0` for draw, and bounded `f(s)` for non-terminal states, with `M` larger than the maximum absolute non-terminal evaluation and any terminal tie-break. Winning terminal states may use a small cost tie-break that cannot cross into draw/loss utility.
-  - [ ] Implement the assigned rival's legal-move generator. Additional rival-type generators are optional and are added only if the four-page brief requires multiple types or the user authorises them.
-  - [ ] `docs/partC_game_model.md`: players, states, actions, utilities, depth in plies, window approximation, strategic A\* next-stop target, D7 event precedence and what time/step counters mean.
-  - [ ] Tests: legal base and twist-specific moves (including TELEPORT when enabled), blocked/one-way, state completeness, same-cell/swap helper, terminal precedence, κ boundary, canonical C*/L* tie-breaking, time and step-cap accounting.
+  - [x] `game/window.py` `WindowGame` per D12, using complete `GameState` in §7.3. Base game actions are N/E/S/W/WAIT; add twist-specific actions when enabled (e.g. deliberate TELEPORT for tunnel endpoints). Implement `legal_actions(state, player)` so it returns only actions legal under terrain, one-way restrictions, resources, turn and active twist rules. Extract square Chebyshev window and document boundary restriction.
+  - [x] Terminal tests: capture, theft, completed delivery with κ threshold, excessive-cost draw, step-cap draw. Implement same-cell capture and a reusable edge-swap capture helper; document that a pure alternating one-action-at-a-time model ordinarily resolves same-cell contact immediately, while edge-swap detection is retained for any paired/joint transition and replay semantics required by the brief.
+  - [x] Define `C*` and canonical action count `L*` on the same deterministic instance/twist/constraint configuration without rival/slip. Canonical route selection minimises `(total_cost, action_count, action-rank sequence)`; use N,E,S,W, then WAIT, then enabled twist actions in registry order. Use the resulting `L*` in `T_max = 4 × L* + 20`. If the optimal cost cannot be certified, mark the game scenario uncertified and do not invent a threshold.
+  - [x] Define terminal utility: `+M` for win, `-M` for loss, `0` for draw, and bounded `f(s)` for non-terminal states, with `M` larger than the maximum absolute non-terminal evaluation and any terminal tie-break. Winning terminal states may use a small cost tie-break that cannot cross into draw/loss utility.
+  - [x] Implement the assigned rival's legal-move generator. Additional rival-type generators are optional and are added only if the four-page brief requires multiple types or the user authorises them.
+  - [x] `docs/partC_game_model.md`: players, states, actions, utilities, depth in plies, window approximation, strategic A\* next-stop target, D7 event precedence and what time/step counters mean.
+  - [x] Tests: legal base and twist-specific moves (including TELEPORT when enabled), blocked/one-way, state completeness, same-cell/swap helper, terminal precedence, κ boundary, canonical C*/L* tie-breaking, time and step-cap accounting.
 - **🛑 A6:** present proposed D7 rules, κ, capture, event precedence, `T_max` definition and utilities; get confirmation/changes before freezing the model.
 - **Acceptance:** rules confirmed; tests and written formalisation agree.
 - **COMMIT:** `feat(game): reduced window game model` and `docs(partC): game formalisation`
@@ -1096,7 +1096,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M5.4 Inadmissible variant gap analysis
 - [x] M5.5 IDS vs A\* under stored-record budget
 - [x] M5.6 Six-algorithm table — **v0.2.0**
-- [ ] M6.1 Game model and A6 rules confirmation
+- [x] M6.1 Game model and A6 rules confirmation
 - [ ] M6.2 Minimax and Alpha-Beta
 - [ ] M6.3 Move ordering and pruning experiment
 - [ ] M7.1 Assigned rival strategy
