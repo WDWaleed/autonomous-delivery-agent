@@ -534,7 +534,7 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 #### M4.1 Single search problem
 
 - **Hard dependencies:** M3.1 and the deterministic transition contract. Third twist is a hard dependency only if it is approved/required for the instance's assigned configuration; do not claim all-twists feasibility before it exists.
-- **Tasks:** `search/problem.py` `DeliveryProblem(world, twist_stack, constraints, return_to_depot)` with D5 state, initial auto-delivery, precedence constraints (cell remains traversable), twist-extended states, `describe(state)`. `max_cost` is enforced by search-node path cost, not omitted from constraints. Add hand-made 3×3/5×5 tests with known optimal cost/length, directed/blocked cases, constraints, resources and goal test.
+- **Tasks:** [x] `search/problem.py` `DeliveryProblem(world, twist_stack, constraints, return_to_depot)` with D5 state, initial auto-delivery, precedence constraints (cell remains traversable), twist-extended states, `describe(state)`. `max_cost` is enforced by search-node path cost, not omitted from constraints. Add hand-made 3×3/5×5 tests with known optimal cost/length, directed/blocked cases, constraints, resources and goal test.
 - **Acceptance:** deterministic transitions match `DeliveryEnv` with slip disabled; tests pass.
 - **COMMIT:** `feat(search): single-problem formulation with delivered-set state and twist-extended states`
 
@@ -1085,7 +1085,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M3.1 Stochastic environment and planner/simulator parity
 - [x] M3.2 Runner and reflex baseline
 - [x] M3.3 PEAS and classification — **v0.1.0** (blocked until required twist approval is resolved)
-- [ ] M4.1 Search problem
+- [x] M4.1 Search problem
 - [ ] M4.2 Search infrastructure and resource accounting
 - [ ] M4.3 BFS, UCS, DLS, IDS
 - [ ] M4.4 Greedy, A\*, baseline heuristics
