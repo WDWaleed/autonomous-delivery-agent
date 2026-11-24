@@ -513,10 +513,10 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M3.1.
 - **Tasks:**
-  - [ ] `sim/runner.py`: `run(agent, env)` logs percept → concise decision summary → action/observation per step; reused for Part D traces. Do not require private chain-of-thought from an LLM.
-  - [ ] `agents/reflex.py`: stateless rule that steps to the neighbour that most reduces Manhattan distance to nearest undelivered stop, avoids blocked/illegal cells, and has no memory. Define deterministic tie-breaking and behaviour when every move fails to reduce distance.
-  - [ ] Stage `partA_reflex`: 30 scenarios; report success rate within step cap and mean cost of successful runs (mean ± CI; Wilson CI for success).
-  - [ ] Qualitative stamped failure pictures (walls, loops, local minima) with event explanations.
+  - [x] `sim/runner.py`: `run(agent, env)` logs percept → concise decision summary → action/observation per step; reused for Part D traces. Do not require private chain-of-thought from an LLM.
+  - [x] `agents/reflex.py`: stateless rule that steps to the neighbour that most reduces Manhattan distance to nearest undelivered stop, avoids blocked/illegal cells, and has no memory. Define deterministic tie-breaking and behaviour when every move fails to reduce distance.
+  - [x] Stage `partA_reflex`: 30 scenarios; report success rate within step cap and mean cost of successful runs (mean ± CI; Wilson CI for success).
+  - [x] Qualitative stamped failure pictures (walls, loops, local minima) with event explanations.
 - **Acceptance:** `pytest -q`; reflex outputs are deterministic for fixed state and tie-breaking.
 - **COMMIT:** `feat(agents): sense-reason-act runner and simple reflex baseline`
 
@@ -1083,7 +1083,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M2.5 Third twist (requires instructor approval)
 - [x] M2.6 Overrides, scenarios, statistics, cache
 - [x] M3.1 Stochastic environment and planner/simulator parity
-- [ ] M3.2 Runner and reflex baseline
+- [x] M3.2 Runner and reflex baseline
 - [ ] M3.3 PEAS and classification — **v0.1.0** (blocked until required twist approval is resolved)
 - [ ] M4.1 Search problem
 - [ ] M4.2 Search infrastructure and resource accounting

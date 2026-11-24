@@ -1,6 +1,7 @@
 """Experiment stages registry."""
 STAGES = [
     "stage1_world_benchmark",
+    "stage_reflex",
     "stage2_search_comparison",
     "stage3_heuristic_proof",
     "stage4_pruning_efficiency",

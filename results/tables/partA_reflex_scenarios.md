@@ -1,0 +1,36 @@
+**Simple Reflex Agent 30-Scenario Evaluation Details**
+
+*Group Stamp: Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)*
+
+| Scenario | Key     | Grid Size | Stops | Slip Prob | Success | Steps | Total Cost | Outcome                   |
+| -------- | ------- | --------- | ----- | --------- | ------- | ----- | ---------- | ------------------------- |
+| 0        | SCN-000 | 28        | 3     | 0.23      | False   | 100   | 325.0      | LOCAL_MINIMUM_OSCILLATION |
+| 1        | SCN-001 | 24        | 4     | 0.29      | False   | 100   | 429.0      | STEP_CAP_EXCEEDED         |
+| 2        | SCN-002 | 40        | 6     | 0.2       | False   | 100   | 300.0      | LOCAL_MINIMUM_OSCILLATION |
+| 3        | SCN-003 | 34        | 6     | 0.16      | False   | 100   | 258.0      | LOCAL_MINIMUM_OSCILLATION |
+| 4        | SCN-004 | 29        | 3     | 0.21      | False   | 100   | 491.0      | LOCAL_MINIMUM_OSCILLATION |
+| 5        | SCN-005 | 27        | 4     | 0.16      | False   | 100   | 275.0      | LOCAL_MINIMUM_OSCILLATION |
+| 6        | SCN-006 | 23        | 3     | 0.14      | True    | 54    | 283.0      | Delivered                 |
+| 7        | SCN-007 | 31        | 3     | 0.17      | False   | 100   | 298.0      | LOCAL_MINIMUM_OSCILLATION |
+| 8        | SCN-008 | 33        | 3     | 0.24      | False   | 100   | 255.0      | STEP_CAP_EXCEEDED         |
+| 9        | SCN-009 | 33        | 5     | 0.26      | False   | 100   | 691.0      | STEP_CAP_EXCEEDED         |
+| 10       | SCN-010 | 20        | 4     | 0.2       | False   | 100   | 415.0      | LOCAL_MINIMUM_OSCILLATION |
+| 11       | SCN-011 | 27        | 3     | 0.19      | False   | 100   | 428.0      | LOCAL_MINIMUM_OSCILLATION |
+| 12       | SCN-012 | 30        | 3     | 0.3       | False   | 100   | 699.0      | LOCAL_MINIMUM_OSCILLATION |
+| 13       | SCN-013 | 38        | 5     | 0.16      | False   | 100   | 264.0      | LOCAL_MINIMUM_OSCILLATION |
+| 14       | SCN-014 | 30        | 5     | 0.19      | False   | 100   | 301.0      | LOCAL_MINIMUM_OSCILLATION |
+| 15       | SCN-015 | 31        | 6     | 0.28      | False   | 100   | 342.0      | STEP_CAP_EXCEEDED         |
+| 16       | SCN-016 | 38        | 5     | 0.23      | False   | 100   | 290.0      | LOCAL_MINIMUM_OSCILLATION |
+| 17       | SCN-017 | 36        | 4     | 0.2       | False   | 100   | 505.0      | LOCAL_MINIMUM_OSCILLATION |
+| 18       | SCN-018 | 33        | 4     | 0.28      | False   | 100   | 552.0      | STEP_CAP_EXCEEDED         |
+| 19       | SCN-019 | 30        | 3     | 0.23      | False   | 100   | 453.0      | LOCAL_MINIMUM_OSCILLATION |
+| 20       | SCN-020 | 30        | 4     | 0.29      | False   | 100   | 273.0      | LOCAL_MINIMUM_OSCILLATION |
+| 21       | SCN-021 | 34        | 5     | 0.15      | False   | 100   | 307.0      | LOCAL_MINIMUM_OSCILLATION |
+| 22       | SCN-022 | 24        | 5     | 0.19      | False   | 100   | 276.0      | STEP_CAP_EXCEEDED         |
+| 23       | SCN-023 | 32        | 6     | 0.14      | False   | 100   | 207.0      | STEP_CAP_EXCEEDED         |
+| 24       | SCN-024 | 24        | 4     | 0.1       | False   | 100   | 313.0      | LOCAL_MINIMUM_OSCILLATION |
+| 25       | SCN-025 | 35        | 4     | 0.28      | False   | 100   | 401.0      | LOCAL_MINIMUM_OSCILLATION |
+| 26       | SCN-026 | 40        | 4     | 0.23      | False   | 100   | 540.0      | LOCAL_MINIMUM_OSCILLATION |
+| 27       | SCN-027 | 30        | 3     | 0.17      | False   | 100   | 255.0      | LOCAL_MINIMUM_OSCILLATION |
+| 28       | SCN-028 | 39        | 6     | 0.27      | False   | 100   | 255.0      | LOCAL_MINIMUM_OSCILLATION |
+| 29       | SCN-029 | 40        | 3     | 0.23      | False   | 100   | 442.0      | LOCAL_MINIMUM_OSCILLATION |

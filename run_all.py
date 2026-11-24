@@ -98,6 +98,7 @@ def parse_args():
 
 STAGE_ALIASES = {
     "partA_benchmark": "stage1_world_benchmark",
+    "partA_reflex": "stage_reflex",
 }
 
 
@@ -144,6 +145,15 @@ def main():
             res = run_stage1(quick=args.quick)
             status = res.get("status", "COMPLETED")
             meta = {"max_speedup": res.get("max_speedup")}
+        elif stage_name == "stage_reflex":
+            from delivery.experiments.stages.stage_reflex import run_reflex_benchmark
+            res = run_reflex_benchmark(quick=args.quick)
+            status = res.get("status", "COMPLETED")
+            meta = {
+                "n_scenarios": res.get("n_scenarios"),
+                "n_success": res.get("n_success"),
+                "success_rate": res.get("success_rate"),
+            }
         else:
             # Stubs for subsequent milestones
             status = "COMPLETED_STUB"
