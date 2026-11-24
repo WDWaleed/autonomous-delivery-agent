@@ -6,9 +6,19 @@ Autonomous delivery agent operating in a grid city under terrain costs, stochast
 
 ### Prerequisites
 - Python $\ge 3.11$ (Python 3.12 recommended)
-- `pip`
+- `uv` (recommended) or standard `python` + `pip`
 
-### Virtual Environment Setup
+### Recommended Setup (with `uv`)
+
+```bash
+# Create virtual environment with uv
+uv venv .venv --python 3.12
+
+# Install dependencies using pinned constraints
+uv pip install -r requirements.txt -c constraints.txt
+```
+
+### Alternative Setup (standard pip)
 
 #### Windows (PowerShell)
 ```powershell
@@ -28,13 +38,17 @@ pip install -r requirements.txt -c constraints.txt
 
 ## 2. Testing
 
-Run the test suite:
+Run the test suite using `uv`:
+```bash
+uv run --no-sync pytest -q
+```
+Or directly within the activated virtual environment:
 ```bash
 pytest -q
 ```
 To run the full suite including slow tests:
 ```bash
-pytest -m slow
+uv run --no-sync pytest -m slow
 ```
 
 ## 3. Reproduction Pipeline
@@ -42,10 +56,10 @@ pytest -m slow
 Reproduce all experiments, tables, and figures:
 ```bash
 # Quick mode for fast validation
-python run_all.py --quick
+uv run --no-sync python run_all.py --quick
 
 # Full experimental reproduction
-python run_all.py
+uv run --no-sync python run_all.py
 ```
 
 ## 4. Repository Layout
