@@ -623,10 +623,10 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M5.3.
 - **Tasks:**
-  - [ ] `heuristics/variants.py`: weighted `w·h_own`, `w ∈ {1.2,1.5,2,3}`, and optionally one structurally inadmissible variant.
-  - [ ] Add a deterministic hand-built `Problem` fixture that proves weighted A* can be faster (fewer expanded nodes) and return a worse plan. Required fixture: `S→A` cost 5, `A→G` cost 10, `S→B` cost 1, `B→G` cost 8; use admissible estimates `h(A)=0`, `h(B)=8`, `h(G)=0`, `h(S)=0`. With `w=2`, weighted A* returns cost 15 after expanding fewer non-goal nodes; ordinary A\*/UCS returns the optimal cost 9. Encode this as a regression test and explain why the weighted priority changes the result.
-  - [ ] Stage `partB_inadmissible`: also evaluate weighted variants on actual generated delivery scenarios; report whether any produce a faster suboptimal delivery route, cost gap percentage and node/runtime savings. Keep the guaranteed hand-built demonstration separate from observed delivery-scenario results; never imply that the latter occurred if it did not.
-  - [ ] Render two actual delivery routes side by side if a generated showcase exists. Otherwise render the hand-built fixture's two paths and explicitly label it as a constructed demonstration.
+  - [x] `heuristics/variants.py`: weighted `w·h_own`, `w ∈ {1.2,1.5,2,3}`, and optionally one structurally inadmissible variant.
+  - [x] Add a deterministic hand-built `Problem` fixture that proves weighted A* can be faster (fewer expanded nodes) and return a worse plan. Required fixture: `S→A` cost 5, `A→G` cost 10, `S→B` cost 1, `B→G` cost 8; use admissible estimates `h(A)=0`, `h(B)=8`, `h(G)=0`, `h(S)=0`. With `w=2`, weighted A* returns cost 15 after expanding fewer non-goal nodes; ordinary A\*/UCS returns the optimal cost 9. Encode this as a regression test and explain why the weighted priority changes the result.
+  - [x] Stage `partB_inadmissible`: also evaluate weighted variants on actual generated delivery scenarios; report whether any produce a faster suboptimal delivery route, cost gap percentage and node/runtime savings. Keep the guaranteed hand-built demonstration separate from observed delivery-scenario results; never imply that the latter occurred if it did not.
+  - [x] Render two actual delivery routes side by side if a generated showcase exists. Otherwise render the hand-built fixture's two paths and explicitly label it as a constructed demonstration.
 - **Acceptance:** the deterministic fixture test must demonstrate fewer expansions and a strictly worse cost for weighted A*; generated-scenario outcomes are reported honestly, including zero occurrences. The constructed fixture is the guaranteed algorithm-level demonstration; do not claim it is a generated-instance result. Never label weighted A* as admissible for `w>1` without a separate proof.
 - **COMMIT:** `feat(experiments): inadmissible heuristic variant gap analysis`
 
@@ -1093,7 +1093,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M5.1 Own heuristic design/choice
 - [x] M5.2 Proof and consistency/exhaustive checks
 - [x] M5.3 Heuristic comparison
-- [ ] M5.4 Inadmissible variant gap analysis
+- [x] M5.4 Inadmissible variant gap analysis
 - [ ] M5.5 IDS vs A\* under stored-record budget
 - [ ] M5.6 Six-algorithm table — **v0.2.0**
 - [ ] M6.1 Game model and A6 rules confirmation
