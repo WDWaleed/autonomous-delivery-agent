@@ -1,0 +1,2 @@
+# Pinned constraints for exact reproducible dependencies.
+# NumPy version will be explicitly pinned in M0.4 prior to canonical instance generation.

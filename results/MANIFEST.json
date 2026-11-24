@@ -1,0 +1,45 @@
+{
+  "timestamp": "2026-11-24T17:33:35.729172",
+  "git_commit": "uncommitted",
+  "python_version": "3.12.3 (tags/v3.12.3:f6650f9, Apr  9 2024, 14:05:25) [MSC v.1938 64 bit (AMD64)]",
+  "numpy_version": "2.5.5",
+  "quick_mode": true,
+  "llm_mode": "replay",
+  "workers": 1,
+  "overrides": [],
+  "stages": {
+    "stage1_world_benchmark": {
+      "status": "COMPLETED_STUB",
+      "duration_seconds": 0.0
+    },
+    "stage2_search_comparison": {
+      "status": "COMPLETED_STUB",
+      "duration_seconds": 0.0
+    },
+    "stage3_heuristic_proof": {
+      "status": "COMPLETED_STUB",
+      "duration_seconds": 0.0
+    },
+    "stage4_pruning_efficiency": {
+      "status": "COMPLETED_STUB",
+      "duration_seconds": 0.0
+    },
+    "stage5_slip_replanning": {
+      "status": "COMPLETED_STUB",
+      "duration_seconds": 0.0
+    },
+    "stage6_llm_benchmark": {
+      "status": "COMPLETED_STUB",
+      "duration_seconds": 0.0
+    },
+    "stage7_ablation": {
+      "status": "COMPLETED_STUB",
+      "duration_seconds": 0.0
+    },
+    "stage8_consolidation": {
+      "status": "COMPLETED_STUB",
+      "duration_seconds": 0.0
+    }
+  },
+  "total_duration_seconds": 0.0
+}

@@ -1,0 +1,41 @@
+# Virtual environment
+.venv/
+env/
+venv/
+
+# Environment secrets
+.env
+
+# Python artifacts
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Raw / cache outputs
+results/raw/
+results/cache/
+results/logs/
+results/llm_cache.jsonl
+
+# Report build artifacts
+report/*.aux
+report/*.log
+report/*.out
+report/*.bbl
+report/*.blg
+report/*.fdb_latexmk
+report/*.fls
+report/*.synctex.gz
+
+# Viva private notes
+docs/viva_weak_spots.md
+
+# OS / Editor files
+.DS_Store
+Thumbs.db
+.idea/
+*.swp
