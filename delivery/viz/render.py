@@ -8,6 +8,8 @@ from __future__ import annotations
 from pathlib import Path
 from typing import Any, List, Optional, Tuple, Union
 
+import matplotlib
+matplotlib.use("Agg")
 import matplotlib.colors as mcolors
 import matplotlib.patches as patches
 import matplotlib.pyplot as plt
@@ -17,13 +19,13 @@ from delivery.instance import Instance, get_canonical_instance
 from delivery.stamp import banner, save_figure
 from delivery.world.grid import GridWorld
 
-# Terrain colors: Road, Grass, Mud, Ford, Blocked
+# High-contrast, easily distinguishable terrain color palette
 TERRAIN_COLORS = {
-    "road": "#e8eaf6",      # Soft light grey/indigo
-    "grass": "#c8e6c9",     # Pale green
-    "mud": "#d7ccc8",       # Warm sandy brown
-    "ford": "#bbdefb",      # Light sky blue
-    "blocked": "#263238",   # Dark charcoal
+    "road": "#f8f9fa",      # Clean light asphalt / off-white
+    "grass": "#4caf50",     # Saturated vivid green
+    "mud": "#795548",       # Deep earthy chocolate brown
+    "ford": "#0288d1",      # Vivid azure / water blue
+    "blocked": "#1a1a1a",   # Jet black / impassable obstacle
 }
 
 TERRAIN_CMAP = mcolors.ListedColormap([
@@ -73,15 +75,15 @@ def render_grid_world(
     ax.set_xticks(np.arange(0, n, tick_step))
     ax.set_yticks(np.arange(0, n, tick_step))
 
-    # Mark Start / Depot (Green Square)
+    # Mark Start / Depot (Gold Amber Square with dark border)
     sr, sc = instance.start
     depot_patch = patches.Rectangle(
         (sc + 0.15, sr + 0.15),
         0.7,
         0.7,
-        linewidth=2,
-        edgecolor="#1b5e20",
-        facecolor="#4caf50",
+        linewidth=2.5,
+        edgecolor="#b26a00",
+        facecolor="#ffb300",
         zorder=4,
         label="Start Depot",
     )
@@ -90,7 +92,7 @@ def render_grid_world(
         sc + 0.5,
         sr + 0.5,
         "D",
-        color="white",
+        color="#212121",
         ha="center",
         va="center",
         fontweight="bold",
@@ -98,14 +100,14 @@ def render_grid_world(
         zorder=5,
     )
 
-    # Mark Delivery Stops (Red Circles with stop numbers)
+    # Mark Delivery Stops (Vivid Crimson Circles with crisp white borders)
     for idx, (stop_r, stop_c) in enumerate(instance.delivery_stops):
         stop_patch = patches.Circle(
             (stop_c + 0.5, stop_r + 0.5),
-            0.35,
+            0.38,
             linewidth=2,
-            edgecolor="#b71c1c",
-            facecolor="#f44336",
+            edgecolor="#ffffff",
+            facecolor="#e53935",
             zorder=4,
             label="Delivery Stop" if idx == 0 else "",
         )
@@ -169,7 +171,7 @@ def render_grid_world(
         patches.Patch(facecolor=TERRAIN_COLORS["ford"], edgecolor="#888", label=f"Ford (${instance.terrain_cost['ford']}$)"),
         patches.Patch(facecolor=TERRAIN_COLORS["blocked"], edgecolor="#888", label="Obstacle (-1)"),
         depot_patch,
-        patches.Patch(facecolor="#f44336", edgecolor="#b71c1c", label="Delivery Stop"),
+        patches.Patch(facecolor="#e53935", edgecolor="#ffffff", label="Delivery Stop (1..k)"),
     ]
     if rival_pos is not None:
         legend_elements.append(rival_poly)
