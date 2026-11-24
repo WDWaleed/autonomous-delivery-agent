@@ -487,11 +487,11 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M2.1; assigned-twist generator hooks from M2.2/M2.3. Third-twist support is a soft dependency until approved; configurations without it remain clearly labelled provisional.
 - **Tasks:**
-  - [ ] `delivery/overrides.py` with parsing/validation and tests.
-  - [ ] `experiments/scenarios.py`: `scenario(k, base, overrides)` per D8. Use direct script-generated scenarios when internal tokens are accepted; otherwise use the documented deterministic local derivation from M0.4. The runner, not the instructor, supplies scenario keys. Record whether each scenario is direct or derived. Initial feasibility certificate is base reachability; full planner certificate is wired at M4.5.
-  - [ ] `experiments/stats.py`: `mean_ci`, `wilson_ci`, `paired_diff_ci`, `bootstrap_ci`; tests with known values (t critical ≈2.045 for n=30; Wilson edge cases at 0/30 and 30/30; paired-difference behaviour). Bootstrap supports scenario/request-level clustering where required.
-  - [ ] `experiments/cache.py`: result cache keyed by canonical hash of config, seed, source-file hash and run mode; `--fresh` bypasses. Never cache secrets.
-  - [ ] `experiments/parallel.py`: serial-first interface; spawn-safe pool helper may be implemented but remains unused until profiling justifies it. `workers=1` is serial.
+  - [x] `delivery/overrides.py` with parsing/validation and tests.
+  - [x] `experiments/scenarios.py`: `scenario(k, base, overrides)` per D8. Use direct script-generated scenarios when internal tokens are accepted; otherwise use the documented deterministic local derivation from M0.4. The runner, not the instructor, supplies scenario keys. Record whether each scenario is direct or derived. Initial feasibility certificate is base reachability; full planner certificate is wired at M4.5.
+  - [x] `experiments/stats.py`: `mean_ci`, `wilson_ci`, `paired_diff_ci`, `bootstrap_ci`; tests with known values (t critical ≈2.045 for n=30; Wilson edge cases at 0/30 and 30/30; paired-difference behaviour). Bootstrap supports scenario/request-level clustering where required.
+  - [x] `experiments/cache.py`: result cache keyed by canonical hash of config, seed, source-file hash and run mode; `--fresh` bypasses. Never cache secrets.
+  - [x] `experiments/parallel.py`: serial-first interface; spawn-safe pool helper may be implemented but remains unused until profiling justifies it. `workers=1` is serial.
 - **Acceptance:** `pytest -q`; 30 feasible independently seeded generator scenarios, or a clearly labelled derived-scenario suite when generator seeding is unavailable, are produced within practical time; shortfalls and dependence structure are reported; repeated runs match non-timing outputs.
 - **🛑 A7:** show assigned-twist layer figures and ask user to confirm that the rules look as expected. Third twist shown separately if approval is pending.
 - **COMMIT:** `feat(experiments): seeded scenario generator, CI statistics and result cache`
@@ -1081,7 +1081,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M2.3 Assigned twist B
 - [x] M2.4 Twist interplay and relaxed-graph contract tests
 - [x] M2.5 Third twist (requires instructor approval)
-- [ ] M2.6 Overrides, scenarios, statistics, cache
+- [x] M2.6 Overrides, scenarios, statistics, cache
 - [ ] M3.1 Stochastic environment and planner/simulator parity
 - [ ] M3.2 Runner and reflex baseline
 - [ ] M3.3 PEAS and classification — **v0.1.0** (blocked until required twist approval is resolved)
