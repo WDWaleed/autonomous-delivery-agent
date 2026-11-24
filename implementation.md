@@ -564,12 +564,12 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M1.3, M2.4, M4.2.
 - **Tasks:**
-  - [ ] `heuristics/base.py` (`Heuristic` protocol, `ZeroHeuristic`).
-  - [ ] `heuristics/baselines.py`:
+  - [x] `heuristics/base.py` (`Heuristic` protocol, `ZeroHeuristic`).
+  - [x] `heuristics/baselines.py`:
     - **B1:** `c_min × Manhattan distance` to nearest undelivered stop only when all planned movement edges are ordinary cardinal steps and every transition cost is at least `c_min`. One-way restrictions and blocked cells cannot invalidate Manhattan as a lower bound, but tunnels/additional planning movement can. In a tunnel/extra-edge configuration, use the minimum edge cost times minimum action-count distance in the relaxed graph, or mark B1 unavailable for that configuration; never call the unadjusted Manhattan version admissible there.
     - **B2:** `max_{u∈U} d_R(pos,u)`, where `d_R` is directed shortest-path distance in the relaxed graph. Precompute reverse distance fields from each target as needed. A route visiting every remaining stop must reach the farthest one.
-  - [ ] `greedy.py`; `astar.py` with closed-node reopening when a better `g` is found, preserving optimality with admissible but inconsistent heuristics under the documented positive-cost assumptions.
-  - [ ] Tests: A\* admissible-heuristic cost equals UCS on 50 random small scenarios; Greedy returns valid plans but has no optimality guarantee; fixed tie-breaking reproduces results.
+  - [x] `greedy.py`; `astar.py` with closed-node reopening when a better `g` is found, preserving optimality with admissible but inconsistent heuristics under the documented positive-cost assumptions.
+  - [x] Tests: A\* admissible-heuristic cost equals UCS on 50 random small scenarios; Greedy returns valid plans but has no optimality guarantee; fixed tie-breaking reproduces results.
 - **Acceptance:** `pytest -q`; B1/B2 admissibility conditions and unavailable cases are explicit in output/docs.
 - **COMMIT:** `feat(search): greedy best-first and A* with re-opening, baseline heuristics`
 
@@ -1088,7 +1088,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M4.1 Search problem
 - [x] M4.2 Search infrastructure and resource accounting
 - [x] M4.3 BFS, UCS, DLS, IDS
-- [ ] M4.4 Greedy, A\*, baseline heuristics
+- [x] M4.4 Greedy, A\*, baseline heuristics
 - [ ] M4.5 CLI and honest feasibility certificate
 - [ ] M5.1 Own heuristic design/choice
 - [ ] M5.2 Proof and consistency/exhaustive checks
