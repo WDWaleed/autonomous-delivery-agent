@@ -459,7 +459,7 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 - **Hard dependencies:** M2.1.
 - **Tasks:** same requirements as M2.2 for the second assigned twist.
 - **Acceptance:** tests demonstrate the actual twist effect and valid relaxed model.
-- **COMMIT:** `feat(twists): implement <twist_b>`
+- **COMMIT:** `feat(twists): implement one_way_streets`
 
 #### M2.4 Twist interplay and relaxed graph
 
@@ -1078,7 +1078,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [ ] M1.3 Distance fields and renderer
 - [x] M2.1 Twist framework
 - [x] M2.2 Assigned twist A
-- [ ] M2.3 Assigned twist B
+- [x] M2.3 Assigned twist B
 - [ ] M2.4 Twist interplay and relaxed-graph contract tests
 - [ ] M2.5 Third twist (requires instructor approval)
 - [ ] M2.6 Overrides, scenarios, statistics, cache
