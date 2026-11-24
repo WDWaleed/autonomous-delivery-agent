@@ -552,11 +552,11 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M4.2.
 - **Tasks:**
-  - [ ] `bfs.py`: graph search, optimal in number of actions, not necessarily cost.
-  - [ ] `ucs.py`: optimal in accumulated cost with strictly positive costs, lazy-deletion heap and best-g duplicate handling.
-  - [ ] `dls.py`: iterative explicit-stack DFS; return `CUTOFF` versus `FAILED` distinctly; on-path set prevents cycles.
-  - [ ] `ids.py`: repeated DLS with path-cycle avoidance, optional stored-record budget and optional `max_depth`.
-  - [ ] Tests: BFS minimum depth; UCS cost against own exhaustive oracle; DLS cutoff/failure; IDS terminates on cyclic maps and has BFS-minimum depth when it finds a solution; count IDS stack/path bookkeeping under D18. Do not assert a universal physical-memory advantage.
+  - [x] `bfs.py`: graph search, optimal in number of actions, not necessarily cost.
+  - [x] `ucs.py`: optimal in accumulated cost with strictly positive costs, lazy-deletion heap and best-g duplicate handling.
+  - [x] `dls.py`: iterative explicit-stack DFS; return `CUTOFF` versus `FAILED` distinctly; on-path set prevents cycles.
+  - [x] `ids.py`: repeated DLS with path-cycle avoidance, optional stored-record budget and optional `max_depth`.
+  - [x] Tests: BFS minimum depth; UCS cost against own exhaustive oracle; DLS cutoff/failure; IDS terminates on cyclic maps and has BFS-minimum depth when it finds a solution; count IDS stack/path bookkeeping under D18. Do not assert a universal physical-memory advantage.
 - **Acceptance:** `pytest -q`; understanding checkpoint explains optimality objective and completeness assumptions for each algorithm.
 - **COMMIT:** `feat(search): BFS, UCS, DLS and IDS from scratch`
 
@@ -1087,7 +1087,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M3.3 PEAS and classification — **v0.1.0** (blocked until required twist approval is resolved)
 - [x] M4.1 Search problem
 - [x] M4.2 Search infrastructure and resource accounting
-- [ ] M4.3 BFS, UCS, DLS, IDS
+- [x] M4.3 BFS, UCS, DLS, IDS
 - [ ] M4.4 Greedy, A\*, baseline heuristics
 - [ ] M4.5 CLI and honest feasibility certificate
 - [ ] M5.1 Own heuristic design/choice
