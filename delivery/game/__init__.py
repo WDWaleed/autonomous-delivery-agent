@@ -3,6 +3,7 @@
 from delivery.game.alphabeta import alphabeta_search
 from delivery.game.minimax import minimax_search
 from delivery.game.ordering import make_own_ordering, make_random_ordering, natural_ordering
+from delivery.game.rivals import ChaserRival, chaser_eval
 from delivery.game.stats import EvalFn, OrderFn, SearchDecision, SearchStats, placeholder_eval
 from delivery.game.window import (
     AGENT,
@@ -38,4 +39,6 @@ __all__ = [
     "natural_ordering",
     "make_random_ordering",
     "make_own_ordering",
+    "ChaserRival",
+    "chaser_eval",
 ]
