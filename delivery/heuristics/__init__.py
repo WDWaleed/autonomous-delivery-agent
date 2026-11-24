@@ -5,10 +5,12 @@ from delivery.heuristics.baselines import (
     ManhattanNearestStopHeuristic,
     MaxRelaxedDistanceHeuristic,
 )
+from delivery.heuristics.own import CombinedMSTHeuristic
 
 __all__ = [
     "Heuristic",
     "ZeroHeuristic",
     "ManhattanNearestStopHeuristic",
     "MaxRelaxedDistanceHeuristic",
+    "CombinedMSTHeuristic",
 ]

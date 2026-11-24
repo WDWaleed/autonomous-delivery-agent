@@ -1090,7 +1090,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M4.3 BFS, UCS, DLS, IDS
 - [x] M4.4 Greedy, A\*, baseline heuristics
 - [x] M4.5 CLI and honest feasibility certificate
-- [ ] M5.1 Own heuristic design/choice
+- [x] M5.1 Own heuristic design/choice
 - [ ] M5.2 Proof and consistency/exhaustive checks
 - [ ] M5.3 Heuristic comparison
 - [ ] M5.4 Inadmissible variant gap analysis

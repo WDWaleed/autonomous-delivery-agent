@@ -90,9 +90,8 @@ def cmd_plan(args):
         elif h_name == "b2":
             heuristic = MaxRelaxedDistanceHeuristic(problem)
         elif h_name == "own":
-            # Fallback to B2 until M5.1 own heuristic is selected
-            print("[INFO] Own heuristic will be available in M5.1; falling back to B2.")
-            heuristic = MaxRelaxedDistanceHeuristic(problem)
+            from delivery.heuristics.own import CombinedMSTHeuristic
+            heuristic = CombinedMSTHeuristic(problem)
         else:
             raise ValueError(f"Unknown heuristic: {args.heuristic}")
 
