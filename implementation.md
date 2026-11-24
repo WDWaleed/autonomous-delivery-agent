@@ -577,10 +577,10 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M4.4 and approved twist implementation for the final configuration.
 - **Tasks:**
-  - [ ] `python -m delivery.cli plan --algo {bfs,ucs,dls,ids,greedy,astar} --heuristic {zero,b1,b2,own} [--set k=v]` prints stamped summary and writes route figure.
-  - [ ] Certify group instance solvability with all required twists enabled. Use A\* with a verified admissible heuristic (B2 or own) or UCS. If a complete search exhausts the reachable state space, record `INFEASIBLE`; if a resource limit interrupts it, record `UNKNOWN`, not infeasible. A found valid path is `FEASIBLE`.
-  - [ ] If twist generation makes an instance infeasible, adjust only documented twist-generator parameters, regenerate `twists.json`, and record the decision; never edit base instance/script.
-  - [ ] Wire full planner certificate into `scenarios.py` and D8 retry policy.
+  - [x] `python -m delivery.cli plan --algo {bfs,ucs,dls,ids,greedy,astar} --heuristic {zero,b1,b2,own} [--set k=v]` prints stamped summary and writes route figure.
+  - [x] Certify group instance solvability with all required twists enabled. Use A\* with a verified admissible heuristic (B2 or own) or UCS. If a complete search exhausts the reachable state space, record `INFEASIBLE`; if a resource limit interrupts it, record `UNKNOWN`, not infeasible. A found valid path is `FEASIBLE`.
+  - [x] If twist generation makes an instance infeasible, adjust only documented twist-generator parameters, regenerate `twists.json`, and record the decision; never edit base instance/script.
+  - [x] Wire full planner certificate into `scenarios.py` and D8 retry policy.
 - **Acceptance:** `pytest -q`; CLI output and route figure valid; certificate has one of the three honest statuses.
 - **🛑 A7:** user runs one plan command and inspects route figure.
 - **COMMIT:** `feat(cli): plan command and instance feasibility certificate`
@@ -1089,7 +1089,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M4.2 Search infrastructure and resource accounting
 - [x] M4.3 BFS, UCS, DLS, IDS
 - [x] M4.4 Greedy, A\*, baseline heuristics
-- [ ] M4.5 CLI and honest feasibility certificate
+- [x] M4.5 CLI and honest feasibility certificate
 - [ ] M5.1 Own heuristic design/choice
 - [ ] M5.2 Proof and consistency/exhaustive checks
 - [ ] M5.3 Heuristic comparison

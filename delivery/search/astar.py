@@ -130,6 +130,6 @@ def astar_search(
 
     metrics.duration_seconds = time.perf_counter() - start_time
     return SearchResult(
-        status=SearchStatus.FAILURE,
+        status=SearchStatus.FAILED,
         metrics=metrics,
     )

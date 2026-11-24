@@ -13,6 +13,7 @@ from typing import Any, Dict, List, Optional, Tuple
 import numpy as np
 
 import oel_instance
+from delivery.certificate import FeasibilityStatus, certify_feasibility
 from delivery.instance import Instance, derive_seed_from_ids
 from delivery.overrides import apply_overrides
 from delivery.stamp import load_members
@@ -119,6 +120,12 @@ def scenario(
             inst = apply_overrides(inst, overrides)
 
         is_feasible = check_base_reachability(inst.grid, inst.start, inst.delivery_stops)
+
+        # Full planner feasibility certification with active twists
+        if is_feasible and inst.twists:
+            cert = certify_feasibility(inst)
+            if cert.status == FeasibilityStatus.INFEASIBLE:
+                is_feasible = False
 
         if is_feasible:
             return Scenario(

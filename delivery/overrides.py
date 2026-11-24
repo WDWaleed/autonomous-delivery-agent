@@ -92,34 +92,33 @@ def validate_overrides(overrides: Dict[str, Any]) -> Dict[str, Any]:
 
 
 def parse_cli_overrides(args: Sequence[str]) -> Dict[str, Any]:
-    """Parses command-line style override arguments such as --slip=0.20 or --grid-size 25."""
+    """Parses command-line style override arguments such as --slip=0.20 or k=v or --grid-size 25."""
     raw: Dict[str, Any] = {}
     it = iter(args)
     for token in it:
-        if token.startswith("--"):
-            clean = token[2:]
-            if "=" in clean:
-                k, v = clean.split("=", 1)
-            else:
-                k = clean
-                try:
-                    v = next(it)
-                except StopIteration:
-                    v = "true"
-            k = k.replace("-", "_")
-            # Parse primitives
-            if v.lower() == "true":
-                raw[k] = True
-            elif v.lower() == "false":
-                raw[k] = False
-            else:
-                try:
-                    if "." in v:
-                        raw[k] = float(v)
-                    else:
-                        raw[k] = int(v)
-                except ValueError:
-                    raw[k] = v
+        clean = token[2:] if token.startswith("--") else token
+        if "=" in clean:
+            k, v = clean.split("=", 1)
+        else:
+            k = clean
+            try:
+                v = next(it)
+            except StopIteration:
+                v = "true"
+        k = k.replace("-", "_")
+        # Parse primitives
+        if v.lower() == "true":
+            raw[k] = True
+        elif v.lower() == "false":
+            raw[k] = False
+        else:
+            try:
+                if "." in v:
+                    raw[k] = float(v)
+                else:
+                    raw[k] = int(v)
+            except ValueError:
+                raw[k] = v
     return validate_overrides(raw)
 
 

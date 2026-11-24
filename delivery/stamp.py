@@ -130,6 +130,30 @@ def save_figure(
     return png_path, pdf_path
 
 
+def print_stamped_table(
+    headers: List[str],
+    rows: List[List[str]],
+    title: Optional[str] = None,
+) -> None:
+    """Prints a formatted ASCII/Markdown table in the console with the group stamp."""
+    if title:
+        print(f"\n--- {title} ---")
+    print(f"[{STAMP}]")
+    cols = [str(h) for h in headers]
+    str_rows = [[str(c) for c in row] for row in rows]
+    widths = [
+        max(len(c), max((len(r[i]) for r in str_rows), default=0))
+        for i, c in enumerate(cols)
+    ]
+    header_line = "| " + " | ".join(c.ljust(widths[i]) for i, c in enumerate(cols)) + " |"
+    sep_line = "|-" + "-|-".join("-" * widths[i] for i in range(len(cols))) + "-|"
+    print(header_line)
+    print(sep_line)
+    for r in str_rows:
+        print("| " + " | ".join(r[i].ljust(widths[i]) for i in range(len(cols))) + " |")
+    print()
+
+
 def df_to_markdown(df: pd.DataFrame) -> str:
     """Renders a pandas DataFrame as a GitHub-flavored Markdown table without tabulate."""
     cols = [str(c) for c in df.columns]
