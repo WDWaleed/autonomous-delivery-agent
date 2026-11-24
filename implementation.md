@@ -465,10 +465,10 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M2.2 and M2.3.
 - **Tasks:**
-  - [ ] Test both twists together: state layout, capability composition order, action filtering, transition legality, cost accumulation and simulator effects.
-  - [ ] `TwistStack.relaxed_graph()` returns a directed edge model that includes every deterministic transition available in the actual planning problem at no greater cost, while relaxing restrictive constraints. Simulator-only slip/wind randomness is excluded from deterministic planner semantics and documented as such.
-  - [ ] For directed pair distances used by the MST, define the undirected lower-bound edge weight `w(u,v) = min(d(u,v), d(v,u))`, where each directed distance is computed in the relaxed graph. Any feasible directed traversal from one required waypoint to the next costs at least this symmetric lower-bound edge weight; the MST built from these weights is therefore a lower bound on a route connecting the required waypoints.
-  - [ ] Property tests: every actual deterministic edge has a no-more-expensive relaxed counterpart; random legal walks cost at least the relaxed distance; exact small-graph checks. Random-walk tests are sanity checks, not the admissibility proof.
+  - [x] Test both twists together: state layout, capability composition order, action filtering, transition legality, cost accumulation and simulator effects.
+  - [x] `TwistStack.relaxed_graph()` returns a directed edge model that includes every deterministic transition available in the actual planning problem at no greater cost, while relaxing restrictive constraints. Simulator-only slip/wind randomness is excluded from deterministic planner semantics and documented as such.
+  - [x] For directed pair distances used by the MST, define the undirected lower-bound edge weight `w(u,v) = min(d(u,v), d(v,u))`, where each directed distance is computed in the relaxed graph. Any feasible directed traversal from one required waypoint to the next costs at least this symmetric lower-bound edge weight; the MST built from these weights is therefore a lower bound on a route connecting the required waypoints.
+  - [x] Property tests: every actual deterministic edge has a no-more-expensive relaxed counterpart; random legal walks cost at least the relaxed distance; exact small-graph checks. Random-walk tests are sanity checks, not the admissibility proof.
 - **Acceptance:** `pytest -q`; proof obligations documented in `docs/transition_model.md` and referenced by `docs/heuristic_proof.md`.
 - **COMMIT:** `test(twists): twist interplay and relaxed-graph lower-bound tests`
 
@@ -1079,7 +1079,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M2.1 Twist framework
 - [x] M2.2 Assigned twist A
 - [x] M2.3 Assigned twist B
-- [ ] M2.4 Twist interplay and relaxed-graph contract tests
+- [x] M2.4 Twist interplay and relaxed-graph contract tests
 - [ ] M2.5 Third twist (requires instructor approval)
 - [ ] M2.6 Overrides, scenarios, statistics, cache
 - [ ] M3.1 Stochastic environment and planner/simulator parity

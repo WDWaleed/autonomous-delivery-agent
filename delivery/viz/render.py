@@ -195,6 +195,96 @@ def render_grid_world(
     return png_path, pdf_path
 
 
+def render_twist_overlay_view(
+    instance: Instance,
+    twist_name: str,
+    name: Optional[str] = None,
+    output_dir: Optional[Path] = None,
+    report_copy: bool = True,
+) -> Tuple[Path, Path]:
+    """Renders the city grid with a specific active twist overlay applied."""
+    from delivery.twists.registry import get_twist_class
+    from delivery.world.grid import GridWorld
+
+    world = GridWorld(instance)
+    twist_cls = get_twist_class(twist_name)
+    twist = twist_cls()
+    twist.initialize(instance, world)
+
+    n = instance.n
+    grid = instance.grid
+
+    fig, ax = plt.subplots(figsize=(8.5, 8.5))
+
+    # Base grid
+    ax.imshow(
+        grid,
+        cmap=TERRAIN_CMAP,
+        norm=NORM,
+        origin="upper",
+        extent=(-0.5, n - 0.5, n - 0.5, -0.5),
+        zorder=1,
+    )
+
+    # Grid lines
+    ax.set_xticks(np.arange(-0.5, n, 1), minor=True)
+    ax.set_yticks(np.arange(-0.5, n, 1), minor=True)
+    ax.grid(which="minor", color="#cccccc", linestyle="-", linewidth=0.5, alpha=0.3, zorder=2)
+    ax.set_xticks(np.arange(0, n, 5))
+    ax.set_yticks(np.arange(0, n, 5))
+
+    # Start depot
+    sr, sc = instance.start
+    ax.plot(
+        sc,
+        sr,
+        marker="s",
+        markersize=13,
+        color="#ffb300",
+        markeredgecolor="#5d4037",
+        markeredgewidth=1.8,
+        zorder=6,
+        label=f"Depot Start {instance.start}",
+    )
+
+    # Delivery stops
+    for idx, (dr, dc) in enumerate(instance.delivery_stops, start=1):
+        ax.plot(
+            dc,
+            dr,
+            marker="o",
+            markersize=11,
+            color="#e53935",
+            markeredgecolor="#ffffff",
+            markeredgewidth=1.5,
+            zorder=6,
+        )
+        ax.text(
+            dc,
+            dr,
+            str(idx),
+            color="#ffffff",
+            fontsize=8,
+            fontweight="bold",
+            ha="center",
+            va="center",
+            zorder=7,
+        )
+
+    # Apply twist overlay
+    twist.render_overlay(ax, world, state=instance.start)
+
+    title_str = f"Twist Visualization: {twist.title} ({instance.id})"
+    ax.set_title(title_str, fontsize=12, fontweight="bold", pad=12)
+    ax.set_xlabel("Grid Column", fontsize=10)
+    ax.set_ylabel("Grid Row", fontsize=10)
+
+    fig_name = name or f"twist_{twist_name}"
+    png_path, pdf_path = save_figure(fig, fig_name, output_dir=output_dir, report_copy=report_copy)
+    plt.close(fig)
+    return png_path, pdf_path
+
+
 def render_world(
     world_or_inst: Any,
     route: Optional[List[Tuple[int, int]]] = None,
@@ -222,10 +312,14 @@ def main():
     inst = get_canonical_instance()
     png_path, pdf_path = render_grid_world(inst, name="canonical_grid")
     render_world(inst, name="world_overview")
+    render_twist_overlay_view(inst, "fog_partial_observability", name="twist_fog")
+    render_twist_overlay_view(inst, "one_way_streets", name="twist_one_way")
     print(f"Rendered canonical city grid to:")
     print(f"  PNG: {png_path}")
     print(f"  PDF: {pdf_path}")
     print(f"  Overview: results/figures/world_overview.png")
+    print(f"  Twist Fog: results/figures/twist_fog.png")
+    print(f"  Twist One-Way: results/figures/twist_one_way.png")
 
 
 if __name__ == "__main__":
