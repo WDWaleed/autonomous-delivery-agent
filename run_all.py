@@ -99,6 +99,7 @@ def parse_args():
 STAGE_ALIASES = {
     "partA_benchmark": "stage1_world_benchmark",
     "partA_reflex": "stage_reflex",
+    "partB_heuristics": "stage_heuristics",
 }
 
 
@@ -154,6 +155,11 @@ def main():
                 "n_success": res.get("n_success"),
                 "success_rate": res.get("success_rate"),
             }
+        elif stage_name in ("stage_heuristics", "stage2_search_comparison"):
+            from delivery.experiments.stages.stage_heuristics import run_heuristics_benchmark
+            res = run_heuristics_benchmark(quick=args.quick)
+            status = "COMPLETED"
+            meta = {"n_scenarios": 5 if args.quick else 30}
         else:
             # Stubs for subsequent milestones
             status = "COMPLETED_STUB"

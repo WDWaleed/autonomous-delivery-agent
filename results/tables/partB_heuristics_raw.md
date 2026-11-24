@@ -1,0 +1,156 @@
+**Raw Per-Scenario Search Experiment Log**
+
+*Group Stamp: Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)*
+
+| scenario_k | scenario_key | config                  | algo   | heuristic | success | status  | cost  | plan_length | expanded_nodes | generated_nodes | peak_stored | duration_seconds      |
+| ---------- | ------------ | ----------------------- | ------ | --------- | ------- | ------- | ----- | ----------- | -------------- | --------------- | ----------- | --------------------- |
+| 0          | SCN-000      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 187.0 | 30          | 2037           | 6302            | 2272        | 0.02471450000302866   |
+| 0          | SCN-000      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 187.0 | 30          | 1350           | 1575            | 1599        | 0.01709929999196902   |
+| 0          | SCN-000      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 187.0 | 30          | 192            | 330             | 424         | 0.00433520000660792   |
+| 0          | SCN-000      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 187.0 | 30          | 42             | 94              | 141         | 0.001131199998781085  |
+| 0          | SCN-000      | Greedy + Own            | greedy | own       | True    | SUCCESS | 209.0 | 34          | 38             | 96              | 96          | 0.0010303999879397452 |
+| 1          | SCN-001      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 143.0 | 44          | 3173           | 10119           | 3639        | 0.033594800042919815  |
+| 1          | SCN-001      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 143.0 | 44          | 1654           | 2083            | 2125        | 0.06188480003038421   |
+| 1          | SCN-001      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 143.0 | 44          | 467            | 650             | 703         | 0.006849099998362362  |
+| 1          | SCN-001      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 143.0 | 44          | 71             | 118             | 161         | 0.0020064000273123384 |
+| 1          | SCN-001      | Greedy + Own            | greedy | own       | True    | SUCCESS | 151.0 | 44          | 45             | 100             | 100         | 0.0013722999719902873 |
+| 2          | SCN-002      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 295.0 | 130         | 58003          | 166749          | 59451       | 0.688361500040628     |
+| 2          | SCN-002      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 295.0 | 130         | 50504          | 59649           | 46260       | 0.6880609999643639    |
+| 2          | SCN-002      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 295.0 | 130         | 25105          | 28201           | 27674       | 0.45329239999409765   |
+| 2          | SCN-002      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 295.0 | 130         | 1643           | 2110            | 2306        | 0.06051209999714047   |
+| 2          | SCN-002      | Greedy + Own            | greedy | own       | True    | SUCCESS | 421.0 | 189         | 262            | 548             | 520         | 0.011386199970729649  |
+| 3          | SCN-003      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 270.0 | 98          | 41131          | 119847          | 43737       | 0.4818853999604471    |
+| 3          | SCN-003      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 270.0 | 98          | 30569          | 35182           | 33130       | 0.5013388000079431    |
+| 3          | SCN-003      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 270.0 | 98          | 9830           | 11760           | 12104       | 0.19651769998017699   |
+| 3          | SCN-003      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 270.0 | 98          | 433            | 651             | 787         | 0.02235169999767095   |
+| 3          | SCN-003      | Greedy + Own            | greedy | own       | True    | SUCCESS | 394.0 | 119         | 194            | 407             | 385         | 0.010115200013387948  |
+| 4          | SCN-004      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 162.0 | 56          | 2566           | 8282            | 2828        | 0.026531999988947064  |
+| 4          | SCN-004      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 162.0 | 56          | 1717           | 2093            | 1797        | 0.018151799973566085  |
+| 4          | SCN-004      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 162.0 | 56          | 667            | 855             | 953         | 0.009056800045073032  |
+| 4          | SCN-004      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 162.0 | 56          | 201            | 299             | 384         | 0.005299500015098602  |
+| 4          | SCN-004      | Greedy + Own            | greedy | own       | True    | SUCCESS | 216.0 | 56          | 79             | 190             | 176         | 0.0024846000014804304 |
+| 5          | SCN-005      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 155.0 | 58          | 4680           | 13137           | 5088        | 0.044645900023169816  |
+| 5          | SCN-005      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 155.0 | 62          | 3059           | 3612            | 3401        | 0.03887140000006184   |
+| 5          | SCN-005      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 155.0 | 58          | 1485           | 1818            | 1998        | 0.019487100013066083  |
+| 5          | SCN-005      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 155.0 | 58          | 250            | 393             | 519         | 0.006155900016892701  |
+| 5          | SCN-005      | Greedy + Own            | greedy | own       | True    | SUCCESS | 216.0 | 66          | 75             | 155             | 154         | 0.0028282999992370605 |
+| 6          | SCN-006      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 167.0 | 38          | 1530           | 4404            | 1672        | 0.015048999979626387  |
+| 6          | SCN-006      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 167.0 | 38          | 888            | 1067            | 1098        | 0.01001730002462864   |
+| 6          | SCN-006      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 167.0 | 38          | 272            | 377             | 409         | 0.0031193000031635165 |
+| 6          | SCN-006      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 167.0 | 38          | 42             | 84              | 126         | 0.0009735000203363597 |
+| 6          | SCN-006      | Greedy + Own            | greedy | own       | True    | SUCCESS | 170.0 | 38          | 38             | 81              | 81          | 0.0008488000021316111 |
+| 7          | SCN-007      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 178.0 | 82          | 4406           | 14293           | 4626        | 0.05043780000414699   |
+| 7          | SCN-007      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 178.0 | 82          | 2843           | 3374            | 3019        | 0.04052330000558868   |
+| 7          | SCN-007      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 178.0 | 82          | 1652           | 2038            | 2252        | 0.025138699973467737  |
+| 7          | SCN-007      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 178.0 | 82          | 464            | 672             | 767         | 0.014254100038670003  |
+| 7          | SCN-007      | Greedy + Own            | greedy | own       | True    | SUCCESS | 250.0 | 84          | 158            | 386             | 356         | 0.0046162999933585525 |
+| 8          | SCN-008      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 106.0 | 68          | 3444           | 10599           | 3608        | 0.0345312999561429    |
+| 8          | SCN-008      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 109.0 | 66          | 3076           | 3739            | 2618        | 0.036488300014752895  |
+| 8          | SCN-008      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 106.0 | 68          | 629            | 870             | 989         | 0.010059099993668497  |
+| 8          | SCN-008      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 106.0 | 68          | 108            | 207             | 304         | 0.0033520999713800848 |
+| 8          | SCN-008      | Greedy + Own            | greedy | own       | True    | SUCCESS | 146.0 | 68          | 74             | 188             | 187         | 0.0019662000122480094 |
+| 9          | SCN-009      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 339.0 | 90          | 15835          | 43866           | 16736       | 0.28305279999040067   |
+| 9          | SCN-009      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 339.0 | 90          | 12209          | 13471           | 13232       | 0.36872570001287386   |
+| 9          | SCN-009      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 339.0 | 90          | 3235           | 3822            | 4092        | 0.12763440003618598   |
+| 9          | SCN-009      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 339.0 | 90          | 515            | 722             | 872         | 0.039484200009610504  |
+| 9          | SCN-009      | Greedy + Own            | greedy | own       | True    | SUCCESS | 395.0 | 96          | 122            | 243             | 238         | 0.015439000038895756  |
+| 10         | SCN-010      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 249.0 | 58          | 3332           | 9930            | 3578        | 0.07600709999678656   |
+| 10         | SCN-010      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 249.0 | 58          | 2395           | 2777            | 2652        | 0.06260989996371791   |
+| 10         | SCN-010      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 249.0 | 58          | 978            | 1281            | 1346        | 0.03593649994581938   |
+| 10         | SCN-010      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 249.0 | 58          | 107            | 192             | 260         | 0.008627200033515692  |
+| 10         | SCN-010      | Greedy + Own            | greedy | own       | True    | SUCCESS | 366.0 | 88          | 118            | 251             | 237         | 0.006549899990204722  |
+| 11         | SCN-011      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 207.0 | 59          | 3193           | 10242           | 3385        | 0.053453799977432936  |
+| 11         | SCN-011      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 207.0 | 59          | 2206           | 2699            | 2605        | 0.040134600014425814  |
+| 11         | SCN-011      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 207.0 | 59          | 944            | 1240            | 1227        | 0.02407460001995787   |
+| 11         | SCN-011      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 207.0 | 59          | 340            | 557             | 581         | 0.013053600036073476  |
+| 11         | SCN-011      | Greedy + Own            | greedy | own       | True    | SUCCESS | 251.0 | 63          | 79             | 185             | 182         | 0.007895799994003028  |
+| 12         | SCN-012      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 261.0 | 56          | 1765           | 5013            | 1953        | 0.025761600001715124  |
+| 12         | SCN-012      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 261.0 | 56          | 1157           | 1323            | 1313        | 0.016046500008087605  |
+| 12         | SCN-012      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 261.0 | 56          | 325            | 408             | 460         | 0.005890999978873879  |
+| 12         | SCN-012      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 261.0 | 56          | 60             | 118             | 176         | 0.0012886000331491232 |
+| 12         | SCN-012      | Greedy + Own            | greedy | own       | True    | SUCCESS | 284.0 | 56          | 58             | 124             | 124         | 0.0014310999540612102 |
+| 13         | SCN-013      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 211.0 | 110         | 29159          | 91569           | 30255       | 0.5988022000528872    |
+| 13         | SCN-013      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 213.0 | 110         | 26848          | 33494           | 22855       | 0.7220595999970101    |
+| 13         | SCN-013      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 211.0 | 110         | 11420          | 13345           | 12989       | 0.3764703999622725    |
+| 13         | SCN-013      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 211.0 | 110         | 1289           | 1854            | 1955        | 0.08403329999418929   |
+| 13         | SCN-013      | Greedy + Own            | greedy | own       | True    | SUCCESS | 399.0 | 176         | 364            | 802             | 720         | 0.037234899995382875  |
+| 14         | SCN-014      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 234.0 | 67          | 13256          | 43008           | 14864       | 0.3357576999696903    |
+| 14         | SCN-014      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 234.0 | 67          | 8563           | 10252           | 10256       | 0.2661966999876313    |
+| 14         | SCN-014      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 234.0 | 67          | 1771           | 2451            | 2739        | 0.10795620002318174   |
+| 14         | SCN-014      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 234.0 | 67          | 283            | 469             | 533         | 0.05005900003015995   |
+| 14         | SCN-014      | Greedy + Own            | greedy | own       | True    | SUCCESS | 268.0 | 62          | 74             | 197             | 196         | 0.00966009998228401   |
+| 15         | SCN-015      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 250.0 | 92          | 26761          | 79046           | 28414       | 0.5418641000287607    |
+| 15         | SCN-015      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 250.0 | 92          | 17716          | 20674           | 19624       | 0.47942840005271137   |
+| 15         | SCN-015      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 250.0 | 92          | 5973           | 7264            | 7588        | 0.1700630999985151    |
+| 15         | SCN-015      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 250.0 | 92          | 567            | 819             | 930         | 0.04122600000118837   |
+| 15         | SCN-015      | Greedy + Own            | greedy | own       | True    | SUCCESS | 272.0 | 92          | 132            | 289             | 280         | 0.011751700018066913  |
+| 16         | SCN-016      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 219.0 | 78          | 17488          | 55593           | 19216       | 0.38926089997403324   |
+| 16         | SCN-016      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 219.0 | 78          | 10616          | 13274           | 11838       | 0.23148050002055243   |
+| 16         | SCN-016      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 219.0 | 78          | 3749           | 4643            | 4615        | 0.11324119998607785   |
+| 16         | SCN-016      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 219.0 | 78          | 171            | 309             | 408         | 0.009880599973257631  |
+| 16         | SCN-016      | Greedy + Own            | greedy | own       | True    | SUCCESS | 250.0 | 82          | 100            | 229             | 225         | 0.007038799987640232  |
+| 17         | SCN-017      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 172.0 | 62          | 4746           | 13952           | 5332        | 0.07018400001106784   |
+| 17         | SCN-017      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 172.0 | 64          | 2260           | 2773            | 2748        | 0.04905000003054738   |
+| 17         | SCN-017      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 172.0 | 62          | 739            | 964             | 1017        | 0.016978200001176447  |
+| 17         | SCN-017      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 172.0 | 62          | 137            | 238             | 326         | 0.012741600046865642  |
+| 17         | SCN-017      | Greedy + Own            | greedy | own       | True    | SUCCESS | 191.0 | 66          | 77             | 182             | 180         | 0.0060551000060513616 |
+| 18         | SCN-018      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 259.0 | 61          | 7546           | 24368           | 8271        | 0.18873479997273535   |
+| 18         | SCN-018      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 259.0 | 61          | 4736           | 5842            | 5549        | 0.1446224999963306    |
+| 18         | SCN-018      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 259.0 | 61          | 1423           | 1968            | 1993        | 0.029779399977996945  |
+| 18         | SCN-018      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 259.0 | 61          | 109            | 216             | 303         | 0.004116899974178523  |
+| 18         | SCN-018      | Greedy + Own            | greedy | own       | True    | SUCCESS | 278.0 | 61          | 62             | 160             | 160         | 0.0026797999744303524 |
+| 19         | SCN-019      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 235.0 | 63          | 1730           | 4995            | 1905        | 0.028838400030508637  |
+| 19         | SCN-019      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 235.0 | 63          | 1204           | 1403            | 1381        | 0.018900600029155612  |
+| 19         | SCN-019      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 235.0 | 63          | 575            | 727             | 755         | 0.013071499997749925  |
+| 19         | SCN-019      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 235.0 | 63          | 111            | 182             | 244         | 0.004392700036987662  |
+| 19         | SCN-019      | Greedy + Own            | greedy | own       | True    | SUCCESS | 241.0 | 63          | 63             | 138             | 138         | 0.0032956000068224967 |
+| 20         | SCN-020      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 231.0 | 101         | 7366           | 20395           | 7676        | 0.14998350001405925   |
+| 20         | SCN-020      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 231.0 | 101         | 5523           | 6378            | 5382        | 0.12017250002827495   |
+| 20         | SCN-020      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 231.0 | 101         | 3029           | 3439            | 3493        | 0.11522519995924085   |
+| 20         | SCN-020      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 231.0 | 101         | 453            | 598             | 675         | 0.023448300024028867  |
+| 20         | SCN-020      | Greedy + Own            | greedy | own       | True    | SUCCESS | 251.0 | 101         | 269            | 498             | 435         | 0.013385099999140948  |
+| 21         | SCN-021      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 299.0 | 78          | 15888          | 50139           | 17338       | 0.3655743999988772    |
+| 21         | SCN-021      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 299.0 | 78          | 9831           | 11717           | 11204       | 0.262433499970939     |
+| 21         | SCN-021      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 299.0 | 78          | 3786           | 4749            | 4827        | 0.17241480003576726   |
+| 21         | SCN-021      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 299.0 | 78          | 394            | 626             | 626         | 0.044510899984743446  |
+| 21         | SCN-021      | Greedy + Own            | greedy | own       | True    | SUCCESS | 363.0 | 86          | 97             | 218             | 214         | 0.016799099976196885  |
+| 22         | SCN-022      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 115.0 | 64          | 7745           | 23156           | 8669        | 0.4549445000011474    |
+| 22         | SCN-022      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 115.0 | 64          | 4528           | 5834            | 5112        | 0.23082450003130361   |
+| 22         | SCN-022      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 115.0 | 64          | 1503           | 1776            | 1851        | 0.07607340003596619   |
+| 22         | SCN-022      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 115.0 | 64          | 191            | 287             | 361         | 0.02655029995366931   |
+| 22         | SCN-022      | Greedy + Own            | greedy | own       | True    | SUCCESS | 129.0 | 64          | 86             | 187             | 183         | 0.020691099984105676  |
+| 23         | SCN-023      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 140.0 | 94          | 33144          | 110864          | 36804       | 1.3637350999633782    |
+| 23         | SCN-023      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 142.0 | 93          | 30309          | 39102           | 27099       | 1.195977800001856     |
+| 23         | SCN-023      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 140.0 | 96          | 6380           | 7850            | 7965        | 0.4381921000313014    |
+| 23         | SCN-023      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 140.0 | 94          | 717            | 1164            | 1448        | 0.17198759998427704   |
+| 23         | SCN-023      | Greedy + Own            | greedy | own       | True    | SUCCESS | 221.0 | 111         | 166            | 411             | 399         | 0.1162371999816969    |
+| 24         | SCN-024      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 129.0 | 77          | 5573           | 16905           | 5772        | 0.1934369999798946    |
+| 24         | SCN-024      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 131.0 | 76          | 5612           | 6756            | 4319        | 0.1900762000004761    |
+| 24         | SCN-024      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 129.0 | 77          | 1966           | 2410            | 2427        | 0.10305510001489893   |
+| 24         | SCN-024      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 129.0 | 77          | 535            | 721             | 762         | 0.05786800000350922   |
+| 24         | SCN-024      | Greedy + Own            | greedy | own       | True    | SUCCESS | 203.0 | 101         | 304            | 621             | 518         | 0.03893839998636395   |
+| 25         | SCN-025      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 286.0 | 96          | 10975          | 31647           | 11255       | 0.6170923999743536    |
+| 25         | SCN-025      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 286.0 | 98          | 8719           | 10050           | 8988        | 0.5029152000206523    |
+| 25         | SCN-025      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 286.0 | 96          | 4737           | 5540            | 5527        | 0.3017408999730833    |
+| 25         | SCN-025      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 286.0 | 96          | 703            | 1003            | 1079        | 0.3268443000270054    |
+| 25         | SCN-025      | Greedy + Own            | greedy | own       | True    | SUCCESS | 405.0 | 126         | 412            | 799             | 670         | 0.09621439996408299   |
+| 26         | SCN-026      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 536.0 | 101         | 11641          | 35075           | 11925       | 0.5113073000102304    |
+| 26         | SCN-026      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 536.0 | 101         | 10660          | 11813           | 11026       | 0.2532736000139266    |
+| 26         | SCN-026      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 536.0 | 101         | 3414           | 4124            | 3975        | 0.1012644000002183    |
+| 26         | SCN-026      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 536.0 | 101         | 939            | 1249            | 1348        | 0.08133489999454468   |
+| 26         | SCN-026      | Greedy + Own            | greedy | own       | True    | SUCCESS | 568.0 | 101         | 134            | 331             | 322         | 0.01752579997992143   |
+| 27         | SCN-027      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 96.0  | 61          | 2584           | 7969            | 2826        | 0.0661734999739565    |
+| 27         | SCN-027      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 98.0  | 57          | 1482           | 1916            | 1449        | 0.04639490001136437   |
+| 27         | SCN-027      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 96.0  | 61          | 491            | 660             | 711         | 0.01953489996958524   |
+| 27         | SCN-027      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 96.0  | 61          | 70             | 124             | 177         | 0.004642399959266186  |
+| 27         | SCN-027      | Greedy + Own            | greedy | own       | True    | SUCCESS | 112.0 | 53          | 53             | 115             | 115         | 0.004578599997330457  |
+| 28         | SCN-028      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 209.0 | 99          | 23907          | 69883           | 26407       | 0.6175989999901503    |
+| 28         | SCN-028      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 209.0 | 99          | 12034          | 14495           | 13555       | 0.41435989999445155   |
+| 28         | SCN-028      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 209.0 | 99          | 2535           | 3072            | 3217        | 0.07015240000328049   |
+| 28         | SCN-028      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 209.0 | 99          | 543            | 767             | 876         | 0.04533440002705902   |
+| 28         | SCN-028      | Greedy + Own            | greedy | own       | True    | SUCCESS | 319.0 | 131         | 199            | 415             | 395         | 0.015763200004585087  |
+| 29         | SCN-029      | UCS (h=0)               | ucs    | zero      | True    | SUCCESS | 202.0 | 76          | 4385           | 13337           | 4697        | 0.07741799997165799   |
+| 29         | SCN-029      | A* + B1 (Manhattan)     | astar  | b1        | True    | SUCCESS | 202.0 | 76          | 2789           | 3364            | 2916        | 0.04650430002948269   |
+| 29         | SCN-029      | A* + B2 (Max Relaxed)   | astar  | b2        | True    | SUCCESS | 202.0 | 76          | 1225           | 1510            | 1529        | 0.024340500007383525  |
+| 29         | SCN-029      | A* + Own (Combined MST) | astar  | own       | True    | SUCCESS | 202.0 | 76          | 135            | 239             | 319         | 0.006074100034311414  |
+| 29         | SCN-029      | Greedy + Own            | greedy | own       | True    | SUCCESS | 259.0 | 76          | 79             | 188             | 188         | 0.0031156999757513404 |

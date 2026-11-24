@@ -1,0 +1,18 @@
+% Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)
+\begin{table}[htbp]
+\centering
+\caption{Performance Comparison of Search Algorithms and Heuristics Across 30 Certified Scenarios | \stampline}
+\label{tab:partB_heuristics}
+\begin{tabular}{lllllll}
+\toprule
+Configuration & Solved & Expanded Nodes (Mean ± 95\% CI) & Generated Nodes & Time (s) (Mean ± 95\% CI) & Path Cost (Mean ± 95\% CI) & Path Length \\
+\midrule
+UCS (h=0) & 30/30 & 12299.6 [7228.2, 17371.0] & 37156.1 & 0.2803 [0.1664, 0.3942] & 218.07 [185.96, 250.17] & 74.9 \\
+A* + B1 (Manhattan) & 30/30 & 9235.2 [4952.7, 13517.8] & 11059.4 & 0.2358 [0.1329, 0.3387] & 218.43 [186.47, 250.40] & 74.9 \\
+A* + B2 (Max Relaxed) & 30/30 & 3349.9 [1505.5, 5194.3] & 4004.7 & 0.1057 [0.0575, 0.1539] & 218.07 [185.96, 250.17] & 75.0 \\
+A* + Own (Combined MST) & 30/30 & 387.4 [246.3, 528.6] & 569.4 & 0.0391 [0.0147, 0.0635] & 218.07 [185.96, 250.17] & 74.9 \\
+Greedy + Own & 30/30 & 133.7 [97.0, 170.4] & 291.1 & 0.0163 [0.0065, 0.0261] & 273.27 [234.83, 311.70] & 85.1 \\
+\bottomrule
+\end{tabular}
+
+\end{table}
