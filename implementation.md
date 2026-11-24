@@ -1097,7 +1097,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M5.5 IDS vs A\* under stored-record budget
 - [x] M5.6 Six-algorithm table — **v0.2.0**
 - [x] M6.1 Game model and A6 rules confirmation
-- [ ] M6.2 Minimax and Alpha-Beta
+- [x] M6.2 Minimax and Alpha-Beta
 - [ ] M6.3 Move ordering and pruning experiment
 - [ ] M7.1 Assigned rival strategy
 - [ ] M7.2 Hybrid agent
