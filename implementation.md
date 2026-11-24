@@ -679,9 +679,9 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M6.2.
 - **Tasks:**
-  - [ ] `game/ordering.py`: `natural`, `random(seeded)` and own orderings. Agent ordering: target progress by relaxed distance, then distance from rival/threat, then principal variation from previous depth. Rival ordering is type-specific.
-  - [ ] Stage `partC_pruning`: at least 200 positions sampled from simulated games over the 30 scenarios; node counts for depths 2…`adversary_search_depth` for Minimax and Alpha-Beta under each ordering; percentage saved with mean ± CI.
-  - [ ] Written analysis of why own ordering helps or hurts in this game. Random ordering must use recorded seeds.
+  - [x] `game/ordering.py`: `natural`, `random(seeded)` and own orderings. Agent ordering: target progress by relaxed distance, then distance from rival/threat, then principal variation from previous depth. Rival ordering is type-specific.
+  - [x] Stage `partC_pruning`: at least 200 positions sampled from simulated games over the 30 scenarios; node counts for depths 2…`adversary_search_depth` for Minimax and Alpha-Beta under each ordering; percentage saved with mean ± CI.
+  - [x] Written analysis of why own ordering helps or hurts in this game. Random ordering must use recorded seeds.
 - **Acceptance:** Alpha-Beta/Minimax values agree for each compared position; no ordering-dependent value changes.
 - **COMMIT:** `feat(game): own move ordering and pruning experiment`
 
@@ -1098,7 +1098,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M5.6 Six-algorithm table — **v0.2.0**
 - [x] M6.1 Game model and A6 rules confirmation
 - [x] M6.2 Minimax and Alpha-Beta
-- [ ] M6.3 Move ordering and pruning experiment
+- [x] M6.3 Move ordering and pruning experiment
 - [ ] M7.1 Assigned rival strategy
 - [ ] M7.2 Hybrid agent
 - [ ] M7.3 Evaluation function
