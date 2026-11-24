@@ -452,7 +452,7 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 - **Hard dependencies:** M2.1.
 - **Tasks:** implement the first assigned twist according to Appendix A and the actual instructor assignment: deterministic generation, feasibility-safe parameters, state/cost/transition effects, relaxed-graph contribution, simulator/percept effect where applicable, render layer, LLM tool spec, and focused tests. Render a stamped figure.
 - **Acceptance:** tests demonstrate a real state/cost/transition/perception change as appropriate; relaxed model satisfies its contract.
-- **COMMIT:** `feat(twists): implement <twist_a>` (use actual twist name)
+- **COMMIT:** `feat(twists): implement fog_partial_observability`
 
 #### M2.3 Assigned twist B
 
@@ -1077,7 +1077,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [ ] M1.2 Loop reference and benchmark
 - [ ] M1.3 Distance fields and renderer
 - [x] M2.1 Twist framework
-- [ ] M2.2 Assigned twist A
+- [x] M2.2 Assigned twist A
 - [ ] M2.3 Assigned twist B
 - [ ] M2.4 Twist interplay and relaxed-graph contract tests
 - [ ] M2.5 Third twist (requires instructor approval)
