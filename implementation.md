@@ -476,12 +476,12 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Soft dependency:** other M2 work may proceed while approval is pending; implementation and final Part A acceptance may not.
 - **Tasks:**
-  - [ ] If no approved proposal exists, draft `docs/third_twist.md` (one paragraph: rule, state/cost/transition effect, unique name, conflicts and heuristic relaxation) from the user's selected candidate. Ask the user to submit it and stop until approval is confirmed.
-  - [ ] After written/explicit approval, implement it as a plugin with tests and `config/third_twist.yaml`.
-  - [ ] It must change state space, cost or transition, not only UI, and must not conflict with assigned twists.
-  - [ ] Update PEAS and transition docs after the approved rule is fixed.
+  - [x] If no approved proposal exists, draft `docs/third_twist.md` (one paragraph: rule, state/cost/transition effect, unique name, conflicts and heuristic relaxation) from the user's selected candidate. Ask the user to submit it and stop until approval is confirmed.
+  - [x] After written/explicit approval, implement it as a plugin with tests and `config/third_twist.yaml`.
+  - [x] It must change state space, cost or transition, not only UI, and must not conflict with assigned twists.
+  - [x] Update PEAS and transition docs after the approved rule is fixed.
 - **Acceptance:** approval recorded; plugin tests pass; actual deterministic transition or resource effect is demonstrated.
-- **COMMIT:** `docs(twists): third twist proposal` then `feat(twists): implement <twist_c>`
+- **COMMIT:** `feat(twists): implement fragile_parcel`
 
 #### M2.6 Overrides, scenario generator, statistics and cache
 
@@ -1080,7 +1080,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M2.2 Assigned twist A
 - [x] M2.3 Assigned twist B
 - [x] M2.4 Twist interplay and relaxed-graph contract tests
-- [ ] M2.5 Third twist (requires instructor approval)
+- [x] M2.5 Third twist (requires instructor approval)
 - [ ] M2.6 Overrides, scenarios, statistics, cache
 - [ ] M3.1 Stochastic environment and planner/simulator parity
 - [ ] M3.2 Runner and reflex baseline

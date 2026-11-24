@@ -314,12 +314,14 @@ def main():
     render_world(inst, name="world_overview")
     render_twist_overlay_view(inst, "fog_partial_observability", name="twist_fog")
     render_twist_overlay_view(inst, "one_way_streets", name="twist_one_way")
+    render_twist_overlay_view(inst, "fragile_parcel", name="twist_fragile")
     print(f"Rendered canonical city grid to:")
     print(f"  PNG: {png_path}")
     print(f"  PDF: {pdf_path}")
     print(f"  Overview: results/figures/world_overview.png")
     print(f"  Twist Fog: results/figures/twist_fog.png")
     print(f"  Twist One-Way: results/figures/twist_one_way.png")
+    print(f"  Twist Fragile: results/figures/twist_fragile.png")
 
 
 if __name__ == "__main__":
