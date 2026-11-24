@@ -124,6 +124,14 @@ class GridWorld:
 
         return neighbor_table, move_cost_table
 
+    def in_bounds(self, r: int, c: int) -> bool:
+        """Checks if (r, c) is within the grid boundaries."""
+        return 0 <= r < self.n and 0 <= c < self.n
+
+    def is_free(self, r: int, c: int) -> bool:
+        """Checks if cell is within bounds and unblocked."""
+        return self.in_bounds(r, c) and bool(self.passable[r, c])
+
     def idx(self, r: int, c: int) -> int:
         """Flat 1D index mapping p = r * n + c (D2)."""
         return r * self.n + c
