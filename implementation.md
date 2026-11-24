@@ -502,10 +502,10 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M2.1–M2.4 and `docs/transition_model.md`.
 - **Tasks:**
-  - [ ] `sim/env.py` `DeliveryEnv(world, twists, slip_p, rng)` with `reset()`, `step(action) → (percept, cost, events)`, exposing true state to planners only in fully observable deterministic configurations. Implement deterministic mode (`slip_p=0`), fog percepts/belief updates if active, WAIT where required and rival hook stub.
-  - [ ] Follow the canonical transition order. Separate intended action, sampled action and realised destination in events.
-  - [ ] Events log: slip attempt, realised slip/displacement, fallback stay, delivery, illegal move, cost, resource updates and twist events.
-  - [ ] Tests: controlled slip-selection frequency over ≥20,000 eligible opportunities; perpendicular rule and fallback separately; blocked/one-way respected; auto-delivery; cost accounting equals transition-cost sum; zero-slip simulator transitions match `DeliveryProblem` successors on shared states.
+  - [x] `sim/env.py` `DeliveryEnv(world, twists, slip_p, rng)` with `reset()`, `step(action) → (percept, cost, events)`, exposing true state to planners only in fully observable deterministic configurations. Implement deterministic mode (`slip_p=0`), fog percepts/belief updates if active, WAIT where required and rival hook stub.
+  - [x] Follow the canonical transition order. Separate intended action, sampled action and realised destination in events.
+  - [x] Events log: slip attempt, realised slip/displacement, fallback stay, delivery, illegal move, cost, resource updates and twist events.
+  - [x] Tests: controlled slip-selection frequency over ≥20,000 eligible opportunities; perpendicular rule and fallback separately; blocked/one-way respected; auto-delivery; cost accounting equals transition-cost sum; zero-slip simulator transitions match `DeliveryProblem` successors on shared states.
 - **Acceptance:** `pytest -q`; simulator/planner parity tests pass for deterministic configurations.
 - **COMMIT:** `feat(sim): stochastic delivery environment with slip and twist hooks`
 
@@ -1082,7 +1082,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M2.4 Twist interplay and relaxed-graph contract tests
 - [x] M2.5 Third twist (requires instructor approval)
 - [x] M2.6 Overrides, scenarios, statistics, cache
-- [ ] M3.1 Stochastic environment and planner/simulator parity
+- [x] M3.1 Stochastic environment and planner/simulator parity
 - [ ] M3.2 Runner and reflex baseline
 - [ ] M3.3 PEAS and classification — **v0.1.0** (blocked until required twist approval is resolved)
 - [ ] M4.1 Search problem
