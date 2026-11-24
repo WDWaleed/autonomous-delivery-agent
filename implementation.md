@@ -1104,7 +1104,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M7.3 Evaluation function
 - [x] M7.4 Slip and replanning analysis
 - [x] M7.5 Weight tuning on disjoint seeds
-- [ ] M7.6 Final games — **v0.3.0**
+- [x] M7.6 Final games — **v0.3.0**
 - [ ] M8.1 LLM client/backend
 - [ ] M8.2 Tools
 - [ ] M8.3 ReAct loop and safe traces
