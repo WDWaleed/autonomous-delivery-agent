@@ -542,9 +542,9 @@ Format: **Goal · Dependencies · Tasks · Acceptance · 🛑 (if any) · COMMIT
 
 - **Hard dependencies:** M4.1.
 - **Tasks:**
-  - [ ] `search/core.py`: `Node` (`__slots__` where useful), `SearchResult`, `Limits` (expanded nodes, time, stored-record budget, optional path-cost bound), `Metrics`, path reconstruction, status enum and limit exceptions. Enforce D15 positive finite edge costs. Count stored records consistently under D18. Record why a search stopped.
-  - [ ] `search/estimate.py`: estimate a conservative combinatorial upper bound on state count from passable positions, delivered-mask count and the cardinalities of active state extensions (fuel, budget, time phase, etc.). Formula for a simple delivery problem: `N_passable × 2^k × product(extension_cardinalities)`. Clearly label this as a loose upper bound, not an exact reachable-state count; use it to warn about expensive searches and guide resource budgets.
-  - [ ] Add a `canonical_optimal_plan` helper used when computing `C*` and `L*`. It must minimise `(total_cost, action_count, action-rank sequence)` exactly, not rely on incidental heap insertion order. Use a lexicographic best-label/priority rule with the positive-cost invariant, or a documented two-pass method. Test equal-cost routes with different lengths and equal-cost/equal-length routes with different action sequences.
+  - [x] `search/core.py`: `Node` (`__slots__` where useful), `SearchResult`, `Limits` (expanded nodes, time, stored-record budget, optional path-cost bound), `Metrics`, path reconstruction, status enum and limit exceptions. Enforce D15 positive finite edge costs. Count stored records consistently under D18. Record why a search stopped.
+  - [x] `search/estimate.py`: estimate a conservative combinatorial upper bound on state count from passable positions, delivered-mask count and the cardinalities of active state extensions (fuel, budget, time phase, etc.). Formula for a simple delivery problem: `N_passable × 2^k × product(extension_cardinalities)`. Clearly label this as a loose upper bound, not an exact reachable-state count; use it to warn about expensive searches and guide resource budgets.
+  - [x] Add a `canonical_optimal_plan` helper used when computing `C*` and `L*`. It must minimise `(total_cost, action_count, action-rank sequence)` exactly, not rely on incidental heap insertion order. Use a lexicographic best-label/priority rule with the positive-cost invariant, or a documented two-pass method. Test equal-cost routes with different lengths and equal-cost/equal-length routes with different action sequences.
 - **Acceptance:** tests that each limit triggers its own status; estimator matches hand-calculated upper bounds on tiny fixtures; canonical-plan tests select minimum cost, then minimum action count, then fixed action order; no limit result is misreported as `FAILED` or `INFEASIBLE`.
 - **COMMIT:** `feat(search): node, result, metrics and limit infrastructure`
 
@@ -1086,7 +1086,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M3.2 Runner and reflex baseline
 - [x] M3.3 PEAS and classification — **v0.1.0** (blocked until required twist approval is resolved)
 - [x] M4.1 Search problem
-- [ ] M4.2 Search infrastructure and resource accounting
+- [x] M4.2 Search infrastructure and resource accounting
 - [ ] M4.3 BFS, UCS, DLS, IDS
 - [ ] M4.4 Greedy, A\*, baseline heuristics
 - [ ] M4.5 CLI and honest feasibility certificate
