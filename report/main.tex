@@ -1,0 +1,87 @@
+\documentclass[conference]{IEEEtran}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{amsmath,amssymb,amsfonts}
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\usepackage{fancyhdr}
+
+\input{stamp.tex}
+\input{generated_numbers.tex}
+
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[C]{\footnotesize \stampline}
+\fancyfoot[C]{\footnotesize \thepage}
+\renewcommand{\headrulewidth}{0pt}
+
+\graphicspath{{figures/}}
+
+% ============================================================================
+% Page Budget (Target: 9.5 pages within 8-10 page IEEE limit)
+%   Abstract, Introduction, Instance & Twists : 1.1 pages
+%   Part A (PEAS, Classification, Benchmark)  : 0.9 pages
+%   Part B (Formulation, Heuristic, Results)  : 2.3 pages
+%   Part C (Game, Pruning, Slip, Eval/Games)  : 1.9 pages
+%   Part D (LLM Dispatcher, Failures, Traces) : 1.4 pages
+%   Ablation, Failure Analysis & UI           : 0.9 pages
+%   Ethics, Conclusion & References           : 1.0 pages
+% ============================================================================
+
+\begin{document}
+
+\title{Autonomous Delivery Agent Under Uncertainty, Dynamic Twists, and Adversarial Competition}
+
+\author{
+\IEEEauthorblockN{Muhammad Waleed Ahmed (513303), Ahmad Raza (522356), Ali Hamza (514549)}
+\IEEEauthorblockA{Department of Computer Science, CS-370 Artificial Intelligence (Fall 2026)}
+}
+
+\maketitle
+\thispagestyle{fancy}
+
+\begin{abstract}
+% Target: ~0.2 pages
+We present an autonomous grid-city delivery agent operating under terrain costs, stochastic slip ($p=0.23$), dynamic city twists (\texttt{fog\_partial\_observability}, \texttt{one\_way\_streets}, and \texttt{fragile\_parcel}), an adversarial \texttt{chaser} rival, and an LLM-based natural-language dispatcher. All search, adversarial, and simulation algorithms are implemented from scratch and evaluated across $\ge 30$ seeded scenarios with $95\%$ confidence intervals.
+\end{abstract}
+
+\begin{IEEEkeywords}
+Autonomous Agent, A* Search, Admissible Heuristics, Alpha-Beta Pruning, ReAct, Stochastic Simulation
+\end{IEEEkeywords}
+
+\section{Introduction, Instance, and Twists}
+% Budget: 0.9 pages (with Abstract = 1.1 pages)
+% TODO(M12.2): Canonical instance 432382d9 (22x22, 5 stops), D14 brief/script discrepancy, three twists.
+
+\section{Part A: World Model and Agent Formalisation}
+% Budget: 0.9 pages
+% TODO(M12.2): PEAS, environment classification, utility-based vs reflex failure (\numPartaReflexSuccesses/\numPartaReflexScenarios = \numPartaReflexSuccessPct\%), NumPy vectorisation speedup.
+
+\section{Part B: Multi-Stop Route Planning}
+% Budget: 2.3 pages
+% TODO(M12.2): Search formulation, BFS/UCS/DLS/IDS/Greedy/A*, CombinedMSTHeuristic & admissibility proof, empirical comparison (\numPartbOwnMeanExp vs \numPartbBTwoMeanExp and \numPartbUcsMeanExp), Weighted A* gap, IDS vs A* stored-node budget.
+
+\section{Part C: Adversarial Rival and Stochastic Execution}
+% Budget: 1.9 pages
+% TODO(M12.3): Reduced game (r=4), Minimax vs Alpha-Beta move ordering (\numPartcPruningDSixSavedMmPct\% saved at depth 6 over \numPartcPruningPositions positions), slip & replanning analysis, 4-feature evaluation & tuning, \numPartcGamesCount-game evaluation (\numPartcTunedWinPct\% win rate).
+
+\section{Part D: LLM Dispatcher}
+% Budget: 1.4 pages
+% TODO(M12.3): ReAct loop, 3+ tools, \numPartdRequests requests, Direct vs NoVal (\numPartdNovalSuccessPct\%) vs WithVal (\numPartdWithvalSuccessPct\%), failure taxonomy, Sense-Reason-Act traces.
+
+\section{Ablation, Failure Analysis, and Interactive UI}
+% Budget: 0.9 pages
+% TODO(M12.3): Heuristic ablation (\numMNineAblationMstOnlyExp vs \numMNineAblationFullOwnExp), cross-stage failure analysis, Streamlit 3-tab UI screenshots.
+
+\section{Ethics, Reflection, and Conclusion}
+% Budget: 1.0 pages (including References)
+% TODO(M12.4): Half-page ethics/reflection, safeguards, AI-assistance statement, conclusion.
+
+\bibliographystyle{IEEEtran}
+\bibliography{references}
+
+\end{document}
