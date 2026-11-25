@@ -34,7 +34,7 @@
 \thispagestyle{fancy}
 
 \begin{abstract}
-We design, implement, and empirically evaluate an autonomous grid-city delivery agent operating under heterogeneous terrain costs, stochastic movement slip ($p=0.23$), dynamic environment twists (\texttt{fog\_partial\_observability}, \texttt{one\_way\_streets}, and \texttt{fragile\_parcel}), an adversarial \texttt{chaser} rival, and a natural-language Large Language Model (LLM) dispatcher. All classical search (BFS, UCS, DLS, IDS, Greedy Best-First, A*), adversarial search (Minimax, Alpha-Beta with move ordering), and simulation components are implemented from scratch in Python/NumPy without solver libraries. Across 30 certified scenarios, our admissible \texttt{CombinedMSTHeuristic} reduces A* node expansions by $96.8\%$ compared to UCS (\numPartbOwnMeanExp{} vs.\ \numPartbUcsMeanExp{}). At depth $6$, Alpha-Beta with custom move ordering prunes \numPartcPruningDSixSavedMmPct{}\% of Minimax evaluations across \numPartcPruningPositions{} positions. Finally, pre-execution argument validation raises live LLM dispatcher success from \numPartdNovalSuccessPct{}\% to \numPartdWithvalSuccessPct{}\% across \numPartdRequests{} benchmark requests.
+We design, implement, and empirically evaluate an autonomous grid-city delivery agent operating under heterogeneous terrain costs, stochastic movement slip ($p=0.23$), dynamic environment twists (\texttt{fog\_partial\_observability}, \texttt{one\_way\_streets}, and \texttt{fragile\_parcel}), an adversarial \texttt{chaser} rival, and a natural-language Large Language Model (LLM) dispatcher. All classical search (BFS, UCS, DLS, IDS, Greedy Best-First, A*), adversarial search (Minimax, Alpha-Beta with move ordering), and simulation components are implemented from scratch in Python and NumPy without external solver libraries. Across \numPartbScenarios{} certified scenarios, our admissible \texttt{CombinedMSTHeuristic} reduces A* node expansions by $96.8\%$ compared to UCS (\numPartbOwnMeanExp{} vs.\ \numPartbUcsMeanExp{}). At depth $6$, Alpha-Beta with custom move ordering prunes \numPartcPruningDSixSavedMmPct{}\% of Minimax evaluations across \numPartcPruningPositions{} positions. Finally, pre-execution argument validation raises live LLM dispatcher success from \numPartdNovalSuccessPct{}\% to \numPartdWithvalSuccessPct{}\% across \numPartdRequests{} benchmark requests.
 \end{abstract}
 
 \begin{IEEEkeywords}
@@ -44,56 +44,105 @@ Autonomous Agent, A* Search, Admissible Heuristics, Alpha-Beta Pruning, ReAct, S
 \section{Introduction, Instance, and Twists}
 Autonomous last-mile delivery in urban grids requires combining optimal multi-stop route planning, real-time adaptation to stochastic execution errors, tactical evasion of competing agents, and safe natural-language tasking. Following the CS-370 Open Ended Lab (OEL) specification, we generate our canonical problem instance deterministically from the group CMS IDs \texttt{513303}, \texttt{514549}, and \texttt{522356} using the unmodified instructor script \texttt{oel\_instance.py}.
 
-\textbf{Canonical Instance (\texttt{432382d9}):} The generated city is a $22 \times 22$ grid ($484$ cells) with obstacle density $0.269$ and strictly positive terrain entry costs $\{3, 4, 5, 7\}$ corresponding to \texttt{road}, \texttt{grass}, \texttt{mud}, and \texttt{ford}. The depot is located at $(4, 20)$, with $5$ delivery stops at $(5,15)$, $(16,1)$, $(15,12)$, $(9,7)$, and $(6,10)$. The assigned adversary is \texttt{chaser} with search depth $6$ plies, and the simulator slip probability is $p = 0.23$.
+\subsection{Canonical Instance and Source Discrepancy (D14)}
+The generated city (\texttt{432382d9}, Fig.~\ref{fig:canonical_grid}) is a $22 \times 22$ grid ($484$ cells) with obstacle density $0.269$ ($-1$ blocked cells) and strictly positive terrain entry costs $\{3, 4, 5, 7\}$ corresponding to \texttt{road}, \texttt{grass}, \texttt{mud}, and \texttt{ford}. The depot is located at $(4, 20)$, with $5$ delivery stops at $(5,15)$, $(16,1)$, $(15,12)$, $(9,7)$, and $(6,10)$. The assigned adversary is \texttt{chaser} with search depth $6$ plies, and the simulator slip probability is $p = 0.23$.
 
-\textbf{Source Discrepancy (D14):} While the 4-page assignment brief states $4$--$6$ delivery stops, the unmodified \texttt{oel\_instance.py} script samples $3$--$6$ stops (\texttt{1 + rng.integers(3, 7)} picks minus the start). Our codebase supports the full $3$--$6$ range without modifying the generator; our canonical instance contains $5$ stops.
+\textbf{Brief vs.\ Script Discrepancy (D14):} While the four-page assignment brief states $4$--$6$ delivery stops, the unmodified \texttt{oel\_instance.py} script samples $3$--$6$ stops (\texttt{1 + rng.integers(3, 7)} picks minus the start cell). Our codebase supports the full $3$--$6$ range without modifying the generator; our canonical instance contains $5$ stops.
 
-\textbf{Dynamic City Twists:} Beyond static terrain, three twists alter the state space, legality, and transition model:
+\subsection{Dynamic City Twists}
+Three twists modify the underlying state space, action legality, and transition model (not merely UI rendering):
 \begin{enumerate}
-    \item \texttt{fog\_partial\_observability} (assigned): Only cells within Chebyshev percept radius $\rho$ are observed; unseen cells use an optimistic minimum-cost prior in the planner's belief map, triggering replanning when newly revealed obstacles or terrain invalidate the current path.
-    \item \texttt{one\_way\_streets} (assigned): A deterministic fraction of adjacent edges are restricted to one-way traversal, verified via strongly connected component (SCC) repair so all stops remain reachable.
-    \item \texttt{fragile\_parcel} (approved third twist): While the fragile parcel remains undelivered (tracked via the delivered bitmask), entering \texttt{mud} or \texttt{ford} cells is illegal (with the fragile destination cell exempted if needed for feasibility).
+    \item \texttt{fog\_partial\_observability} (assigned): Only cells within Chebyshev percept radius $\rho$ around the agent are observed; unseen cells use an optimistic minimum-cost prior in the planner's belief map, triggering replanning whenever newly revealed obstacles or higher-cost terrain invalidate the active plan (Fig.~\ref{fig:twist_fog}).
+    \item \texttt{one\_way\_streets} (assigned): A deterministic fraction of adjacent edges are restricted to one-way traversal, repaired via strongly connected component (SCC) checks so all stops remain mutually reachable from the depot (Fig.~\ref{fig:twist_oneway}).
+    \item \texttt{fragile\_parcel} (approved third twist): While the fragile parcel remains undelivered (tracked via the delivered bitmask), entering \texttt{mud} or \texttt{ford} cells is illegal, with the fragile destination cell exempted if needed to preserve solvability (Fig.~\ref{fig:twist_fragile}).
 \end{enumerate}
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.92\columnwidth]{canonical_grid.png}
+    \includegraphics[width=0.90\columnwidth]{canonical_grid.png}
     \caption{Canonical $22 \times 22$ grid instance (\texttt{432382d9}) with depot, 5 stops, and terrain costs. | \stampline}
     \label{fig:canonical_grid}
 \end{figure}
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{twist_one_way.png}
+    \caption{Assigned \texttt{one\_way\_streets} directed edge mask on the canonical grid. | \stampline}
+    \label{fig:twist_oneway}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{twist_fog.png}
+    \caption{Assigned \texttt{fog\_partial\_observability} percept radius and belief-map separation. | \stampline}
+    \label{fig:twist_fog}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{twist_fragile.png}
+    \caption{Approved third twist \texttt{fragile\_parcel} restricting \texttt{mud}/\texttt{ford} traversal until delivery. | \stampline}
+    \label{fig:twist_fragile}
+\end{figure}
+
 \section{Part A: World Model and Agent Formalisation}
 \subsection{PEAS and Environment Classification}
-Table~\ref{tab:peas} summarises the PEAS specification incorporating the assigned twists. Under the full task, the environment is \textbf{partially observable} (fog radius $\rho$ hides distant cells), \textbf{stochastic} (simulator slip $p=0.23$ deflects intended cardinal moves perpendicularly), \textbf{sequential} (parcel mask and fragile/one-way constraints couple future actions), \textbf{semi-dynamic/multi-agent} (in Part C, the \texttt{chaser} moves alternately in a turn-based game), and \textbf{discrete}.
+Tables~\ref{tab:peas} and~\ref{tab:env_class} formalise the PEAS description and six-dimension environment classification incorporating the assigned twists. Under the full problem, the agent operates in a partially observable, stochastic, sequential, semi-dynamic/multi-agent, discrete world.
 
 \begin{table}[t]
     \centering
     \caption{PEAS Formulation Including Assigned Twists. | \stampline}
     \label{tab:peas}
-    \small
-    \begin{tabular}{@{}p{1.6cm}p{6.6cm}@{}}
+    \scriptsize
+    \begin{tabular}{@{}p{1.6cm}p{6.5cm}@{}}
         \toprule
         \textbf{Component} & \textbf{Specification} \\
         \midrule
         Performance & Deliver all 5 parcels, minimise total terrain cost, avoid capture/theft ($C \le \kappa C^*$). \\
         Environment & $22\times 22$ grid, terrain $\{3,4,5,7\}$, walls ($-1$), one-way edges, fog radius $\rho$, \texttt{chaser} rival. \\
         Actuators & Cardinal moves $\{N, E, S, W\}$ (subject to slip $p=0.23$) and \texttt{WAIT} in game mode. \\
-        Sensors & Agent/rival coordinates, delivered mask, local percept grid within radius $\rho$. \\
+        Sensors & Agent/rival coordinates, delivered bitmask, local percept grid within radius $\rho$. \\
         \bottomrule
     \end{tabular}
 \end{table}
 
-\subsection{Agent Type and Reflex Failure}
-Our autonomous courier is a \textbf{utility-based agent} (minimising cumulative terrain cost while trading off rival safety in Part C). A simple reflex agent fails because it lacks memory of visited cells and delivered stops, becoming trapped in wall concavities and local cost minima. Across \numPartaReflexScenarios{} certified scenarios, the simple reflex baseline succeeded in only \numPartaReflexSuccesses/\numPartaReflexScenarios{} (\numPartaReflexSuccessPct{}\%, 95\% Wilson CI $[0.6\%, 16.7\%]$).
+\begin{table}[t]
+    \centering
+    \caption{Environment Classification Across Six Standard Dimensions. | \stampline}
+    \label{tab:env_class}
+    \scriptsize
+    \begin{tabular}{@{}p{2.1cm}p{2.0cm}p{3.8cm}@{}}
+        \toprule
+        \textbf{Dimension} & \textbf{Classification} & \textbf{Twist / World Justification} \\
+        \midrule
+        Observability & Partially Observable & Fog radius $\rho$ hides distant cells. \\
+        Determinism & Stochastic & Simulator slip ($p=0.23$) deflects moves. \\
+        Episodic/Seq. & Sequential & Parcel mask and fragile/one-way rules couple steps. \\
+        Static/Dynamic & Semi-Dynamic & Static terrain; rival moves on alternating plies. \\
+        Discrete/Cont. & Discrete & Finite grid cells, discrete actions, integer costs. \\
+        Single/Multi & Multi-Agent & Single-agent in Part B; \texttt{chaser} rival in Part C. \\
+        \bottomrule
+    \end{tabular}
+\end{table}
+
+\subsection{Agent Type and Simple Reflex Failure}
+Our courier is a \textbf{utility-based agent}: it minimises cumulative terrain entry cost in Part B and trades off route progress against rival capture risk in Part C. A simple reflex agent fails because it lacks memory of visited cells and delivered stops, becoming trapped in wall concavities and local cost minima (Fig.~\ref{fig:reflex_fail}). Across \numPartaReflexScenarios{} certified scenarios, the simple reflex baseline succeeded in only \numPartaReflexSuccesses/\numPartaReflexScenarios{} (\numPartaReflexSuccessPct{}\%, 95\% Wilson CI $[0.6\%, 16.7\%]$).
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{partA_reflex_failure.png}
+    \caption{Simple reflex agent oscillating in a wall concavity without search memory. | \stampline}
+    \label{fig:reflex_fail}
+\end{figure}
 
 \subsection{NumPy Vectorisation Benchmark}
-We implemented cost-map construction and neighbour-legality checks using vectorised NumPy array slicing and compared against a pure-Python nested-loop reference across grid sizes $N \in \{20, 22, 30, 200, 1000\}$ (Table~\ref{tab:speedup}). Vectorisation eliminates interpreter loop overhead, achieving a $9.95\times$ speedup at $N=1000$ ($10^6$ cells: $3701.0$\,ms loop vs.\ $372.1$\,ms vectorised).
+We implemented cost-map construction and neighbour-legality checks using vectorised NumPy array slicing and compared against a pure-Python nested-loop reference across grid sizes $N \in \{20, 22, 30, 200, 1000\}$ (Table~\ref{tab:speedup}, Fig.~\ref{fig:speedup}). Vectorisation eliminates interpreter loop overhead, achieving a $9.95\times$ speedup at $N=1000$ ($10^6$ cells: $3701.0$\,ms loop vs.\ $372.1$\,ms vectorised).
 
 \begin{table}[t]
     \centering
     \caption{Pure-Python Loop vs.\ NumPy Vectorised Cost-Map Runtime. | \stampline}
     \label{tab:speedup}
-    \small
+    \scriptsize
     \begin{tabular}{@{}rrrrr@{}}
         \toprule
         $N$ & Cells & Loop Mean (ms) & Vec Mean (ms) & Speedup \\
@@ -107,21 +156,28 @@ We implemented cost-map construction and neighbour-legality checks using vectori
     \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{partA_speedup.png}
+    \caption{Vectorised NumPy vs.\ pure-Python loop runtime scaling across $N=20..1000$. | \stampline}
+    \label{fig:speedup}
+\end{figure}
+
 \section{Part B: Multi-Stop Route Planning}
 \subsection{Search Formulation and Algorithms}
-We formulate multi-stop delivery as a single deterministic search problem with hashable state $s = (p, \text{mask}, \text{extra})$, where $p = r \cdot n + c$ is the flat cell index, $\text{mask} \in [0, 2^K - 1]$ is the delivered-stop bitmask, and $\text{extra}$ holds any twist-specific state variables. Entering a stop cell automatically sets its bit in $\text{mask}$. All edge costs are finite and strictly positive ($c(s,a,s') > 0$). We implemented BFS, UCS, DLS, IDS, Greedy Best-First, and A* from scratch \cite{russell2020aima,hart1968astar,korf1985ida}, with deterministic action ordering $(N, E, S, W)$.
+We formulate multi-stop delivery as a single deterministic search problem with hashable state $s = (p, \text{mask}, \text{extra})$, where $p = r \cdot n + c$ is the flat cell index, $\text{mask} \in [0, 2^K - 1]$ is the delivered-stop bitmask, and $\text{extra}$ holds twist-specific state variables. Entering a stop cell automatically sets its bit in $\text{mask}$. All edge costs are finite and strictly positive ($c(s,a,s') > 0$). We implemented BFS, UCS, DLS, IDS, Greedy Best-First, and A* from scratch \cite{russell2020aima,hart1968astar,korf1985ida}, with deterministic action ordering $(N, E, S, W)$.
 
 \subsection{Custom Heuristic and Admissibility Proof}
 To solve multi-stop routing efficiently under \texttt{one\_way\_streets} and obstacles, we designed \texttt{CombinedMSTHeuristic}:
 \begin{equation}
     h_{\text{own}}(s) = \max\bigl(h_{\text{MST}}(s),\, h_{B2}(s)\bigr),
 \end{equation}
-where $h_{B2}(s) = \max_{i \in U} d_{\text{dir}}(p, u_i)$ is the maximum reverse-Dijkstra directed distance from position $p$ to any undelivered stop $u_i \in U$ on the relaxed graph (ignoring fragile/resource restrictions while respecting walls and one-way edges). For $h_{\text{MST}}(s)$, we build a Minimum Spanning Tree over $\{p\} \cup U$ using symmetric lower-bound edge weights $w(u,v) = \min\bigl(d_{\text{dir}}(u,v), d_{\text{dir}}(v,u)\bigr)$.
+where $h_{B2}(s) = \max_{i \in U} d_{\text{dir}}(p, u_i)$ is the maximum reverse-Dijkstra directed distance from position $p$ to any undelivered stop $u_i \in U$ on the relaxed graph (ignoring fragile/resource restrictions while respecting walls and one-way edges). For $h_{\text{MST}}(s)$, we construct a Minimum Spanning Tree over $\{p\} \cup U$ using symmetric lower-bound edge weights $w(u,v) = \min\bigl(d_{\text{dir}}(u,v), d_{\text{dir}}(v,u)\bigr)$.
 
-\textbf{Admissibility Proof:} Any valid remaining tour $\pi^*$ from $p$ visiting all $u \in U$ induces a connected spanning subgraph on $\{p\} \cup U$ with directed path costs $c_{\text{dir}}(u,v) \ge d_{\text{dir}}(u,v) \ge w(u,v)$. Removing one edge from a spanning tour yields a spanning tree whose symmetric weight is at most $\text{cost}(\pi^*)$; since Prim's algorithm finds the minimum-weight spanning tree, $h_{\text{MST}}(s) \le h^*(s)$. Likewise, $h_{B2}(s) \le h^*(s)$ because every stop $u_i \in U$ must be reached. Since both terms lower-bound $h^*(s)$, their maximum $h_{\text{own}}(s)$ is admissible. Consistency was empirically verified across sampled transitions on the canonical instance with zero monotonicity violations.
+\textbf{Admissibility Proof:} Any valid remaining tour $\pi^*$ from $p$ visiting all $u \in U$ induces a connected spanning subgraph on $\{p\} \cup U$ whose directed path costs satisfy $c_{\text{dir}}(u,v) \ge d_{\text{dir}}(u,v) \ge w(u,v)$. Deleting one edge from a spanning tour yields a spanning tree of weight at most $\text{cost}(\pi^*)$; since Prim's algorithm finds the minimum-weight spanning tree, $h_{\text{MST}}(s) \le h^*(s)$. Likewise, $h_{B2}(s) \le h^*(s)$ because every stop $u_i \in U$ must be reached. Since both terms lower-bound $h^*(s)$, their maximum $h_{\text{own}}(s)$ is admissible. Empirical consistency checks across sampled transitions confirmed zero monotonicity violations.
 
 \subsection{Empirical Search Comparison}
-Table~\ref{tab:six_algos} reports the six-algorithm benchmark across \numPartbScenarios{} certified scenarios (limits: $2\times 10^6$ expansions, $60$\,s). BFS minimises move count ($71.9$ moves, suboptimal cost $253.73$), whereas UCS and A* find cost-optimal routes (\numPartbOwnMeanCost{}). DLS ($d=10$, $d=25$) and IDS fail on 5-stop instances due to depth cutoff or node/time limits. Compared against baselines (Table~\ref{tab:heuristics}), A* with $h_{\text{own}}$ expands \numPartbOwnMeanExp{} nodes versus \numPartbBTwoMeanExp{} for B2 (Max Relaxed), $9235.2$ for B1 (Manhattan), and \numPartbUcsMeanExp{} for UCS.
+Table~\ref{tab:six_algos} and Fig.~\ref{fig:six_algos} report the six-algorithm benchmark across \numPartbScenarios{} certified scenarios (limits: $2\times 10^6$ expansions, $60$\,s). BFS minimises move count ($71.9$ moves, suboptimal cost $253.73$), whereas UCS and A* find cost-optimal routes (\numPartbOwnMeanCost{}). DLS ($d=10$, $d=25$) and IDS fail on 5-stop instances due to depth cutoff or node/time limits. Compared against baselines (Table~\ref{tab:heuristics}, Fig.~\ref{fig:heuristics}), A* with $h_{\text{own}}$ expands \numPartbOwnMeanExp{} nodes versus \numPartbBTwoMeanExp{} for B2 (Max Relaxed), $9235.2$ for B1 (Manhattan), and \numPartbUcsMeanExp{} for UCS. Fig.~\ref{fig:plan_own} illustrates the resulting optimal A* route on the canonical grid.
 
 \begin{table}[t]
     \centering
@@ -162,13 +218,27 @@ Table~\ref{tab:six_algos} reports the six-algorithm benchmark across \numPartbSc
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.92\columnwidth]{partB_heuristics_comparison.png}
+    \includegraphics[width=0.90\columnwidth]{partB_heuristics_comparison.png}
     \caption{Node expansions and runtime across UCS, B1, B2, and \texttt{CombinedMSTHeuristic}. | \stampline}
     \label{fig:heuristics}
 \end{figure}
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{partB_six_algorithms_comparison.png}
+    \caption{Six-algorithm comparison on solved ratio, expansions, and solution cost. | \stampline}
+    \label{fig:six_algos}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{plan_astar_own.png}
+    \caption{Optimal A* (\texttt{own}) delivery route on the canonical instance ($C=268.0$). | \stampline}
+    \label{fig:plan_own}
+\end{figure}
+
 \subsection{Inadmissible Variant and Stored-Node Budget}
-Using Weighted A* ($f = g + w \cdot h_{\text{own}}$) with $w > 1$ trades optimality for speed (Table~\ref{tab:inadmissible}): at $w=3.0$, node expansions drop by $40.6\%$ ($186.0$ vs.\ $387.4$) at the cost of a $5.68\%$ mean suboptimality gap (cost $230.23$ vs.\ $218.07$). Under a tight stored-record budget of $25$ records (Table~\ref{tab:ids_budget}), BFS, UCS, and A* all fail ($0/5$) due to frontier/explored storage, whereas IDS with path-cycle avoidance solves $5/5$ using only $20.0$ peak stored records ($3.7$\,KB via \texttt{tracemalloc}). Path-cycle avoidance reduces IDS expansions from $6379$ to $898$ on the cycle ablation fixture.
+Using Weighted A* ($f = g + w \cdot h_{\text{own}}$) with $w > 1$ trades optimality for speed (Table~\ref{tab:inadmissible}): at $w=3.0$, node expansions drop by $40.6\%$ ($186.0$ vs.\ $387.4$) at the cost of a $5.68\%$ mean suboptimality gap (cost $230.23$ vs.\ $218.07$). Fig.~\ref{fig:inadmissible_showcase} shows a generated scenario where Weighted A* returns a suboptimal route. Under a tight stored-record budget of $25$ records (Table~\ref{tab:ids_budget}, Fig.~\ref{fig:ids_scaling}), BFS, UCS, and A* all fail ($0/5$) due to frontier/explored storage, whereas IDS with path-cycle avoidance solves $5/5$ using only $20.0$ peak stored records ($3.7$\,KB via \texttt{tracemalloc}). Path-cycle avoidance reduces IDS expansions from $6379$ to $898$ on the cycle ablation fixture.
 
 \begin{table}[t]
     \centering
@@ -205,11 +275,25 @@ Using Weighted A* ($f = g + w \cdot h_{\text{own}}$) with $w > 1$ trades optimal
     \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{partB_inadmissible_suboptimal_showcase.png}
+    \caption{Suboptimal route returned by Weighted A* ($w > 1$) vs.\ optimal A*. | \stampline}
+    \label{fig:inadmissible_showcase}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{partB_ids_scaling_curves.png}
+    \caption{IDS vs.\ A*/UCS/BFS under stored-record budget constraints. | \stampline}
+    \label{fig:ids_scaling}
+\end{figure}
+
 \section{Part C: Adversarial Rival and Stochastic Execution}
 \subsection{Reduced Game and Alpha-Beta Pruning}
-We model the interaction against the \texttt{chaser} rival on a reduced local square window of Chebyshev radius $r=4$ around the courier, with action set $\{N, E, S, W, \text{WAIT}\}$ and alternating plies up to `adversary_search_depth` $=6$. Terminal precedence evaluates capture first (Loss), then all-stops delivered with $C \le \kappa C^*$ ($\kappa=1.5$, Win) or $C > \kappa C^*$ (Draw), then step cap $T_{\max} = 4L^* + 20$ (Draw).
+We model the interaction against the \texttt{chaser} rival on a reduced local square window of Chebyshev radius $r=4$ around the courier, with action set $\{N, E, S, W, \text{WAIT}\}$ and alternating plies up to depth $6$. Terminal precedence evaluates capture first (Loss), then all-stops delivered with $C \le \kappa C^*$ ($\kappa=1.5$, Win) or $C > \kappa C^*$ (Draw), then step cap $T_{\max} = 4L^* + 20$ (Draw).
 
-Across \numPartcPruningPositions{} non-terminal game positions sampled from 30 scenarios (Table~\ref{tab:pruning}), Alpha-Beta \cite{knuth1975alphabeta} with our custom move ordering (prioritising delivery-progress and safe moves) produces zero value mismatches against Minimax while cutting depth-6 evaluations from $2293.8$ to \numPartcPruningDSixOwnEvals{}—a \numPartcPruningDSixSavedMmPct{}\% reduction versus Minimax and $44.6\%$ versus natural-order Alpha-Beta.
+Across \numPartcPruningPositions{} non-terminal game positions sampled from 30 scenarios (Table~\ref{tab:pruning}, Fig.~\ref{fig:pruning}), Alpha-Beta \cite{knuth1975alphabeta} with our custom move ordering (prioritising delivery-progress and safe moves) produces zero value mismatches against Minimax while cutting depth-6 evaluations from $2293.8$ to \numPartcPruningDSixOwnEvals{}—a \numPartcPruningDSixSavedMmPct{}\% reduction versus Minimax and $44.6\%$ versus natural-order Alpha-Beta.
 
 \begin{table}[t]
     \centering
@@ -230,8 +314,15 @@ Across \numPartcPruningPositions{} non-terminal game positions sampled from 30 s
     \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{partC_pruning_curves.png}
+    \caption{Alpha-Beta evaluation savings vs.\ Minimax across depths $2$--$6$. | \stampline}
+    \label{fig:pruning}
+\end{figure}
+
 \subsection{Slip Dynamics and Deterministic Model Mismatch}
-Our hybrid agent pairs global A* planning with local depth-6 Alpha-Beta tactical lookahead, replanning after every realised slip or rival divergence. Both A* and Alpha-Beta assume deterministic transitions, whereas the simulator applies slip $p$. Table~\ref{tab:slip} shows a paired 15-scenario sweep across $p \in \{0.0, 0.1, 0.2, 0.23, 0.3, 0.5\}$: at $p=0.5$, win rate drops from $26.7\%$ to $6.7\%$ and replan frequency climbs to $66.2$ replans per 100 moves.
+Our hybrid agent pairs global A* planning with local depth-6 Alpha-Beta tactical lookahead, replanning after every realised slip or rival divergence. Both A* and Alpha-Beta assume deterministic transitions, whereas the simulator applies slip $p$. Table~\ref{tab:slip} and Fig.~\ref{fig:slip} show a paired 15-scenario sweep across $p \in \{0.0, 0.1, 0.2, 0.23, 0.3, 0.5\}$: at $p=0.5$, win rate drops from $26.7\%$ to $6.7\%$ and replan frequency climbs to $66.2$ replans per 100 moves.
 
 \begin{table}[t]
     \centering
@@ -252,8 +343,15 @@ Our hybrid agent pairs global A* planning with local depth-6 Alpha-Beta tactical
     \end{tabular}
 \end{table}
 
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{partC_slip_analysis.png}
+    \caption{Impact of slip probability $p$ on win rate, capture rate, and replan frequency. | \stampline}
+    \label{fig:slip}
+\end{figure}
+
 \subsection{Evaluation Function, Weight Tuning, and 50-Game Results}
-Non-terminal game states are scored by a 4-feature linear evaluation: (1) delivered-stop progress bonus, (2) negative remaining relaxed MST distance, (3) rival-distance safety margin (obstacle-aware reverse BFS distance), and (4) local terrain/cost penalty. Grid-search tuning on disjoint tuning seeds selected route-heavy weights. Across \numPartcGamesCount{} evaluation games against the \texttt{chaser} (Table~\ref{tab:games}), both Default and Tuned weights achieved \numPartcTunedWinPct{}\% wins ($[2.1\%, 16.2\%]$), $6.0\%$ draws, and $88.0\%$ captures, with mean cost \numPartcDefaultMeanCost{} (Default) vs.\ \numPartcTunedMeanCost{} (Tuned)—reflecting the intrinsic difficulty of evading an omniscient depth-6 \texttt{chaser} under $p=0.23$ slip and one-way constraints.
+Non-terminal game states are scored by a 4-feature linear evaluation: (1) delivered-stop progress bonus, (2) negative remaining relaxed MST distance, (3) obstacle-aware reverse-BFS rival-distance safety margin, and (4) local terrain/cost penalty. Grid-search tuning on disjoint tuning seeds (Fig.~\ref{fig:tuning}) selected route-heavy weights. Across \numPartcGamesCount{} evaluation games against the \texttt{chaser} (Table~\ref{tab:games}), both Default and Tuned weights achieved \numPartcTunedWinPct{}\% wins ($[2.1\%, 16.2\%]$), $6.0\%$ draws, and $88.0\%$ captures, with mean cost \numPartcDefaultMeanCost{} (Default) vs.\ \numPartcTunedMeanCost{} (Tuned)—reflecting the intrinsic difficulty of evading an omniscient depth-6 \texttt{chaser} under $p=0.23$ slip and one-way constraints (Fig.~\ref{fig:replay_win}).
 
 \begin{table}[t]
     \centering
@@ -272,13 +370,20 @@ Non-terminal game states are scored by a 4-feature linear evaluation: (1) delive
 
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.92\columnwidth]{partC_pruning_curves.png}
-    \caption{Alpha-Beta evaluation savings vs.\ Minimax across depths $2$--$6$. | \stampline}
-    \label{fig:pruning}
+    \includegraphics[width=0.90\columnwidth]{partC_tuning_comparison.png}
+    \caption{Grid-search evaluation weight tuning on disjoint tuning scenarios. | \stampline}
+    \label{fig:tuning}
+\end{figure}
+
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{partC_replay_win.png}
+    \caption{Sample winning game trajectory against the \texttt{chaser} rival. | \stampline}
+    \label{fig:replay_win}
 \end{figure}
 
 \section{Part D: LLM Dispatcher}
-We implemented a custom ReAct loop \cite{yao2023react} over a provider-agnostic \texttt{LLMClient} ($\text{temperature}=0.0$) equipped with \texttt{plan\_route}, \texttt{simulate}, and twist-specific inspection tools (\texttt{inspect\_twists}, \texttt{scan\_fog}). We evaluated \numPartdRequests{} natural-language requests spanning single-constraint, multi-constraint, twist-specific, ambiguous, and conflicting/infeasible categories on \texttt{groq/openai/gpt-oss-120b}.
+We implemented a custom ReAct loop \cite{yao2023react} over a provider-agnostic \texttt{LLMClient} ($\text{temperature}=0.0$) equipped with \texttt{plan\_route}, \texttt{simulate}, and twist-specific inspection tools (\texttt{inspect\_twists}, \texttt{scan\_fog}). We evaluated \numPartdRequests{} natural-language requests spanning single-constraint, multi-constraint, twist-specific, ambiguous, and conflicting/infeasible categories on \texttt{groq/openai/gpt-oss-120b} (Table~\ref{tab:partd}, Fig.~\ref{fig:partd}).
 
 \begin{table}[t]
     \centering
@@ -296,25 +401,33 @@ We implemented a custom ReAct loop \cite{yao2023react} over a provider-agnostic 
     \end{tabular}
 \end{table}
 
-As shown in Table~\ref{tab:partd}, \texttt{ArgumentValidator} improved request success from \numPartdNovalSuccessPct{}\% to \numPartdWithvalSuccessPct{}\% and tool accuracy from $80.0\%$ to $85.0\%$. Observed live failures stemmed from Groq free-tier HTTP 429 rate limits/timeouts (\texttt{REQ-02/03/06/11/16}), malformed tool JSON schemas (\texttt{REQ-10/14}), and a premature stop after inspection (\texttt{REQ-09}). Table~\ref{tab:sra} maps two representative traces to the Sense--Reason--Act cycle.
+\begin{figure}[t]
+    \centering
+    \includegraphics[width=0.90\columnwidth]{partD_llm_comparison.png}
+    \caption{LLM dispatcher accuracy: Direct vs.\ ReAct with and without validation. | \stampline}
+    \label{fig:partd}
+\end{figure}
+
+\texttt{ArgumentValidator} improved request success from \numPartdNovalSuccessPct{}\% to \numPartdWithvalSuccessPct{}\% and tool accuracy from $80.0\%$ to $85.0\%$. Observed live failures stemmed from Groq free-tier HTTP 429 rate limits/timeouts (\texttt{REQ-02/03/06/11/16}), malformed tool JSON schemas (\texttt{REQ-10/14}), and a premature stop after inspection (\texttt{REQ-09}). Table~\ref{tab:sra} maps representative traces to the Sense--Reason--Act cycle.
 
 \begin{table}[t]
     \centering
-    \caption{Sense--Reason--Act Mapping for Success and Validation Rescue. | \stampline}
+    \caption{Sense--Reason--Act Mapping for Success, Rescue, and Failure Traces. | \stampline}
     \label{tab:sra}
     \scriptsize
-    \begin{tabular}{@{}p{1.2cm}p{2.2cm}p{2.0cm}p{2.3cm}@{}}
+    \begin{tabular}{@{}p{1.2cm}p{2.1cm}p{2.0cm}p{2.3cm}@{}}
         \toprule
         Trace & Sense & Reason Summary & Action / Gate \\
         \midrule
         \texttt{REQ-01} (Success) & Depot $(4,20)$, 5 stops, one-way/fog active & Inspect depot rules, plan A* (`own`), verify in sim & \texttt{inspect\_twists} $\rightarrow$ \texttt{plan\_route} ($C=268$) $\rightarrow$ \texttt{simulate} \\
         \texttt{REQ-19} (Rescue)  & Request forbids start $(4,20)$ & Attempt \texttt{plan\_route} with \texttt{forbidden\_cells=[[4,20]]} & \textbf{Blocked} by \texttt{ArgumentValidator}; returns \texttt{infeasible} \\
+        \texttt{REQ-09} (Failure) & Request asks to inspect rules then plan & Inspect depot rules first & \texttt{inspect\_twists} $\rightarrow$ premature \texttt{FINAL\_ANSWER} (\texttt{plan:null}) \\
         \bottomrule
     \end{tabular}
 \end{table}
 
 \section{Ablation, Failure Analysis, and Interactive UI}
-\textbf{Heuristic Ablation:} Across 30 paired scenarios (Table~\ref{tab:ablation}), removing the MST term (B2 only) increases expansions from \numMNineAblationFullOwnExp{} to $3403.8$, while MST-Only expands \numMNineAblationMstOnlyExp{} nodes—confirming that the MST component provides the primary search-space reduction and the max with B2 tightens directed lower bounds.
+\textbf{Heuristic Ablation:} Across 30 paired scenarios (Table~\ref{tab:ablation}, Fig.~\ref{fig:ablation}), removing the MST term (B2 only) increases expansions from \numMNineAblationFullOwnExp{} to $3403.8$, while MST-Only expands \numMNineAblationMstOnlyExp{} nodes—confirming that the MST component provides the primary search-space reduction and the max with B2 tightens directed lower bounds.
 
 \begin{table}[t]
     \centering
@@ -333,14 +446,32 @@ As shown in Table~\ref{tab:partd}, \texttt{ArgumentValidator} improved request s
     \end{tabular}
 \end{table}
 
-\textbf{Failure Analysis & Streamlit UI:} Cross-stage failure aggregation traced $29/30$ reflex failures to local minima, $90/210$ bounded uninformed DNF outcomes to DLS/IDS depth/node caps, $88/100$ game losses to slip-assisted rival captures, and live LLM failures to API rate limits/schemas. Our 3-tab Streamlit UI (\texttt{delivery/ui/app.py}) exposes all validated planners, twist toggles, animated \texttt{chaser} games, and LLM dispatcher traces with persistent group stamping, and supports live-parameter reruns in $\sim 2.5$\,s.
-
 \begin{figure}[t]
     \centering
-    \includegraphics[width=0.92\columnwidth]{ablation_components.png}
+    \includegraphics[width=0.90\columnwidth]{ablation_components.png}
     \caption{Ablation of heuristic components across 30 paired scenarios. | \stampline}
     \label{fig:ablation}
 \end{figure}
+
+\textbf{Cross-Stage Failure Analysis & UI:} Table~\ref{tab:failures} aggregates failures traced directly to raw experiment logs. Our 3-tab Streamlit UI (\texttt{delivery/ui/app.py}) exposes all validated planners, twist toggles, animated \texttt{chaser} games, and LLM dispatcher traces with persistent group stamping, and supports live-parameter reruns in $\sim 2.5$\,s.
+
+\begin{table}[t]
+    \centering
+    \caption{Cross-Stage Failure Analysis Traced to Raw Logs. | \stampline}
+    \label{tab:failures}
+    \scriptsize
+    \begin{tabular}{@{}p{2.3cm}rp{2.6cm}p{2.1cm}@{}}
+        \toprule
+        Category & Count & Root Cause & Mitigation \\
+        \midrule
+        Part A Reflex & 29/30 & Stateless local minima & Stateful A* planner \\
+        Part B DLS/IDS & 90/210 & Depth/node cap DNF & A* + \texttt{CombinedMST} \\
+        Part C Captures & 88/100 & Slip + \texttt{chaser} traps & Alpha-Beta + replan \\
+        Part C Draws & 6/100 & Step/cost cap exhausted & Tuned route weights \\
+        Part D Live LLM & 40/40* & HTTP 429/400 \& \texttt{REQ-09} & \texttt{ArgumentValidator} \\
+        \bottomrule
+    \end{tabular}
+\end{table}
 
 \section{Ethics, Reflection, and Conclusion}
 \subsection{Ethical Impact and Implemented Safeguards}
