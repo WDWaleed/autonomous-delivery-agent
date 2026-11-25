@@ -1,0 +1,17 @@
+% Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)
+\begin{table}[htbp]
+\centering
+\caption{Ablation Study of Heuristic Components Across 30 Paired Scenarios | \stampline}
+\label{tab:ablation}
+\begin{tabular}{llllll}
+\toprule
+Configuration & Solved & Expanded Nodes (Mean ± 95\% CI) & Peak Stored (Mean ± 95\% CI) & Runtime (s) (Mean ± 95\% CI) & Path Cost (Mean ± 95\% CI) \\
+\midrule
+1. B1 (Manhattan) & 30/30 & 8316.5 [5083.0, 11550.0] & 8496.0 [5365.7, 11626.4] & 0.4396 [0.2519, 0.6273] & 234.63 [196.96, 272.30] \\
+2. B2 (Max Directed) & 30/30 & 3403.8 [1859.2, 4948.4] & 4054.4 [2358.9, 5749.9] & 0.1964 [0.0871, 0.3057] & 234.00 [196.22, 271.78] \\
+3. MST-Only (Symm.) & 30/30 & 895.7 [199.5, 1592.0] & 1204.7 [463.4, 1946.0] & 0.0802 [0.0017, 0.1587] & 234.00 [196.22, 271.78] \\
+4. Full Own (MST+B2) & 30/30 & 892.2 [195.9, 1588.6] & 1198.8 [457.2, 1940.4] & 0.0818 [-0.0012, 0.1648] & 234.00 [196.22, 271.78] \\
+\bottomrule
+\end{tabular}
+
+\end{table}
