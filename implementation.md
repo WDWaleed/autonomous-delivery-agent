@@ -1120,9 +1120,9 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M10.4 Live-change flow and manual test — **v0.5.0**
 - [x] M11.1 Complete run_all
 - [ ] M11.2 Clean clone and determinism
-- [ ] M11.3 Live-change drills
+- [x] M11.3 Live-change drills
 - [ ] M11.4 Optional remaining twists
-- [ ] M11.5 README — **v0.9.0-rc.1**
+- [x] M11.5 README — **v0.9.0-rc.1**
 - [ ] M12.1 Report setup
 - [ ] M12.2 Parts A and B
 - [ ] M12.3 Parts C, D and experiments
