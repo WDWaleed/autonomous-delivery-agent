@@ -233,3 +233,148 @@ class UISimSession:
             self.step_once()
         return self.event_log
 
+
+def run_ui_rival_game(
+    instance: Instance,
+    window_radius: int = 4,
+    use_tuned_weights: bool = True,
+    max_steps: int = 150,
+) -> Dict[str, Any]:
+    """Plays a full adversarial game against the assigned Chaser rival using HybridAgent."""
+    import json
+    from pathlib import Path
+    from delivery.game.evaluation import EvalWeights, make_default_evaluator
+    from delivery.game.window import WindowGame, compute_canonical_baseline
+    from delivery.sim.runner import run as run_sim
+
+    world = GridWorld(instance)
+    twists = build_twist_stack(instance, world)
+    c_star, l_star, _ = compute_canonical_baseline(instance, world=world, twists=twists)
+
+    weights = EvalWeights()
+    tuned_path = Path(__file__).resolve().parent.parent.parent / "config" / "tuned_weights.json"
+    if use_tuned_weights and tuned_path.exists():
+        with open(tuned_path, "r", encoding="utf-8") as f:
+            w = json.load(f).get("weights", {})
+        weights = EvalWeights(
+            w_delivered=float(w.get("w_delivered", 350.0)),
+            w_remaining_route=float(w.get("w_remaining_route", -300.0)),
+            w_rival_dist=float(w.get("w_rival_dist", 180.0)),
+            w_mobility=float(w.get("w_mobility", 70.0)),
+            w_cost_margin=float(w.get("w_cost_margin", 50.0)),
+        )
+
+    env = DeliveryEnv(
+        world=world,
+        twists=twists,
+        slip_p=instance.slip_probability,
+        seed=instance.seed,
+        enable_rival=True,
+        rival_depth=min(4, int(instance.adversary_search_depth)),
+    )
+    game = WindowGame(
+        instance,
+        world=world,
+        twists=twists,
+        window_radius=window_radius,
+        c_star=c_star,
+        l_star=l_star,
+    )
+    evaluator = make_default_evaluator(game, weights=weights)
+    agent = HybridAgent(
+        instance,
+        world=world,
+        twists=twists,
+        window_radius=window_radius,
+        tactical_depth=min(3, int(instance.adversary_search_depth)),
+        eval_fn=evaluator,
+        c_star=c_star,
+        l_star=l_star,
+    )
+    res = run_sim(agent, env, max_steps=max_steps)
+
+    if res.success:
+        outcome = "WIN"
+    elif res.failure_reason == "CAPTURED_BY_RIVAL":
+        outcome = "LOSS (CAPTURED)"
+    else:
+        outcome = f"DRAW ({res.failure_reason or 'STEP_CAP'})"
+
+    return {
+        "outcome": outcome,
+        "success": res.success,
+        "total_cost": float(res.total_cost),
+        "total_steps": int(res.total_steps),
+        "trajectory": list(res.trajectory),
+        "rival_pos": env.rival_pos,
+        "delivered_mask": env.delivered_mask,
+        "replans": agent.replan_counts.to_dict(),
+        "tactical_moves": agent.tactical_moves,
+        "strategic_moves": agent.strategic_moves,
+    }
+
+
+def get_provider_status() -> Dict[str, Any]:
+    """Returns sanitized LLM provider status without exposing API keys."""
+    import os
+    from pathlib import Path
+    from dotenv import load_dotenv
+
+    load_dotenv(Path(__file__).resolve().parent.parent.parent / ".env", override=False)
+    has_groq = bool(os.environ.get("GROQ_API_KEY"))
+    has_openai = bool(os.environ.get("LLM_API_KEY") or os.environ.get("OPENAI_API_KEY"))
+    provider = "groq" if (has_groq and not has_openai) else ("openai-compat" if has_openai else "unconfigured")
+    model = os.environ.get("LLM_MODEL") or ("openai/gpt-oss-120b" if provider == "groq" else "gpt-4o-mini")
+    return {
+        "provider": provider,
+        "model": model,
+        "key_configured": has_groq or has_openai,
+    }
+
+
+def run_ui_dispatcher(
+    instance: Instance,
+    request_text: str,
+    llm_mode: str = "replay",
+    use_validation: bool = True,
+    client_override: Any = None,
+) -> Dict[str, Any]:
+    """Executes the validated ReAct LLM dispatcher for the UI Dispatcher tab."""
+    from delivery.llm.client import MockClient, OpenAICompatibleClient, ReplayClient
+    from delivery.llm.react import run_react_dispatcher
+    from delivery.llm.tools import DispatcherToolbox
+    from delivery.llm.validation import ArgumentValidator
+
+    world = GridWorld(instance)
+    twists = build_twist_stack(instance, world)
+    toolbox = DispatcherToolbox(instance=instance, world=world, twists=twists)
+    validator = ArgumentValidator(instance) if use_validation else None
+
+    if client_override is not None:
+        client = client_override
+    elif llm_mode == "live":
+        client = OpenAICompatibleClient()
+    elif llm_mode == "mock":
+        client = MockClient(
+            responses=[
+                {
+                    "content": "Reason: Computing optimal route via A* with own heuristic.",
+                    "tool_calls": [{"id": "ui_1", "function": {"name": "plan_route", "arguments": '{"algorithm": "astar", "heuristic": "own"}'}}],
+                },
+                'Reason: Route planned.\nFINAL_ANSWER: {"status": "SUCCESS", "message": "Mock dispatcher route complete."}',
+            ]
+        )
+    else:
+        client = ReplayClient()
+
+    res = run_react_dispatcher(
+        request_text=request_text,
+        client=client,
+        toolbox=toolbox,
+        request_id="UI-DISPATCH",
+        max_steps=6,
+        validator=validator,
+        bypass_cache=(llm_mode == "live"),
+    )
+    return res.to_dict()
+

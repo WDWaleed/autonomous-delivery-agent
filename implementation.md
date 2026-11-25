@@ -1116,7 +1116,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M9.3 Numbers export and contract checks
 - [x] M10.1 UI layout
 - [x] M10.2 Planning and execution
-- [ ] M10.3 Rival and dispatcher tabs
+- [x] M10.3 Rival and dispatcher tabs
 - [ ] M10.4 Live-change flow and manual test — **v0.5.0**
 - [ ] M11.1 Complete run_all
 - [ ] M11.2 Clean clone and determinism

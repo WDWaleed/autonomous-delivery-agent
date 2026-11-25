@@ -14,8 +14,11 @@ from delivery.ui.backend import (
     UISimSession,
     build_configured_instance,
     compute_config_hash,
+    get_provider_status,
     render_map_figure,
+    run_ui_dispatcher,
     run_ui_plan,
+    run_ui_rival_game,
 )
 
 st.set_page_config(page_title="CS-370 Delivery Agent", layout="wide")
@@ -178,11 +181,78 @@ def main() -> None:
 
     with tab_game:
         st.caption(f"Tab Stamp: {STAMP}")
-        st.info("Rival Game panel (wired in M10.3).")
+        g_col1, g_col2 = st.columns([1.2, 1.0])
+        with g_col2:
+            st.subheader("Adversarial Game vs Chaser")
+            use_tuned = st.checkbox("Use Tuned Evaluation Weights (config/tuned_weights.json)", value=True)
+            if st.button("Play Full Game vs Chaser", type="primary"):
+                with st.spinner("Simulating game against Chaser..."):
+                    st.session_state["game_result"] = run_ui_rival_game(
+                        inst,
+                        window_radius=window_radius,
+                        use_tuned_weights=use_tuned,
+                    )
+            g_res = st.session_state.get("game_result")
+            if g_res:
+                st.metric("Game Outcome", g_res["outcome"])
+                m1, m2, m3 = st.columns(3)
+                m1.metric("Total Cost", f"{g_res['total_cost']:.1f}")
+                m2.metric("Steps", g_res["total_steps"])
+                m3.metric("Total Replans", g_res["replans"]["total_replans"])
+                st.json(g_res["replans"])
+        with g_col1:
+            g_res = st.session_state.get("game_result")
+            if g_res:
+                g_fig = render_map_figure(
+                    inst,
+                    agent_pos=g_res["trajectory"][-1],
+                    rival_pos=g_res["rival_pos"],
+                    trajectory=g_res["trajectory"],
+                    delivered_mask=g_res["delivered_mask"],
+                    title=f"Rival Game Replay ({g_res['outcome']})",
+                )
+                st.pyplot(g_fig)
+            else:
+                st.info("Click 'Play Full Game vs Chaser' to run an adversarial episode.")
 
     with tab_llm:
         st.caption(f"Tab Stamp: {STAMP}")
-        st.info("LLM Dispatcher panel (wired in M10.3).")
+        p_status = get_provider_status()
+        st.info(
+            f"**Provider:** `{p_status['provider']}` | **Model:** `{p_status['model']}` | "
+            f"**API Key Configured:** `{p_status['key_configured']}` (secrets never displayed)"
+        )
+        l_col1, l_col2 = st.columns([1.0, 1.2])
+        with l_col1:
+            req_text = st.text_area(
+                "Dispatcher Request",
+                value="Plan an optimal route to complete all 5 deliveries using A* with our own heuristic.",
+                height=100,
+            )
+            llm_mode = st.selectbox("Execution Mode", ["mock", "replay", "live"], index=0)
+            use_val = st.checkbox("Enable Argument Validation & Self-Repair", value=True)
+            if st.button("Dispatch Request", type="primary"):
+                try:
+                    st.session_state["llm_result"] = run_ui_dispatcher(
+                        inst,
+                        request_text=req_text,
+                        llm_mode=llm_mode,
+                        use_validation=use_val,
+                    )
+                except Exception as exc:
+                    st.error(f"Dispatcher error: {exc}")
+        with l_col2:
+            l_res = st.session_state.get("llm_result")
+            if l_res:
+                st.metric("Dispatcher Status", l_res["status"])
+                st.caption(
+                    f"Tool Calls: {l_res['tool_calls_count']} | "
+                    f"Validation Interventions: {l_res['validation_interventions']} | "
+                    f"Latency: {l_res['total_latency_seconds']:.2f}s"
+                )
+                st.write("**Final Answer:**", l_res["final_answer"])
+                st.subheader("Sense–Reason–Action Trace")
+                st.json(l_res["steps"])
 
     ui_footer(st)
 
