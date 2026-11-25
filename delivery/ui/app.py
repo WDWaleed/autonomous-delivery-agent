@@ -80,7 +80,14 @@ def main() -> None:
         st.text(f"Strategy: {base_inst.adversary} (assigned)")
         rival_depth = st.slider("Rival Search Depth (plies)", min_value=1, max_value=6, value=int(base_inst.adversary_search_depth))
         window_radius = st.slider("Window Radius (Chebyshev)", min_value=2, max_value=8, value=4)
-        seed = st.number_input("RNG Seed", min_value=0, value=int(base_inst.seed), step=1)
+        seed_str = st.text_input("RNG Seed", value=str(base_inst.seed))
+        try:
+            seed = int(seed_str.strip())
+            if seed < 0:
+                raise ValueError("Seed must be non-negative.")
+        except ValueError:
+            st.sidebar.error("RNG Seed must be a non-negative integer; using canonical seed.")
+            seed = int(base_inst.seed)
 
     try:
         inst = build_configured_instance(
