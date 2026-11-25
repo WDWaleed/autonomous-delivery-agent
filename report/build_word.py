@@ -123,51 +123,56 @@ def _apply_ieee_styles(styles_xml: bytes) -> bytes:
                 sz.set(_q(W_NS, "val"), "20")  # 10pt
 
     style_specs = {
+        "Normal": {"sz": "20", "jc": "both"},
+        "Compact": {"sz": "20", "jc": "both"},
         "Title": {"sz": "48", "bold": True, "jc": "center"},
-        "Author": {"sz": "20", "bold": False, "jc": "center"},
-        "AbstractTitle": {"sz": "18", "bold": True, "jc": "left"},
-        "Abstract": {"sz": "18", "bold": False, "jc": "both"},
+        "Author": {"sz": "22", "bold": False, "jc": "center"},
+        "AbstractTitle": {"sz": "20", "bold": True, "jc": "left"},
+        "Abstract": {"sz": "20", "bold": False, "jc": "both"},
         "Heading1": {"sz": "20", "bold": True, "jc": "center"},
         "Heading2": {"sz": "20", "bold": False, "italic": True, "jc": "left"},
         "BodyText": {"sz": "20", "jc": "both"},
         "FirstParagraph": {"sz": "20", "jc": "both"},
+        "Definition": {"sz": "20", "jc": "both"},
+        "Bibliography": {"sz": "18", "jc": "both"},
         "ImageCaption": {"sz": "16", "jc": "left"},
         "TableCaption": {"sz": "16", "jc": "center"},
+        "Caption": {"sz": "16", "jc": "left"},
+        "VerbatimChar": {"sz": "18", "font": "Consolas"},
+        "SourceCode": {"sz": "18", "font": "Consolas"},
     }
 
     for st in root.findall(_q(W_NS, "style")):
         sid = st.attrib.get(_q(W_NS, "styleId"), "")
-        if sid not in style_specs:
-            continue
-        spec = style_specs[sid]
+        spec = style_specs.get(sid, {})
+        font_name = spec.get("font", "Times New Roman")
         ppr = st.find(_q(W_NS, "pPr"))
-        if ppr is None:
-            ppr = ET.SubElement(st, _q(W_NS, "pPr"))
         if "jc" in spec:
+            if ppr is None:
+                ppr = ET.SubElement(st, _q(W_NS, "pPr"))
             jc = ppr.find(_q(W_NS, "jc"))
             if jc is None:
                 jc = ET.SubElement(ppr, _q(W_NS, "jc"))
             jc.set(_q(W_NS, "val"), spec["jc"])
 
         rpr = st.find(_q(W_NS, "rPr"))
-        if rpr is None:
+        if rpr is None and (sid in style_specs or st.attrib.get(_q(W_NS, "type")) in ("paragraph", "character")):
             rpr = ET.SubElement(st, _q(W_NS, "rPr"))
-        fonts = rpr.find(_q(W_NS, "rFonts"))
-        if fonts is None:
-            fonts = ET.SubElement(rpr, _q(W_NS, "rFonts"))
-        for attr in ("ascii", "hAnsi", "cs"):
-            fonts.set(_q(W_NS, attr), "Times New Roman")
-        if "sz" in spec:
-            for sz_tag in ("sz", "szCs"):
-                sz = rpr.find(_q(W_NS, sz_tag))
-                if sz is None:
-                    sz = ET.SubElement(rpr, _q(W_NS, sz_tag))
-                sz.set(_q(W_NS, "val"), spec["sz"])
-        if spec.get("bold"):
-            if rpr.find(_q(W_NS, "b")) is None:
+        if rpr is not None:
+            fonts = rpr.find(_q(W_NS, "rFonts"))
+            if fonts is None:
+                fonts = ET.SubElement(rpr, _q(W_NS, "rFonts"))
+            for attr in ("ascii", "hAnsi", "cs"):
+                fonts.set(_q(W_NS, attr), font_name)
+            if "sz" in spec:
+                for sz_tag in ("sz", "szCs"):
+                    sz = rpr.find(_q(W_NS, sz_tag))
+                    if sz is None:
+                        sz = ET.SubElement(rpr, _q(W_NS, sz_tag))
+                    sz.set(_q(W_NS, "val"), spec["sz"])
+            if spec.get("bold") and rpr.find(_q(W_NS, "b")) is None:
                 ET.SubElement(rpr, _q(W_NS, "b"))
-        if spec.get("italic"):
-            if rpr.find(_q(W_NS, "i")) is None:
+            if spec.get("italic") and rpr.find(_q(W_NS, "i")) is None:
                 ET.SubElement(rpr, _q(W_NS, "i"))
 
     return ET.tostring(root, encoding="utf-8", xml_declaration=True)
@@ -240,7 +245,15 @@ def _apply_ieee_document(doc_xml: bytes, stamp_line: str) -> bytes:
             ext.set("cx", str(max_cx))
             ext.set("cy", str(int(cy * scale)))
 
-    # 3. Shrink table font runs to 8pt (sz=16) so 4-5 col tables fit inside 3.375" column
+    # 3. Strip stray Pandoc direct font/size overrides on body runs, then enforce uniform 8pt in tables
+    for r in body.findall(f".//{_q(W_NS, 'r')}"):
+        rpr = r.find(_q(W_NS, "rPr"))
+        if rpr is not None:
+            for tag in ("sz", "szCs", "rFonts"):
+                node = rpr.find(_q(W_NS, tag))
+                if node is not None:
+                    rpr.remove(node)
+
     for tbl in root.findall(f".//{_q(W_NS, 'tbl')}"):
         for r in tbl.findall(f".//{_q(W_NS, 'r')}"):
             rpr = r.find(_q(W_NS, "rPr"))
