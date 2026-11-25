@@ -1,0 +1,223 @@
+# 20 Natural-Language Dispatcher Requests across 5 Difficulty Levels (M8.4)
+# Canonical Instance: 432382d9 (22x22, start=(4,20), stops=[(5,15),(16,1),(15,12),(9,7),(6,10)])
+# Active twists: fog_partial_observability, one_way_streets, fragile_parcel
+
+- id: REQ-01
+  level: single_constraint
+  text: "Plan an optimal route to complete all 5 deliveries using A* with our own heuristic."
+  expected_outcome: PLAN
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints: {}
+
+- id: REQ-02
+  level: single_constraint
+  text: "Deliver only to Stop 0 at (5, 15) using A* with the own heuristic."
+  expected_outcome: PLAN
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      target_stops: [0]
+
+- id: REQ-03
+  level: single_constraint
+  text: "Plan a route to visit Stop 0 and Stop 4 using UCS, and return to the start depot afterwards."
+  expected_outcome: PLAN
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: ucs
+    heuristic: zero
+    constraints:
+      target_stops: [0, 4]
+      return_to_depot: true
+
+- id: REQ-04
+  level: single_constraint
+  text: "Find a valid route to Stop 0 and Stop 2 avoiding all ford cells."
+  expected_outcome: PLAN
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      target_stops: [0, 2]
+      avoid_terrains: ["ford"]
+
+- id: REQ-05
+  level: multiple_constraints
+  text: "Visit Stop 0 and Stop 4 while avoiding ford cells and keeping total cost under 180."
+  expected_outcome: PLAN
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      target_stops: [0, 4]
+      avoid_terrains: ["ford"]
+      max_cost: 180.0
+
+- id: REQ-06
+  level: multiple_constraints
+  text: "Deliver to Stop 0, Stop 2, and Stop 4 without stepping on cell (5, 16) and avoiding ford terrain."
+  expected_outcome: PLAN
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      target_stops: [0, 2, 4]
+      forbidden_cells: [[5, 16]]
+      avoid_terrains: ["ford"]
+
+- id: REQ-07
+  level: multiple_constraints
+  text: "Complete all 5 deliveries without stepping on cell (0, 0) and keeping total path cost at most 300."
+  expected_outcome: PLAN
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      forbidden_cells: [[0, 0]]
+      max_cost: 300.0
+
+- id: REQ-08
+  level: multiple_constraints
+  text: "Deliver to Stop 0 and return to the depot while avoiding ford cells and keeping cost at most 100."
+  expected_outcome: PLAN
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      target_stops: [0]
+      avoid_terrains: ["ford"]
+      return_to_depot: true
+      max_cost: 100.0
+
+- id: REQ-09
+  level: twist_specific
+  text: "Inspect the one-way street and fragile-parcel rules at the depot (4, 20) before planning an optimal route."
+  expected_outcome: PLAN
+  expected_tool: inspect_twists
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    inspect_pos: [4, 20]
+    constraints: {}
+
+- id: REQ-10
+  level: twist_specific
+  text: "Because the fragile parcel bans mud and ford until Stop 0 is delivered, verify twist rules at (5, 15) and plan the full 5-stop route."
+  expected_outcome: PLAN
+  expected_tool: inspect_twists
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    inspect_pos: [5, 15]
+    constraints: {}
+
+- id: REQ-11
+  level: twist_specific
+  text: "Plan an optimal route respecting all one-way street restrictions and simulate it deterministically to confirm zero illegal steps."
+  expected_outcome: PLAN
+  expected_tool: simulate
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    verify_simulation: true
+    constraints: {}
+
+- id: REQ-12
+  level: twist_specific
+  text: "Under active fog and one-way twists, inspect outgoing legal moves at (4, 20) and plan a route to Stop 0 and Stop 4."
+  expected_outcome: PLAN
+  expected_tool: inspect_twists
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    inspect_pos: [4, 20]
+    constraints:
+      target_stops: [0, 4]
+
+- id: REQ-13
+  level: ambiguous
+  text: "Deliver the urgent package to the priority stop right away."
+  expected_outcome: CLARIFY
+  expected_tool: none
+  ground_truth_spec:
+    ambiguity_reason: "Unspecified stop ID/coordinates for 'priority stop'."
+
+- id: REQ-14
+  level: ambiguous
+  text: "Avoid the bad terrain and get there fast or cheap."
+  expected_outcome: CLARIFY
+  expected_tool: none
+  ground_truth_spec:
+    ambiguity_reason: "'bad terrain' and trade-off between speed (moves) vs cost are undefined."
+
+- id: REQ-15
+  level: ambiguous
+  text: "Skip one of the middle stops and keep the cost below the budget."
+  expected_outcome: CLARIFY
+  expected_tool: none
+  ground_truth_spec:
+    ambiguity_reason: "Which stop to skip and the numeric max_cost budget are unspecified."
+
+- id: REQ-16
+  level: ambiguous
+  text: "Take the scenic route to the depot's neighbor and wait if needed."
+  expected_outcome: CLARIFY
+  expected_tool: none
+  ground_truth_spec:
+    ambiguity_reason: "Destination coordinate and waiting condition are underspecified."
+
+- id: REQ-17
+  level: infeasible_conflicting
+  text: "Complete all 5 deliveries with a strict maximum total cost of 15.0."
+  expected_outcome: REFUSE_INFEASIBLE
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      max_cost: 15.0
+
+- id: REQ-18
+  level: infeasible_conflicting
+  text: "Plan a route to all 5 stops while forbidding road, grass, mud, and ford terrains."
+  expected_outcome: REFUSE_INFEASIBLE
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      avoid_terrains: ["road", "grass", "mud", "ford"]
+
+- id: REQ-19
+  level: infeasible_conflicting
+  text: "Deliver to Stop 0 while marking the start depot (4, 20) as a forbidden cell."
+  expected_outcome: REFUSE_INFEASIBLE
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      target_stops: [0]
+      forbidden_cells: [[4, 20]]
+
+- id: REQ-20
+  level: infeasible_conflicting
+  text: "Deliver the fragile parcel to Stop 0 while avoiding both road and grass terrains."
+  expected_outcome: REFUSE_INFEASIBLE
+  expected_tool: plan_route
+  ground_truth_spec:
+    algorithm: astar
+    heuristic: own
+    constraints:
+      target_stops: [0]
+      avoid_terrains: ["road", "grass"]

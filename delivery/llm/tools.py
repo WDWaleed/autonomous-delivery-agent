@@ -274,8 +274,12 @@ class DispatcherToolbox:
             else:
                 reason_codes.append("RESOURCE_LIMIT")
 
+        final_status = res.status.value
+        if violated and final_status == "SUCCESS":
+            final_status = "INFEASIBLE"
+
         return {
-            "status": res.status.value,
+            "status": final_status,
             "cost": float(res.cost) if np.isfinite(res.cost) else None,
             "plan": list(res.plan) if res.plan is not None else None,
             "route_summary": {
