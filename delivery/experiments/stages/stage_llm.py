@@ -69,6 +69,12 @@ def run_partD_evaluation(
         client = client_override
     elif llm_mode == "replay":
         client = ReplayClient()
+        if not quick and save_outputs and not client._records:
+            raise RuntimeError(
+                "Replay cache missing or empty at results/llm_cache.jsonl; "
+                "run Part D with '--llm-mode live' (or populate results/llm_cache.jsonl) "
+                "to avoid overwriting official Part D tables with cache-miss failures."
+            )
     else:
         client = OpenAICompatibleClient()
 

@@ -1,9 +1,9 @@
 # Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)
 Algorithm,Optimality Guarantee,Solved Ratio,DNF / Limits,Mean Expansions (95% CI),Mean Runtime (s),Path Length (Moves),Path Cost (Total),Peak Stored Records
-BFS,Move-Optimal (min steps),30/30,None,"11977.6 [7096.1, 16859.1]",0.1791,71.9,253.73,12665.6
-UCS,Cost-Optimal (min cost),30/30,None,"12299.6 [7228.2, 17371.0]",0.2779,74.9,218.07,13140.0
+BFS,Move-Optimal (min steps),30/30,None,"11977.6 [7096.1, 16859.1]",0.4397,71.9,253.73,12665.6
+UCS,Cost-Optimal (min cost),30/30,None,"12299.6 [7228.2, 17371.0]",0.5427,74.9,218.07,13140.0
 "DLS (d=10, Below)",Bounded Depth Search,0/30,CUTOFF:30,DNF,DNF,DNF,DNF,20.0
 "DLS (d=25, Above)",Bounded Depth Search,0/30,NODELIMIT:30,DNF,DNF,DNF,DNF,50.0
-IDS,"Move-Optimal (min steps, linear space)",0/30,NODELIMIT:30,DNF,DNF,DNF,DNF,34.1
-Greedy Best-First,Heuristic Speed (no guarantee),30/30,None,"133.7 [97.0, 170.4]",0.0095,85.1,273.27,272.5
-A* (Own Heuristic),Cost-Optimal (min cost),30/30,None,"387.4 [246.3, 528.6]",0.0225,74.9,218.07,658.5
+IDS,"Move-Optimal (min steps, linear space)",0/30,"NODELIMIT:29, TIMEOUT:1",DNF,DNF,DNF,DNF,34.1
+Greedy Best-First,Heuristic Speed (no guarantee),30/30,None,"133.7 [97.0, 170.4]",0.0180,85.1,273.27,272.5
+A* (Own Heuristic),Cost-Optimal (min cost),30/30,None,"387.4 [246.3, 528.6]",0.0474,74.9,218.07,658.5

@@ -7,216 +7,216 @@
 \toprule
 scenario\_k & scenario\_key & config & algo & objective & success & status & cost & plan\_length & expanded\_nodes & generated\_nodes & peak\_stored & duration\_seconds \\
 \midrule
-0 & SCN-000 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 189.000000 & 30.000000 & 1959 & 2053 & 2147 & 0.045105 \\
-0 & SCN-000 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 187.000000 & 30.000000 & 2037 & 6302 & 2272 & 0.066015 \\
-0 & SCN-000 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 7072 & 15475 & 20 & 0.218770 \\
-0 & SCN-000 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 440493 & 50 & 5.574581 \\
-0 & SCN-000 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 428137 & 28 & 3.874988 \\
-0 & SCN-000 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 209.000000 & 34.000000 & 38 & 96 & 96 & 0.003548 \\
-0 & SCN-000 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 187.000000 & 30.000000 & 42 & 94 & 141 & 0.005936 \\
-1 & SCN-001 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 172.000000 & 42.000000 & 3052 & 3255 & 3457 & 0.050683 \\
-1 & SCN-001 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 143.000000 & 44.000000 & 3173 & 10119 & 3639 & 0.102874 \\
-1 & SCN-001 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 170 & 303 & 20 & 0.002778 \\
-1 & SCN-001 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 406337 & 50 & 4.480624 \\
-1 & SCN-001 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 405916 & 40 & 3.941343 \\
-1 & SCN-001 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 151.000000 & 44.000000 & 45 & 100 & 100 & 0.006295 \\
-1 & SCN-001 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 143.000000 & 44.000000 & 71 & 118 & 161 & 0.003955 \\
-2 & SCN-002 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 341.000000 & 124.000000 & 53290 & 54144 & 54997 & 1.065341 \\
-2 & SCN-002 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 295.000000 & 130.000000 & 58003 & 166749 & 59451 & 1.492839 \\
-2 & SCN-002 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2061 & 3512 & 20 & 0.058984 \\
-2 & SCN-002 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 416741 & 50 & 3.795341 \\
-2 & SCN-002 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 351069 & 36 & 2.562687 \\
-2 & SCN-002 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 421.000000 & 189.000000 & 262 & 548 & 520 & 0.016080 \\
-2 & SCN-002 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 295.000000 & 130.000000 & 1643 & 2110 & 2306 & 0.094360 \\
-3 & SCN-003 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 344.000000 & 94.000000 & 38543 & 39614 & 40685 & 0.641388 \\
-3 & SCN-003 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 270.000000 & 98.000000 & 41131 & 119847 & 43737 & 0.930498 \\
-3 & SCN-003 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1103 & 2002 & 20 & 0.025467 \\
-3 & SCN-003 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 358570 & 50 & 3.612810 \\
-3 & SCN-003 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 373134 & 36 & 3.222699 \\
-3 & SCN-003 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 394.000000 & 119.000000 & 194 & 407 & 385 & 0.016165 \\
-3 & SCN-003 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 270.000000 & 98.000000 & 433 & 651 & 787 & 0.037875 \\
-4 & SCN-004 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 219.000000 & 46.000000 & 1892 & 1985 & 2078 & 0.018421 \\
-4 & SCN-004 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 162.000000 & 56.000000 & 2566 & 8282 & 2828 & 0.052836 \\
-4 & SCN-004 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2115 & 4904 & 20 & 0.050744 \\
-4 & SCN-004 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 338706 & 50 & 3.813845 \\
-4 & SCN-004 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 430717 & 30 & 3.182222 \\
-4 & SCN-004 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 216.000000 & 56.000000 & 79 & 190 & 176 & 0.007282 \\
-4 & SCN-004 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 162.000000 & 56.000000 & 201 & 299 & 384 & 0.006143 \\
-5 & SCN-005 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 197.000000 & 52.000000 & 4086 & 4260 & 4433 & 0.133385 \\
-5 & SCN-005 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 155.000000 & 58.000000 & 4680 & 13137 & 5088 & 0.122746 \\
-5 & SCN-005 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2157 & 3944 & 20 & 0.046474 \\
-5 & SCN-005 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 380592 & 50 & 3.351776 \\
-5 & SCN-005 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 374210 & 34 & 3.176036 \\
-5 & SCN-005 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 216.000000 & 66.000000 & 75 & 155 & 154 & 0.006213 \\
-5 & SCN-005 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 155.000000 & 58.000000 & 250 & 393 & 519 & 0.008708 \\
-6 & SCN-006 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 183.000000 & 38.000000 & 1287 & 1354 & 1419 & 0.012185 \\
-6 & SCN-006 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 167.000000 & 38.000000 & 1530 & 4404 & 1672 & 0.029298 \\
-6 & SCN-006 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 480 & 826 & 20 & 0.005330 \\
-6 & SCN-006 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 383975 & 50 & 3.098509 \\
-6 & SCN-006 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 357201 & 38 & 1.692462 \\
-6 & SCN-006 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 170.000000 & 38.000000 & 38 & 81 & 81 & 0.001370 \\
-6 & SCN-006 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 167.000000 & 38.000000 & 42 & 84 & 126 & 0.001064 \\
-7 & SCN-007 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 250.000000 & 68.000000 & 4182 & 4273 & 4361 & 0.028003 \\
-7 & SCN-007 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 178.000000 & 82.000000 & 4406 & 14293 & 4626 & 0.045475 \\
-7 & SCN-007 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 5484 & 12217 & 20 & 0.050701 \\
-7 & SCN-007 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 459560 & 50 & 2.010041 \\
-7 & SCN-007 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 459947 & 28 & 2.307696 \\
-7 & SCN-007 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 250.000000 & 84.000000 & 158 & 386 & 356 & 0.005572 \\
-7 & SCN-007 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 178.000000 & 82.000000 & 464 & 672 & 767 & 0.013827 \\
-8 & SCN-008 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 160.000000 & 66.000000 & 3459 & 3500 & 3541 & 0.029340 \\
-8 & SCN-008 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 106.000000 & 68.000000 & 3444 & 10599 & 3608 & 0.046090 \\
-8 & SCN-008 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 614 & 1255 & 20 & 0.013949 \\
-8 & SCN-008 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 360239 & 50 & 2.494927 \\
-8 & SCN-008 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 380015 & 36 & 4.500858 \\
-8 & SCN-008 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 146.000000 & 68.000000 & 74 & 188 & 187 & 0.003349 \\
-8 & SCN-008 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 106.000000 & 68.000000 & 108 & 207 & 304 & 0.003773 \\
-9 & SCN-009 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 411.000000 & 90.000000 & 17280 & 17624 & 17967 & 0.197695 \\
-9 & SCN-009 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 339.000000 & 90.000000 & 15835 & 43866 & 16736 & 0.188667 \\
-9 & SCN-009 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1787 & 2961 & 20 & 0.014104 \\
-9 & SCN-009 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 338133 & 50 & 2.164553 \\
-9 & SCN-009 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 303854 & 38 & 2.545251 \\
-9 & SCN-009 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 395.000000 & 96.000000 & 122 & 243 & 238 & 0.012122 \\
-9 & SCN-009 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 339.000000 & 90.000000 & 515 & 722 & 872 & 0.042419 \\
-10 & SCN-010 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 260.000000 & 58.000000 & 3190 & 3314 & 3438 & 0.060499 \\
-10 & SCN-010 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 249.000000 & 58.000000 & 3332 & 9930 & 3578 & 0.089027 \\
-10 & SCN-010 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 801 & 1645 & 20 & 0.019501 \\
-10 & SCN-010 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 387798 & 50 & 4.183166 \\
-10 & SCN-010 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 390775 & 34 & 4.564072 \\
-10 & SCN-010 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 366.000000 & 88.000000 & 118 & 251 & 237 & 0.016469 \\
-10 & SCN-010 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 249.000000 & 58.000000 & 107 & 192 & 260 & 0.011824 \\
-11 & SCN-011 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 227.000000 & 55.000000 & 3049 & 3139 & 3228 & 0.066755 \\
-11 & SCN-011 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 207.000000 & 59.000000 & 3193 & 10242 & 3385 & 0.227921 \\
-11 & SCN-011 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1148 & 2458 & 20 & 0.091860 \\
-11 & SCN-011 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 417385 & 50 & 5.344485 \\
-11 & SCN-011 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 448163 & 32 & 4.291091 \\
-11 & SCN-011 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 251.000000 & 63.000000 & 79 & 185 & 182 & 0.006853 \\
-11 & SCN-011 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 207.000000 & 59.000000 & 340 & 557 & 581 & 0.014042 \\
-12 & SCN-012 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 292.000000 & 56.000000 & 1659 & 1750 & 1840 & 0.023507 \\
-12 & SCN-012 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 261.000000 & 56.000000 & 1765 & 5013 & 1953 & 0.029837 \\
-12 & SCN-012 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 830 & 1356 & 20 & 0.007024 \\
-12 & SCN-012 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 305714 & 50 & 3.124134 \\
-12 & SCN-012 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 307857 & 40 & 4.883723 \\
-12 & SCN-012 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 284.000000 & 56.000000 & 58 & 124 & 124 & 0.003913 \\
-12 & SCN-012 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 261.000000 & 56.000000 & 60 & 118 & 176 & 0.004609 \\
-13 & SCN-013 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 261.000000 & 110.000000 & 29498 & 29929 & 30359 & 0.816970 \\
-13 & SCN-013 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 211.000000 & 110.000000 & 29159 & 91569 & 30255 & 1.320112 \\
-13 & SCN-013 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 7300 & 15607 & 20 & 0.242237 \\
-13 & SCN-013 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 438215 & 50 & 4.389661 \\
-13 & SCN-013 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 395522 & 28 & 5.220889 \\
-13 & SCN-013 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 399.000000 & 176.000000 & 364 & 802 & 720 & 0.059740 \\
-13 & SCN-013 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 211.000000 & 110.000000 & 1289 & 1854 & 1955 & 0.138806 \\
-14 & SCN-014 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 271.000000 & 62.000000 & 11951 & 12570 & 13188 & 0.259758 \\
-14 & SCN-014 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 234.000000 & 67.000000 & 13256 & 43008 & 14864 & 0.401116 \\
-14 & SCN-014 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 7850 & 16761 & 20 & 0.243311 \\
-14 & SCN-014 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 364712 & 50 & 4.472114 \\
-14 & SCN-014 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 422304 & 28 & 3.291357 \\
-14 & SCN-014 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 268.000000 & 62.000000 & 74 & 197 & 196 & 0.003292 \\
-14 & SCN-014 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 234.000000 & 67.000000 & 283 & 469 & 533 & 0.012026 \\
-15 & SCN-015 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 285.000000 & 86.000000 & 28198 & 29072 & 29943 & 0.241213 \\
-15 & SCN-015 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 250.000000 & 92.000000 & 26761 & 79046 & 28414 & 0.342442 \\
-15 & SCN-015 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 364 & 614 & 20 & 0.003574 \\
-15 & SCN-015 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 361330 & 50 & 1.871781 \\
-15 & SCN-015 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 362338 & 40 & 1.910814 \\
-15 & SCN-015 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 272.000000 & 92.000000 & 132 & 289 & 280 & 0.007288 \\
-15 & SCN-015 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 250.000000 & 92.000000 & 567 & 819 & 930 & 0.028512 \\
-16 & SCN-016 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 256.000000 & 78.000000 & 16300 & 16970 & 17637 & 0.128736 \\
-16 & SCN-016 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 219.000000 & 78.000000 & 17488 & 55593 & 19216 & 0.207123 \\
-16 & SCN-016 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 4545 & 10152 & 20 & 0.055051 \\
-16 & SCN-016 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 424347 & 50 & 2.373486 \\
-16 & SCN-016 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 424818 & 30 & 2.077137 \\
-16 & SCN-016 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 250.000000 & 82.000000 & 100 & 229 & 225 & 0.004028 \\
-16 & SCN-016 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 219.000000 & 78.000000 & 171 & 309 & 408 & 0.007867 \\
-17 & SCN-017 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 190.000000 & 62.000000 & 4792 & 5058 & 5321 & 0.034598 \\
-17 & SCN-017 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 172.000000 & 62.000000 & 4746 & 13952 & 5332 & 0.051183 \\
-17 & SCN-017 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 75 & 144 & 20 & 0.000724 \\
-17 & SCN-017 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 357648 & 50 & 2.823307 \\
-17 & SCN-017 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 340628 & 46 & 2.087041 \\
-17 & SCN-017 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 191.000000 & 66.000000 & 77 & 182 & 180 & 0.004491 \\
-17 & SCN-017 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 172.000000 & 62.000000 & 137 & 238 & 326 & 0.006604 \\
-18 & SCN-018 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 270.000000 & 59.000000 & 6217 & 6597 & 6976 & 0.051821 \\
-18 & SCN-018 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 259.000000 & 61.000000 & 7546 & 24368 & 8271 & 0.101900 \\
-18 & SCN-018 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1950 & 4613 & 20 & 0.020329 \\
-18 & SCN-018 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 404251 & 50 & 2.082285 \\
-18 & SCN-018 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 413227 & 32 & 2.078770 \\
-18 & SCN-018 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 278.000000 & 61.000000 & 62 & 160 & 160 & 0.003146 \\
-18 & SCN-018 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 259.000000 & 61.000000 & 109 & 216 & 303 & 0.004653 \\
-19 & SCN-019 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 245.000000 & 63.000000 & 1927 & 2025 & 2122 & 0.014457 \\
-19 & SCN-019 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 235.000000 & 63.000000 & 1730 & 4995 & 1905 & 0.018686 \\
-19 & SCN-019 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 5428 & 12360 & 20 & 0.059807 \\
-19 & SCN-019 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 357711 & 50 & 1.897692 \\
-19 & SCN-019 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 422240 & 28 & 2.022640 \\
-19 & SCN-019 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 241.000000 & 63.000000 & 63 & 138 & 138 & 0.003356 \\
-19 & SCN-019 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 235.000000 & 63.000000 & 111 & 182 & 244 & 0.004812 \\
-20 & SCN-020 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 255.000000 & 97.000000 & 6614 & 6726 & 6838 & 0.055588 \\
-20 & SCN-020 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 231.000000 & 101.000000 & 7366 & 20395 & 7676 & 0.139639 \\
-20 & SCN-020 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 73 & 101 & 20 & 0.001154 \\
-20 & SCN-020 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 389516 & 50 & 2.138015 \\
-20 & SCN-020 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 390144 & 46 & 2.145964 \\
-20 & SCN-020 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 251.000000 & 101.000000 & 269 & 498 & 435 & 0.011780 \\
-20 & SCN-020 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 231.000000 & 101.000000 & 453 & 598 & 675 & 0.013464 \\
-21 & SCN-021 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 336.000000 & 78.000000 & 13828 & 14407 & 14985 & 0.121730 \\
-21 & SCN-021 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 299.000000 & 78.000000 & 15888 & 50139 & 17338 & 0.237829 \\
-21 & SCN-021 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1810 & 3725 & 20 & 0.019514 \\
-21 & SCN-021 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 423646 & 50 & 2.016230 \\
-21 & SCN-021 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 413141 & 32 & 2.369670 \\
-21 & SCN-021 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 363.000000 & 86.000000 & 97 & 218 & 214 & 0.005212 \\
-21 & SCN-021 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 299.000000 & 78.000000 & 394 & 626 & 626 & 0.019230 \\
-22 & SCN-022 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 124.000000 & 62.000000 & 9364 & 9681 & 9996 & 0.072585 \\
-22 & SCN-022 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 115.000000 & 64.000000 & 7745 & 23156 & 8669 & 0.085557 \\
-22 & SCN-022 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1320 & 2340 & 20 & 0.011276 \\
-22 & SCN-022 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 355728 & 50 & 2.037053 \\
-22 & SCN-022 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 393299 & 34 & 1.996463 \\
-22 & SCN-022 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 129.000000 & 64.000000 & 86 & 187 & 183 & 0.004367 \\
-22 & SCN-022 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 115.000000 & 64.000000 & 191 & 287 & 361 & 0.006748 \\
-23 & SCN-023 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 171.000000 & 90.000000 & 35379 & 36555 & 37730 & 0.309050 \\
-23 & SCN-023 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 140.000000 & 94.000000 & 33144 & 110864 & 36804 & 0.496834 \\
-23 & SCN-023 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 4026 & 8573 & 20 & 0.040352 \\
-23 & SCN-023 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 450901 & 50 & 2.504937 \\
-23 & SCN-023 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 423276 & 30 & 2.230036 \\
-23 & SCN-023 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 221.000000 & 111.000000 & 166 & 411 & 399 & 0.014429 \\
-23 & SCN-023 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 140.000000 & 94.000000 & 717 & 1164 & 1448 & 0.042799 \\
-24 & SCN-024 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 142.000000 & 76.000000 & 5580 & 5669 & 5759 & 0.057940 \\
-24 & SCN-024 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 129.000000 & 77.000000 & 5573 & 16905 & 5772 & 0.097877 \\
-24 & SCN-024 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1073 & 2154 & 20 & 0.013565 \\
-24 & SCN-024 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 340784 & 50 & 2.120370 \\
-24 & SCN-024 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 424548 & 34 & 2.183106 \\
-24 & SCN-024 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 203.000000 & 101.000000 & 304 & 621 & 518 & 0.013108 \\
-24 & SCN-024 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 129.000000 & 77.000000 & 535 & 721 & 762 & 0.018647 \\
-25 & SCN-025 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 322.000000 & 94.000000 & 11035 & 11134 & 11233 & 0.091653 \\
-25 & SCN-025 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 286.000000 & 96.000000 & 10975 & 31647 & 11255 & 0.121780 \\
-25 & SCN-025 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2227 & 4541 & 20 & 0.021818 \\
-25 & SCN-025 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 352051 & 50 & 1.915941 \\
-25 & SCN-025 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 378274 & 32 & 1.915430 \\
-25 & SCN-025 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 405.000000 & 126.000000 & 412 & 799 & 670 & 0.018847 \\
-25 & SCN-025 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 286.000000 & 96.000000 & 703 & 1003 & 1079 & 0.022080 \\
-26 & SCN-026 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 589.000000 & 99.000000 & 11463 & 11583 & 11700 & 0.097410 \\
-26 & SCN-026 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 536.000000 & 101.000000 & 11641 & 35075 & 11925 & 0.130876 \\
-26 & SCN-026 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 3229 & 7463 & 20 & 0.031981 \\
-26 & SCN-026 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 444431 & 50 & 2.612289 \\
-26 & SCN-026 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 450808 & 30 & 4.376542 \\
-26 & SCN-026 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 568.000000 & 101.000000 & 134 & 331 & 322 & 0.009142 \\
-26 & SCN-026 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 536.000000 & 101.000000 & 939 & 1249 & 1348 & 0.061810 \\
-27 & SCN-027 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 114.000000 & 53.000000 & 2442 & 2547 & 2651 & 0.036664 \\
-27 & SCN-027 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 96.000000 & 61.000000 & 2584 & 7969 & 2826 & 0.050911 \\
-27 & SCN-027 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 205 & 334 & 20 & 0.002222 \\
-27 & SCN-027 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 369207 & 50 & 4.791788 \\
-27 & SCN-027 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 340408 & 42 & 4.198636 \\
-27 & SCN-027 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 112.000000 & 53.000000 & 53 & 115 & 115 & 0.005056 \\
-27 & SCN-027 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 96.000000 & 61.000000 & 70 & 124 & 177 & 0.006212 \\
-28 & SCN-028 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 268.000000 & 95.000000 & 22817 & 23750 & 24683 & 0.573301 \\
-28 & SCN-028 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 209.000000 & 99.000000 & 23907 & 69883 & 26407 & 1.064923 \\
-28 & SCN-028 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2684 & 5075 & 20 & 0.092273 \\
-28 & SCN-028 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 365268 & 50 & 3.431984 \\
-28 & SCN-028 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 379556 & 32 & 2.396589 \\
-28 & SCN-028 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 319.000000 & 131.000000 & 199 & 415 & 395 & 0.010374 \\
-28 & SCN-028 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 209.000000 & 99.000000 & 543 & 767 & 876 & 0.027131 \\
-29 & SCN-029 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 268.000000 & 74.000000 & 4996 & 5126 & 5255 & 0.036428 \\
-29 & SCN-029 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 202.000000 & 76.000000 & 4385 & 13337 & 4697 & 0.045547 \\
-29 & SCN-029 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 3923 & 8515 & 20 & 0.039531 \\
-29 & SCN-029 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 390455 & 50 & 2.128868 \\
-29 & SCN-029 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 410370 & 30 & 2.213897 \\
-29 & SCN-029 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 259.000000 & 76.000000 & 79 & 188 & 188 & 0.002155 \\
-29 & SCN-029 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 202.000000 & 76.000000 & 135 & 239 & 319 & 0.005009 \\
+0 & SCN-000 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 189.000000 & 30.000000 & 1959 & 2053 & 2147 & 0.064633 \\
+0 & SCN-000 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 187.000000 & 30.000000 & 2037 & 6302 & 2272 & 0.089642 \\
+0 & SCN-000 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 7072 & 15475 & 20 & 0.269971 \\
+0 & SCN-000 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 440493 & 50 & 8.129212 \\
+0 & SCN-000 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 428137 & 28 & 7.707224 \\
+0 & SCN-000 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 209.000000 & 34.000000 & 38 & 96 & 96 & 0.003802 \\
+0 & SCN-000 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 187.000000 & 30.000000 & 42 & 94 & 141 & 0.006998 \\
+1 & SCN-001 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 172.000000 & 42.000000 & 3052 & 3255 & 3457 & 0.094371 \\
+1 & SCN-001 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 143.000000 & 44.000000 & 3173 & 10119 & 3639 & 0.129621 \\
+1 & SCN-001 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 170 & 303 & 20 & 0.005553 \\
+1 & SCN-001 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 406337 & 50 & 7.563230 \\
+1 & SCN-001 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 405916 & 40 & 7.353228 \\
+1 & SCN-001 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 151.000000 & 44.000000 & 45 & 100 & 100 & 0.005806 \\
+1 & SCN-001 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 143.000000 & 44.000000 & 71 & 118 & 161 & 0.007795 \\
+2 & SCN-002 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 341.000000 & 124.000000 & 53290 & 54144 & 54997 & 1.553483 \\
+2 & SCN-002 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 295.000000 & 130.000000 & 58003 & 166749 & 59451 & 2.843616 \\
+2 & SCN-002 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2061 & 3512 & 20 & 0.069164 \\
+2 & SCN-002 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 416741 & 50 & 7.056773 \\
+2 & SCN-002 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 351069 & 36 & 6.757578 \\
+2 & SCN-002 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 421.000000 & 189.000000 & 262 & 548 & 520 & 0.044093 \\
+2 & SCN-002 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 295.000000 & 130.000000 & 1643 & 2110 & 2306 & 0.215018 \\
+3 & SCN-003 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 344.000000 & 94.000000 & 38543 & 39614 & 40685 & 1.199284 \\
+3 & SCN-003 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 270.000000 & 98.000000 & 41131 & 119847 & 43737 & 2.045823 \\
+3 & SCN-003 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1103 & 2002 & 20 & 0.036377 \\
+3 & SCN-003 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 358570 & 50 & 7.048063 \\
+3 & SCN-003 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 373134 & 36 & 7.015077 \\
+3 & SCN-003 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 394.000000 & 119.000000 & 194 & 407 & 385 & 0.030882 \\
+3 & SCN-003 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 270.000000 & 98.000000 & 433 & 651 & 787 & 0.080891 \\
+4 & SCN-004 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 219.000000 & 46.000000 & 1892 & 1985 & 2078 & 0.047831 \\
+4 & SCN-004 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 162.000000 & 56.000000 & 2566 & 8282 & 2828 & 0.107254 \\
+4 & SCN-004 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2115 & 4904 & 20 & 0.082521 \\
+4 & SCN-004 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 338706 & 50 & 6.803276 \\
+4 & SCN-004 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 430717 & 30 & 7.570252 \\
+4 & SCN-004 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 216.000000 & 56.000000 & 79 & 190 & 176 & 0.010196 \\
+4 & SCN-004 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 162.000000 & 56.000000 & 201 & 299 & 384 & 0.020765 \\
+5 & SCN-005 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 197.000000 & 52.000000 & 4086 & 4260 & 4433 & 0.095491 \\
+5 & SCN-005 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 155.000000 & 58.000000 & 4680 & 13137 & 5088 & 0.171002 \\
+5 & SCN-005 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2157 & 3944 & 20 & 0.069129 \\
+5 & SCN-005 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 380592 & 50 & 6.976600 \\
+5 & SCN-005 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 374210 & 34 & 6.934586 \\
+5 & SCN-005 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 216.000000 & 66.000000 & 75 & 155 & 154 & 0.014339 \\
+5 & SCN-005 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 155.000000 & 58.000000 & 250 & 393 & 519 & 0.037893 \\
+6 & SCN-006 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 183.000000 & 38.000000 & 1287 & 1354 & 1419 & 0.036539 \\
+6 & SCN-006 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 167.000000 & 38.000000 & 1530 & 4404 & 1672 & 0.054091 \\
+6 & SCN-006 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 480 & 826 & 20 & 0.018154 \\
+6 & SCN-006 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 383975 & 50 & 7.389306 \\
+6 & SCN-006 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 357201 & 38 & 7.478343 \\
+6 & SCN-006 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 170.000000 & 38.000000 & 38 & 81 & 81 & 0.006999 \\
+6 & SCN-006 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 167.000000 & 38.000000 & 42 & 84 & 126 & 0.004346 \\
+7 & SCN-007 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 250.000000 & 68.000000 & 4182 & 4273 & 4361 & 0.127342 \\
+7 & SCN-007 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 178.000000 & 82.000000 & 4406 & 14293 & 4626 & 0.201259 \\
+7 & SCN-007 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 5484 & 12217 & 20 & 0.184957 \\
+7 & SCN-007 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 459560 & 50 & 8.388243 \\
+7 & SCN-007 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 459947 & 28 & 8.185124 \\
+7 & SCN-007 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 250.000000 & 84.000000 & 158 & 386 & 356 & 0.017015 \\
+7 & SCN-007 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 178.000000 & 82.000000 & 464 & 672 & 767 & 0.056973 \\
+8 & SCN-008 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 160.000000 & 66.000000 & 3459 & 3500 & 3541 & 0.090640 \\
+8 & SCN-008 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 106.000000 & 68.000000 & 3444 & 10599 & 3608 & 0.131020 \\
+8 & SCN-008 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 614 & 1255 & 20 & 0.019747 \\
+8 & SCN-008 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 360239 & 50 & 7.078771 \\
+8 & SCN-008 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 380015 & 36 & 7.490195 \\
+8 & SCN-008 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 146.000000 & 68.000000 & 74 & 188 & 187 & 0.004672 \\
+8 & SCN-008 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 106.000000 & 68.000000 & 108 & 207 & 304 & 0.009583 \\
+9 & SCN-009 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 411.000000 & 90.000000 & 17280 & 17624 & 17967 & 0.494483 \\
+9 & SCN-009 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 339.000000 & 90.000000 & 15835 & 43866 & 16736 & 0.737172 \\
+9 & SCN-009 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1787 & 2961 & 20 & 0.054479 \\
+9 & SCN-009 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 338133 & 50 & 7.597222 \\
+9 & SCN-009 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 303854 & 38 & 6.517378 \\
+9 & SCN-009 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 395.000000 & 96.000000 & 122 & 243 & 238 & 0.018802 \\
+9 & SCN-009 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 339.000000 & 90.000000 & 515 & 722 & 872 & 0.058168 \\
+10 & SCN-010 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 260.000000 & 58.000000 & 3190 & 3314 & 3438 & 0.093952 \\
+10 & SCN-010 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 249.000000 & 58.000000 & 3332 & 9930 & 3578 & 0.180189 \\
+10 & SCN-010 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 801 & 1645 & 20 & 0.035470 \\
+10 & SCN-010 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 387798 & 50 & 7.650678 \\
+10 & SCN-010 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 390775 & 34 & 7.508866 \\
+10 & SCN-010 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 366.000000 & 88.000000 & 118 & 251 & 237 & 0.015442 \\
+10 & SCN-010 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 249.000000 & 58.000000 & 107 & 192 & 260 & 0.014282 \\
+11 & SCN-011 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 227.000000 & 55.000000 & 3049 & 3139 & 3228 & 0.079542 \\
+11 & SCN-011 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 207.000000 & 59.000000 & 3193 & 10242 & 3385 & 0.123187 \\
+11 & SCN-011 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1148 & 2458 & 20 & 0.040072 \\
+11 & SCN-011 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 417385 & 50 & 7.932957 \\
+11 & SCN-011 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 448163 & 32 & 7.855263 \\
+11 & SCN-011 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 251.000000 & 63.000000 & 79 & 185 & 182 & 0.007690 \\
+11 & SCN-011 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 207.000000 & 59.000000 & 340 & 557 & 581 & 0.028668 \\
+12 & SCN-012 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 292.000000 & 56.000000 & 1659 & 1750 & 1840 & 0.039901 \\
+12 & SCN-012 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 261.000000 & 56.000000 & 1765 & 5013 & 1953 & 0.062274 \\
+12 & SCN-012 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 830 & 1356 & 20 & 0.045266 \\
+12 & SCN-012 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 305714 & 50 & 6.153764 \\
+12 & SCN-012 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 307857 & 40 & 6.510539 \\
+12 & SCN-012 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 284.000000 & 56.000000 & 58 & 124 & 124 & 0.005516 \\
+12 & SCN-012 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 261.000000 & 56.000000 & 60 & 118 & 176 & 0.004614 \\
+13 & SCN-013 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 261.000000 & 110.000000 & 29498 & 29929 & 30359 & 0.914470 \\
+13 & SCN-013 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 211.000000 & 110.000000 & 29159 & 91569 & 30255 & 1.465747 \\
+13 & SCN-013 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 7300 & 15607 & 20 & 0.291553 \\
+13 & SCN-013 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 438215 & 50 & 8.392366 \\
+13 & SCN-013 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 395522 & 28 & 7.269894 \\
+13 & SCN-013 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 399.000000 & 176.000000 & 364 & 802 & 720 & 0.070450 \\
+13 & SCN-013 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 211.000000 & 110.000000 & 1289 & 1854 & 1955 & 0.192896 \\
+14 & SCN-014 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 271.000000 & 62.000000 & 11951 & 12570 & 13188 & 0.384459 \\
+14 & SCN-014 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 234.000000 & 67.000000 & 13256 & 43008 & 14864 & 0.567068 \\
+14 & SCN-014 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 7850 & 16761 & 20 & 0.287903 \\
+14 & SCN-014 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 364712 & 50 & 7.326184 \\
+14 & SCN-014 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 422304 & 28 & 7.493816 \\
+14 & SCN-014 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 268.000000 & 62.000000 & 74 & 197 & 196 & 0.021776 \\
+14 & SCN-014 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 234.000000 & 67.000000 & 283 & 469 & 533 & 0.097336 \\
+15 & SCN-015 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 285.000000 & 86.000000 & 28198 & 29072 & 29943 & 0.878619 \\
+15 & SCN-015 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 250.000000 & 92.000000 & 26761 & 79046 & 28414 & 1.170572 \\
+15 & SCN-015 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 364 & 614 & 20 & 0.015790 \\
+15 & SCN-015 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 361330 & 50 & 6.917911 \\
+15 & SCN-015 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 362338 & 40 & 7.251278 \\
+15 & SCN-015 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 272.000000 & 92.000000 & 132 & 289 & 280 & 0.026913 \\
+15 & SCN-015 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 250.000000 & 92.000000 & 567 & 819 & 930 & 0.110805 \\
+16 & SCN-016 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 256.000000 & 78.000000 & 16300 & 16970 & 17637 & 0.509603 \\
+16 & SCN-016 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 219.000000 & 78.000000 & 17488 & 55593 & 19216 & 0.947451 \\
+16 & SCN-016 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 4545 & 10152 & 20 & 0.196381 \\
+16 & SCN-016 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 424347 & 50 & 7.659275 \\
+16 & SCN-016 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 424818 & 30 & 7.563446 \\
+16 & SCN-016 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 250.000000 & 82.000000 & 100 & 229 & 225 & 0.018578 \\
+16 & SCN-016 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 219.000000 & 78.000000 & 171 & 309 & 408 & 0.024529 \\
+17 & SCN-017 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 190.000000 & 62.000000 & 4792 & 5058 & 5321 & 0.141086 \\
+17 & SCN-017 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 172.000000 & 62.000000 & 4746 & 13952 & 5332 & 0.200506 \\
+17 & SCN-017 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 75 & 144 & 20 & 0.003842 \\
+17 & SCN-017 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 357648 & 50 & 6.779922 \\
+17 & SCN-017 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 340628 & 46 & 6.603814 \\
+17 & SCN-017 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 191.000000 & 66.000000 & 77 & 182 & 180 & 0.014894 \\
+17 & SCN-017 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 172.000000 & 62.000000 & 137 & 238 & 326 & 0.023399 \\
+18 & SCN-018 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 270.000000 & 59.000000 & 6217 & 6597 & 6976 & 0.199345 \\
+18 & SCN-018 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 259.000000 & 61.000000 & 7546 & 24368 & 8271 & 0.361964 \\
+18 & SCN-018 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1950 & 4613 & 20 & 0.078261 \\
+18 & SCN-018 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 404251 & 50 & 7.713556 \\
+18 & SCN-018 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 413227 & 32 & 7.210388 \\
+18 & SCN-018 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 278.000000 & 61.000000 & 62 & 160 & 160 & 0.010232 \\
+18 & SCN-018 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 259.000000 & 61.000000 & 109 & 216 & 303 & 0.015806 \\
+19 & SCN-019 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 245.000000 & 63.000000 & 1927 & 2025 & 2122 & 0.054045 \\
+19 & SCN-019 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 235.000000 & 63.000000 & 1730 & 4995 & 1905 & 0.065911 \\
+19 & SCN-019 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 5428 & 12360 & 20 & 0.201302 \\
+19 & SCN-019 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 357711 & 50 & 6.905769 \\
+19 & SCN-019 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 422240 & 28 & 7.176722 \\
+19 & SCN-019 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 241.000000 & 63.000000 & 63 & 138 & 138 & 0.005737 \\
+19 & SCN-019 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 235.000000 & 63.000000 & 111 & 182 & 244 & 0.014266 \\
+20 & SCN-020 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 255.000000 & 97.000000 & 6614 & 6726 & 6838 & 0.168219 \\
+20 & SCN-020 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 231.000000 & 101.000000 & 7366 & 20395 & 7676 & 0.277321 \\
+20 & SCN-020 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 73 & 101 & 20 & 0.002073 \\
+20 & SCN-020 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 389516 & 50 & 7.304314 \\
+20 & SCN-020 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 390144 & 46 & 7.380094 \\
+20 & SCN-020 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 251.000000 & 101.000000 & 269 & 498 & 435 & 0.044791 \\
+20 & SCN-020 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 231.000000 & 101.000000 & 453 & 598 & 675 & 0.061806 \\
+21 & SCN-021 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 336.000000 & 78.000000 & 13828 & 14407 & 14985 & 0.414357 \\
+21 & SCN-021 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 299.000000 & 78.000000 & 15888 & 50139 & 17338 & 0.763782 \\
+21 & SCN-021 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1810 & 3725 & 20 & 0.061568 \\
+21 & SCN-021 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 423646 & 50 & 7.058985 \\
+21 & SCN-021 & IDS & ids & Move-Optimal (min steps, linear space) & False & TIMEOUT & NaN & NaN & 112824 & 233203 & 30 & 54.553797 \\
+21 & SCN-021 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 363.000000 & 86.000000 & 97 & 218 & 214 & 0.021224 \\
+21 & SCN-021 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 299.000000 & 78.000000 & 394 & 626 & 626 & 0.084639 \\
+22 & SCN-022 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 124.000000 & 62.000000 & 9364 & 9681 & 9996 & 3.906440 \\
+22 & SCN-022 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 115.000000 & 64.000000 & 7745 & 23156 & 8669 & 1.604797 \\
+22 & SCN-022 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1320 & 2340 & 20 & 0.182992 \\
+22 & SCN-022 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 355728 & 50 & 8.978357 \\
+22 & SCN-022 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 393299 & 34 & 4.322407 \\
+22 & SCN-022 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 129.000000 & 64.000000 & 86 & 187 & 183 & 0.007390 \\
+22 & SCN-022 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 115.000000 & 64.000000 & 191 & 287 & 361 & 0.011490 \\
+23 & SCN-023 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 171.000000 & 90.000000 & 35379 & 36555 & 37730 & 0.807572 \\
+23 & SCN-023 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 140.000000 & 94.000000 & 33144 & 110864 & 36804 & 0.912755 \\
+23 & SCN-023 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 4026 & 8573 & 20 & 0.057755 \\
+23 & SCN-023 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 450901 & 50 & 3.033927 \\
+23 & SCN-023 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 423276 & 30 & 2.962381 \\
+23 & SCN-023 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 221.000000 & 111.000000 & 166 & 411 & 399 & 0.025508 \\
+23 & SCN-023 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 140.000000 & 94.000000 & 717 & 1164 & 1448 & 0.076885 \\
+24 & SCN-024 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 142.000000 & 76.000000 & 5580 & 5669 & 5759 & 0.087684 \\
+24 & SCN-024 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 129.000000 & 77.000000 & 5573 & 16905 & 5772 & 0.133473 \\
+24 & SCN-024 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 1073 & 2154 & 20 & 0.021281 \\
+24 & SCN-024 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 340784 & 50 & 3.298440 \\
+24 & SCN-024 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 424548 & 34 & 3.575951 \\
+24 & SCN-024 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 203.000000 & 101.000000 & 304 & 621 & 518 & 0.030619 \\
+24 & SCN-024 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 129.000000 & 77.000000 & 535 & 721 & 762 & 0.039184 \\
+25 & SCN-025 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 322.000000 & 94.000000 & 11035 & 11134 & 11233 & 0.144115 \\
+25 & SCN-025 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 286.000000 & 96.000000 & 10975 & 31647 & 11255 & 0.220731 \\
+25 & SCN-025 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2227 & 4541 & 20 & 0.037400 \\
+25 & SCN-025 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 352051 & 50 & 2.698685 \\
+25 & SCN-025 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 378274 & 32 & 2.978121 \\
+25 & SCN-025 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 405.000000 & 126.000000 & 412 & 799 & 670 & 0.028213 \\
+25 & SCN-025 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 286.000000 & 96.000000 & 703 & 1003 & 1079 & 0.033325 \\
+26 & SCN-026 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 589.000000 & 99.000000 & 11463 & 11583 & 11700 & 0.171528 \\
+26 & SCN-026 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 536.000000 & 101.000000 & 11641 & 35075 & 11925 & 0.213372 \\
+26 & SCN-026 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 3229 & 7463 & 20 & 0.047328 \\
+26 & SCN-026 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 444431 & 50 & 3.245429 \\
+26 & SCN-026 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 450808 & 30 & 2.929385 \\
+26 & SCN-026 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 568.000000 & 101.000000 & 134 & 331 & 322 & 0.007824 \\
+26 & SCN-026 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 536.000000 & 101.000000 & 939 & 1249 & 1348 & 0.043045 \\
+27 & SCN-027 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 114.000000 & 53.000000 & 2442 & 2547 & 2651 & 0.027000 \\
+27 & SCN-027 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 96.000000 & 61.000000 & 2584 & 7969 & 2826 & 0.039166 \\
+27 & SCN-027 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 205 & 334 & 20 & 0.002618 \\
+27 & SCN-027 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 369207 & 50 & 2.519606 \\
+27 & SCN-027 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 340408 & 42 & 2.464080 \\
+27 & SCN-027 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 112.000000 & 53.000000 & 53 & 115 & 115 & 0.002005 \\
+27 & SCN-027 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 96.000000 & 61.000000 & 70 & 124 & 177 & 0.002525 \\
+28 & SCN-028 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 268.000000 & 95.000000 & 22817 & 23750 & 24683 & 0.307354 \\
+28 & SCN-028 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 209.000000 & 99.000000 & 23907 & 69883 & 26407 & 0.391105 \\
+28 & SCN-028 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 2684 & 5075 & 20 & 0.036390 \\
+28 & SCN-028 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 365268 & 50 & 2.643829 \\
+28 & SCN-028 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 379556 & 32 & 2.640253 \\
+28 & SCN-028 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 319.000000 & 131.000000 & 199 & 415 & 395 & 0.015110 \\
+28 & SCN-028 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 209.000000 & 99.000000 & 543 & 767 & 876 & 0.038508 \\
+29 & SCN-029 & BFS & bfs & Move-Optimal (min steps) & True & SUCCESS & 268.000000 & 74.000000 & 4996 & 5126 & 5255 & 0.056271 \\
+29 & SCN-029 & UCS & ucs & Cost-Optimal (min cost) & True & SUCCESS & 202.000000 & 76.000000 & 4385 & 13337 & 4697 & 0.068316 \\
+29 & SCN-029 & DLS (d=10, Below) & dls\_low & Bounded Depth Search & False & CUTOFF & NaN & NaN & 3923 & 8515 & 20 & 0.053238 \\
+29 & SCN-029 & DLS (d=25, Above) & dls\_high & Bounded Depth Search & False & NODELIMIT & NaN & NaN & 200000 & 390455 & 50 & 2.730979 \\
+29 & SCN-029 & IDS & ids & Move-Optimal (min steps, linear space) & False & NODELIMIT & NaN & NaN & 200000 & 410370 & 30 & 2.439365 \\
+29 & SCN-029 & Greedy Best-First & greedy & Heuristic Speed (no guarantee) & True & SUCCESS & 259.000000 & 76.000000 & 79 & 188 & 188 & 0.003561 \\
+29 & SCN-029 & A* (Own Heuristic) & astar & Cost-Optimal (min cost) & True & SUCCESS & 202.000000 & 76.000000 & 135 & 239 & 319 & 0.005642 \\
 \bottomrule
 \end{tabular}
 

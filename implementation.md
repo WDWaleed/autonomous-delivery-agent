@@ -1119,7 +1119,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M10.3 Rival and dispatcher tabs
 - [x] M10.4 Live-change flow and manual test — **v0.5.0**
 - [x] M11.1 Complete run_all
-- [ ] M11.2 Clean clone and determinism
+- [x] M11.2 Clean clone and determinism
 - [x] M11.3 Live-change drills
 - [ ] M11.4 Optional remaining twists
 - [x] M11.5 README — **v0.9.0-rc.1**
