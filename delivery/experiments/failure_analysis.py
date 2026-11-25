@@ -17,10 +17,9 @@ from typing import Any, Dict, List
 
 import pandas as pd
 
-from delivery.stamp import banner, save_table
+from delivery.stamp import banner, get_tables_dir, save_table
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent
-TABLES_DIR = PROJECT_ROOT / "results" / "tables"
 
 
 def _read_csv_skip_stamp(path: Path) -> pd.DataFrame:
@@ -30,11 +29,12 @@ def _read_csv_skip_stamp(path: Path) -> pd.DataFrame:
 def run_failure_analysis() -> pd.DataFrame:
     """Aggregates cross-stage failures from raw experiment tables."""
     print(banner("M9.2: CROSS-STAGE FAILURE ANALYSIS"))
+    tables_dir = get_tables_dir()
 
     rows: List[Dict[str, Any]] = []
 
     # 1. Part A Reflex Failures
-    reflex_raw = TABLES_DIR / "partA_reflex_scenarios.csv"
+    reflex_raw = tables_dir / "partA_reflex_scenarios.csv"
     if reflex_raw.exists():
         df_a = _read_csv_skip_stamp(reflex_raw)
         fails_a = df_a[df_a["Success"] == False]  # noqa: E712
@@ -58,7 +58,7 @@ def run_failure_analysis() -> pd.DataFrame:
         })
 
     # 2. Part B Planner DNF / Limits
-    six_raw = TABLES_DIR / "partB_six_algorithms_raw.csv"
+    six_raw = tables_dir / "partB_six_algorithms_raw.csv"
     if six_raw.exists():
         df_b = _read_csv_skip_stamp(six_raw)
         fails_b = df_b[df_b["success"] == False]  # noqa: E712
@@ -82,7 +82,7 @@ def run_failure_analysis() -> pd.DataFrame:
         })
 
     # 3. Part C Game Losses (Captures) & Draws
-    games_raw = TABLES_DIR / "partC_games_raw.csv"
+    games_raw = tables_dir / "partC_games_raw.csv"
     if games_raw.exists():
         df_c = _read_csv_skip_stamp(games_raw)
         losses_c = df_c[df_c["loss"] == True]  # noqa: E712
@@ -107,8 +107,8 @@ def run_failure_analysis() -> pd.DataFrame:
         })
 
     # 4. Part D LLM Dispatcher Failures
-    llm_fail = TABLES_DIR / "partD_failures.csv"
-    llm_raw = TABLES_DIR / "partD_llm_raw.csv"
+    llm_fail = tables_dir / "partD_failures.csv"
+    llm_raw = tables_dir / "partD_llm_raw.csv"
     if llm_fail.exists() and llm_raw.exists():
         df_dfail = _read_csv_skip_stamp(llm_fail)
         df_draw = _read_csv_skip_stamp(llm_raw)

@@ -30,7 +30,7 @@ from delivery.llm.client import LLMClient, OpenAICompatibleClient, ReplayClient
 from delivery.llm.react import PROMPT_VERSION, ReActResult, run_react_dispatcher
 from delivery.llm.tools import DispatcherToolbox
 from delivery.llm.validation import ArgumentValidator
-from delivery.stamp import STAMP, banner, save_figure, save_table
+from delivery.stamp import STAMP, banner, get_results_dir, save_figure, save_table
 
 PROJECT_ROOT = Path(__file__).resolve().parent.parent.parent.parent
 TRACES_DIR = PROJECT_ROOT / "results" / "traces"
@@ -121,7 +121,7 @@ def run_partD_evaluation(
                         validator=None,
                         bypass_cache=bypass,
                         save_trace=True,
-                        trace_dir=trace_dir or TRACES_DIR,
+                        trace_dir=trace_dir or (get_results_dir() / "traces"),
                     )
                 )
             except Exception as e:
@@ -176,7 +176,7 @@ def run_partD_evaluation(
                         max_repair_attempts=2,
                         bypass_cache=bypass,
                         save_trace=True,
-                        trace_dir=trace_dir or TRACES_DIR,
+                        trace_dir=trace_dir or (get_results_dir() / "traces"),
                     )
                 )
             except Exception as e:

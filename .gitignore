@@ -15,10 +15,11 @@ __pycache__/
 .coverage
 htmlcov/
 
-# Raw / cache outputs
+# Raw / cache / quick outputs
 results/raw/
 results/cache/
 results/logs/
+results/quick/
 results/llm_cache.jsonl
 
 # Report build artifacts

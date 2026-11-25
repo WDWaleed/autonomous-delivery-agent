@@ -28,6 +28,34 @@ FIGURES_DIR = RESULTS_DIR / "figures"
 TABLES_DIR = RESULTS_DIR / "tables"
 REPORT_DIR = PROJECT_ROOT / "report"
 
+_QUICK_MODE = False
+
+
+def set_quick_mode(enabled: bool) -> None:
+    """Toggles quick-mode output isolation (D19)."""
+    global _QUICK_MODE
+    _QUICK_MODE = bool(enabled)
+
+
+def is_quick_mode() -> bool:
+    """Returns True when quick-mode output isolation is active."""
+    return _QUICK_MODE
+
+
+def get_results_dir() -> Path:
+    """Returns active results root (results/quick in quick mode, else results/)."""
+    return (RESULTS_DIR / "quick") if _QUICK_MODE else RESULTS_DIR
+
+
+def get_tables_dir() -> Path:
+    """Returns active tables directory."""
+    return get_results_dir() / "tables"
+
+
+def get_figures_dir() -> Path:
+    """Returns active figures directory."""
+    return get_results_dir() / "figures"
+
 
 def load_members(path: Optional[Path] = None) -> List[Tuple[str, str]]:
     """Loads group members from config/members.json as a list of (Name, CMS_ID)."""
@@ -86,7 +114,7 @@ def save_figure(
 
     Writes both .png and .pdf formats to results/figures/ (and report/figures/ if enabled).
     """
-    target_dir = output_dir or FIGURES_DIR
+    target_dir = output_dir or get_figures_dir()
     target_dir.mkdir(parents=True, exist_ok=True)
 
     # Add stamp to figure footer if not already added
@@ -120,8 +148,8 @@ def save_figure(
     meta.add_text("Description", f"OEL delivery agent figure: {name} | {STAMP}")
     im.save(png_path, "PNG", pnginfo=meta)
 
-    # Also copy to report/figures if requested
-    if report_copy:
+    # Also copy to report/figures if requested (never in quick mode per D19)
+    if report_copy and not _QUICK_MODE:
         rep_fig_dir = REPORT_DIR / "figures"
         rep_fig_dir.mkdir(parents=True, exist_ok=True)
         im.save(rep_fig_dir / f"{name}.png", "PNG", pnginfo=meta)
@@ -183,7 +211,7 @@ def save_table(
     - Markdown: includes caption with STAMP
     - LaTeX: table environment with `\caption{... | \stampline}`
     """
-    target_dir = output_dir or TABLES_DIR
+    target_dir = output_dir or get_tables_dir()
     target_dir.mkdir(parents=True, exist_ok=True)
 
     csv_path = target_dir / f"{name}.csv"

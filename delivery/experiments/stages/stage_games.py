@@ -97,7 +97,7 @@ def run_final_games(
     """Runs the M7.6 50-game evaluation comparing Default vs Tuned weights."""
     print(banner("PART C: FINAL 50-GAME EVALUATION AGAINST CHASER RIVAL (M7.6)"))
 
-    target_n = 10 if quick else max(30, n_games)
+    target_n = 4 if quick else max(30, n_games)
     suite = [sc for sc in generate_scenario_suite(n_scenarios=target_n) if sc.feasible]
 
     default_weights = EvalWeights()
