@@ -1,0 +1,12 @@
+**Cross-Stage Failure Analysis Summary Traced to Raw Logs**
+
+*Group Stamp: Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)*
+
+| Category                                        | Count       | Total_Evaluated | Example_Seed_Or_Request     | Root_Cause                                                                                  | Mitigation                                                                             |
+| ----------------------------------------------- | ----------- | --------------- | --------------------------- | ------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
+| Part A: Reflex Agent Failures                   | 29          | 30              | SCN-000                     | Stateless greedy/reflex agent trapped in local minima/wall oscillations without memory.     | Replace with stateful A* search planner (Part B).                                      |
+| Part B: Uninformed Bounded Search DNF (DLS/IDS) | 90          | 210             | dls_low (SCN-000)           | DLS(d=10) hits CUTOFF below optimal depth; DLS(d=25)/IDS hit NODELIMIT on 5-stop branching. | Use A* with admissible CombinedMSTHeuristic (30/30 solved).                            |
+| Part C: Rival Capture Losses                    | 21          | 100             | Default Weights k=4         | Stochastic slip (p=0.23) pushed agent toward Chaser or corridor trap.                       | Tactical Alpha-Beta window evasion + slip-triggered A* replanning.                     |
+| Part C: Step-Cap / Excess-Cost Draws            | 37          | 100             | Default Weights k=2         | Repeated rival evasion + slip detours exhausted T_max or kappa*C* budget.                   | Route-heavy evaluation weights (tuned) reduced draws and mean cost.                    |
+| Part D: LLM Dispatcher Failures (Live Groq)     | 13          | 40              | REQ-02 (ReAct_NoValidation) | Groq free-tier HTTP 429 rate limits, tool JSON schema errors, and premature stop (REQ-09).  | ArgumentValidator improved accuracy (+5% WithVal vs NoVal) and blocked contradictions. |
+| UI / Runtime Failures                           | PENDING_M10 | 0               | N/A                         | Streamlit UI (M10) manual verification not yet executed.                                    | Complete M10.4 manual checklist before final v0.5.0 release.                           |
