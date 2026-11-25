@@ -1,0 +1,44 @@
+{
+  "stamp": "Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)",
+  "mode": "full",
+  "completeness": {
+    "partA_reflex": true,
+    "partB_heuristics": true,
+    "partC_pruning": true,
+    "partC_games": true,
+    "partD_llm": true,
+    "ablation": true
+  },
+  "provenance": {
+    "partA_reflex": "results/tables/partA_reflex_scenarios.csv",
+    "partB_heuristics": "results/tables/partB_heuristics_raw.csv",
+    "partC_pruning": "results/tables/partC_pruning_raw.csv",
+    "partC_games": "results/tables/partC_games_raw.csv",
+    "partD_llm": "results/tables/partD_llm_raw.csv",
+    "ablation": "results/tables/ablation_raw.csv"
+  },
+  "full": {
+    "partA_reflex_scenarios": 30,
+    "partA_reflex_successes": 1,
+    "partA_reflex_success_pct": 3.3,
+    "partB_scenarios": 30,
+    "partB_ucs_mean_exp": 12299.6,
+    "partB_b2_mean_exp": 3349.9,
+    "partB_own_mean_exp": 387.4,
+    "partB_own_mean_cost": 218.07,
+    "partC_pruning_positions": 210,
+    "partC_pruning_d6_own_evals": 137.4,
+    "partC_pruning_d6_saved_mm_pct": 89.7,
+    "partC_games_count": 50,
+    "partC_tuned_win_pct": 42.0,
+    "partC_tuned_mean_cost": 407.9,
+    "partC_default_mean_cost": 417.3,
+    "partD_requests": 20,
+    "partD_noval_success_pct": 65.0,
+    "partD_withval_success_pct": 70.0,
+    "m9_ablation_mst_only_exp": 895.7,
+    "m9_ablation_full_own_exp": 892.2
+  },
+  "quick": {},
+  "timing": {}
+}

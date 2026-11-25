@@ -1113,7 +1113,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M8.6 Evaluation/failures/traces — **v0.4.0**
 - [x] M9.1 Ablation
 - [x] M9.2 Failure analysis
-- [ ] M9.3 Numbers export and contract checks
+- [x] M9.3 Numbers export and contract checks
 - [ ] M10.1 UI layout
 - [ ] M10.2 Planning and execution
 - [ ] M10.3 Rival and dispatcher tabs
