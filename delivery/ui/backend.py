@@ -15,6 +15,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 import numpy as np
 
+from delivery.agents.hybrid import HybridAgent
 from delivery.heuristics.base import ZeroHeuristic
 from delivery.heuristics.baselines import ManhattanNearestStopHeuristic, MaxRelaxedDistanceHeuristic
 from delivery.heuristics.own import CombinedMSTHeuristic
@@ -28,6 +29,7 @@ from delivery.search.greedy import greedy_best_first_search
 from delivery.search.ids import iterative_deepening_search
 from delivery.search.problem import ACTION_NAMES, DeliveryProblem
 from delivery.search.ucs import uniform_cost_search
+from delivery.sim.env import DeliveryEnv
 from delivery.stamp import STAMP
 from delivery.twists.base import TwistStack
 from delivery.twists.registry import build_twist_stack
@@ -160,3 +162,74 @@ def render_map_figure(
     fig.text(0.5, 0.01, STAMP, ha="center", va="bottom", fontsize=7.5, color="#555555")
     plt.tight_layout(rect=[0, 0.04, 1, 1])
     return fig
+
+
+class UISimSession:
+    """Interactive Step/Play/Reset execution session for DeliveryEnv + HybridAgent."""
+
+    def __init__(
+        self,
+        instance: Instance,
+        enable_rival: bool = False,
+        window_radius: int = 4,
+    ):
+        self.instance = instance
+        self.world = GridWorld(instance)
+        self.twists = build_twist_stack(instance, self.world)
+        self.enable_rival = enable_rival
+        self.window_radius = int(window_radius)
+        self.env = DeliveryEnv(
+            world=self.world,
+            twists=self.twists,
+            slip_p=instance.slip_probability,
+            seed=instance.seed,
+            enable_rival=enable_rival,
+            rival_depth=min(4, int(instance.adversary_search_depth)),
+        )
+        self.agent = HybridAgent(
+            instance,
+            world=self.world,
+            twists=self.twists,
+            window_radius=self.window_radius,
+            tactical_depth=min(3, int(instance.adversary_search_depth)),
+        )
+        self.trajectory: List[Tuple[int, int]] = [self.env.agent_pos]
+        self.event_log: List[Dict[str, Any]] = []
+
+    def step_once(self) -> Dict[str, Any]:
+        """Executes a single Sense-Reason-Act step (+ rival move if enabled)."""
+        if self.env.is_done() or self.env.captured:
+            return {"done": True}
+
+        percept = self.env.get_percept()
+        action, rationale = self.agent.choose_action(percept)
+        _, step_cost, ev = self.env.step(action)
+        self.trajectory.append(self.env.agent_pos)
+
+        rival_act = None
+        if self.enable_rival and not self.env.is_done() and not self.env.captured:
+            rival_act = self.env.step_rival()
+
+        entry = {
+            "step": self.env.step_count,
+            "action": ACTION_NAMES.get(action, str(action)),
+            "pos": list(self.env.agent_pos),
+            "slipped": bool(ev.get("slipped", False)),
+            "cost": float(step_cost),
+            "total_cost": float(self.env.total_cost),
+            "rival_pos": list(self.env.rival_pos) if self.env.rival_pos else None,
+            "rival_action": ACTION_NAMES.get(rival_act, "-") if rival_act is not None else "-",
+            "rationale": rationale,
+            "replans": self.agent.replan_counts.total_replans(),
+            "captured": self.env.captured,
+            "done": self.env.is_done(),
+        }
+        self.event_log.append(entry)
+        return entry
+
+    def play_all(self, max_steps: int = 120) -> List[Dict[str, Any]]:
+        """Runs until done, captured, or max_steps."""
+        while not self.env.is_done() and not self.env.captured and self.env.step_count < max_steps:
+            self.step_once()
+        return self.event_log
+

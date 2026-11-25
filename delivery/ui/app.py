@@ -11,6 +11,7 @@ import streamlit as st
 from delivery.instance import get_canonical_instance
 from delivery.stamp import STAMP, ui_footer, ui_header
 from delivery.ui.backend import (
+    UISimSession,
     build_configured_instance,
     compute_config_hash,
     render_map_figure,
@@ -27,6 +28,10 @@ def _init_session_state() -> None:
         st.session_state["active_plan"] = None
     if "active_config_hash" not in st.session_state:
         st.session_state["active_config_hash"] = None
+    if "sim_session" not in st.session_state:
+        st.session_state["sim_session"] = None
+    if "sim_config_hash" not in st.session_state:
+        st.session_state["sim_config_hash"] = None
 
 
 def main() -> None:
@@ -98,14 +103,33 @@ def main() -> None:
 
     with tab_plan:
         st.caption(f"Tab Stamp: {STAMP}")
+
+        # Invalidate stale sim session when sidebar config changes
+        if st.session_state["sim_config_hash"] != cfg_hash:
+            st.session_state["sim_session"] = None
+            st.session_state["sim_config_hash"] = cfg_hash
+
         col_map, col_info = st.columns([1.2, 1.0])
         with col_map:
+            map_placeholder = st.empty()
+            sim_sess = st.session_state["sim_session"]
             plan_data = st.session_state["plan_cache"].get(cfg_hash)
-            traj = plan_data["trajectory"] if plan_data else None
-            fig = render_map_figure(inst, agent_pos=inst.start, trajectory=traj, title=f"Map ({inst.id})")
-            st.pyplot(fig)
+            if sim_sess is not None:
+                fig = render_map_figure(
+                    inst,
+                    agent_pos=sim_sess.env.agent_pos,
+                    rival_pos=sim_sess.env.rival_pos,
+                    trajectory=sim_sess.trajectory,
+                    delivered_mask=sim_sess.env.delivered_mask,
+                    title=f"Live Execution ({inst.id} | Step {sim_sess.env.step_count})",
+                )
+            else:
+                traj = plan_data["trajectory"] if plan_data else None
+                fig = render_map_figure(inst, agent_pos=inst.start, trajectory=traj, title=f"Map ({inst.id})")
+            map_placeholder.pyplot(fig)
+
         with col_info:
-            st.subheader("Planner Controls")
+            st.subheader("1. Offline Planner")
             if st.button("Plan Route", type="primary"):
                 res = run_ui_plan(inst, algo=algo, heuristic=heuristic, depth_limit=depth_limit)
                 st.session_state["plan_cache"][cfg_hash] = res
@@ -114,13 +138,43 @@ def main() -> None:
 
             plan_data = st.session_state["plan_cache"].get(cfg_hash)
             if plan_data:
-                st.metric("Status", plan_data["status"])
-                c1, c2, c3 = st.columns(3)
-                c1.metric("Cost", f"{plan_data['cost']:.1f}" if plan_data["cost"] is not None else "N/A")
-                c2.metric("Actions", plan_data["length"])
-                c3.metric("Expanded", plan_data["expanded"])
+                if not plan_data["success"]:
+                    st.warning(f"Planner terminated without full solution: {plan_data['status']} ({plan_data['failure_reason'] or 'limit reached'})")
+                c1, c2, c3, c4 = st.columns(4)
+                c1.metric("Status", plan_data["status"])
+                c2.metric("Cost", f"{plan_data['cost']:.1f}" if plan_data["cost"] is not None else "N/A")
+                c3.metric("Actions", plan_data["length"])
+                c4.metric("Expanded", f"{plan_data['expanded']:,}")
+                st.caption(f"Generated: {plan_data['generated']:,} | Peak Stored: {plan_data['peak_stored']:,} | Time: {plan_data['duration_s']:.4f}s")
             else:
                 st.info("Click 'Plan Route' to compute a route for the current configuration.")
+
+            st.divider()
+            st.subheader("2. Step-by-Step Execution")
+            b1, b2, b3 = st.columns(3)
+            if b1.button("Step"):
+                if st.session_state["sim_session"] is None:
+                    st.session_state["sim_session"] = UISimSession(inst, enable_rival=False, window_radius=window_radius)
+                st.session_state["sim_session"].step_once()
+                st.rerun()
+            if b2.button("Play"):
+                if st.session_state["sim_session"] is None:
+                    st.session_state["sim_session"] = UISimSession(inst, enable_rival=False, window_radius=window_radius)
+                st.session_state["sim_session"].play_all(max_steps=120)
+                st.rerun()
+            if b3.button("Reset"):
+                st.session_state["sim_session"] = None
+                st.rerun()
+
+            sim_sess = st.session_state["sim_session"]
+            if sim_sess is not None:
+                st.write(
+                    f"**Steps:** {sim_sess.env.step_count} | **Cost:** {sim_sess.env.total_cost:.1f} | "
+                    f"**Delivered:** {bin(sim_sess.env.delivered_mask).count('1')}/{len(inst.delivery_stops)} | "
+                    f"**Replans:** {sim_sess.agent.replan_counts.total_replans()}"
+                )
+                if sim_sess.event_log:
+                    st.dataframe(sim_sess.event_log[-10:], use_container_width=True)
 
     with tab_game:
         st.caption(f"Tab Stamp: {STAMP}")
