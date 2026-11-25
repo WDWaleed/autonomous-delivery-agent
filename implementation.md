@@ -1107,7 +1107,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M7.6 Final games — **v0.3.0**
 - [x] M8.1 LLM client/backend
 - [x] M8.2 Tools
-- [ ] M8.3 ReAct loop and safe traces
+- [x] M8.3 ReAct loop and safe traces
 - [ ] M8.4 Requests and checker
 - [ ] M8.5 Validation layer
 - [ ] M8.6 Evaluation/failures/traces — **v0.4.0**
