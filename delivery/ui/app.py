@@ -171,7 +171,7 @@ def main() -> None:
 
             st.divider()
             st.subheader("2. Step-by-Step Execution")
-            anim_delay_ms = st.slider("Live Animation Delay (ms/step)", min_value=20, max_value=500, value=100, step=20)
+            anim_delay_ms = st.slider("Live Animation Delay (ms/step)", min_value=0, max_value=500, value=40, step=10)
             b1, b2, b3 = st.columns(3)
             if b1.button("Step"):
                 if st.session_state["sim_session"] is None:
@@ -208,7 +208,8 @@ def main() -> None:
                         f"**Replans:** {s.agent.replan_counts.total_replans()}"
                     )
                     sim_log_placeholder.dataframe(s.event_log[-8:], use_container_width=True)
-                    time.sleep(anim_delay_ms / 1000.0)
+                    if anim_delay_ms > 0:
+                        time.sleep(anim_delay_ms / 1000.0)
 
                 sess.play_all(max_steps=120, on_step=_on_sim_step)
 
@@ -230,7 +231,7 @@ def main() -> None:
         with g_col2:
             st.subheader("Adversarial Game vs Chaser")
             use_tuned = st.checkbox("Use Tuned Evaluation Weights (config/tuned_weights.json)", value=True)
-            game_delay_ms = st.slider("Game Animation Delay (ms/step)", min_value=20, max_value=500, value=100, step=20)
+            game_delay_ms = st.slider("Game Animation Delay (ms/step)", min_value=0, max_value=500, value=40, step=10)
             play_game_clicked = st.button("Play Full Game vs Chaser", type="primary")
             game_stats_placeholder = st.empty()
 
@@ -251,7 +252,8 @@ def main() -> None:
                         f"**Delivered:** {bin(env.delivered_mask).count('1')}/{len(inst.delivery_stops)} | "
                         f"**Replans:** {ag.replan_counts.total_replans()}"
                     )
-                    time.sleep(game_delay_ms / 1000.0)
+                    if game_delay_ms > 0:
+                        time.sleep(game_delay_ms / 1000.0)
 
                 st.session_state["game_result"] = run_ui_rival_game(
                     inst,
