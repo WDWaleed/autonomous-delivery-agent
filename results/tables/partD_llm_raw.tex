@@ -1,0 +1,73 @@
+% Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)
+\begin{table}[htbp]
+\centering
+\caption{Raw Per-Request Part D Evaluation Log | \stampline}
+\label{tab:partD_llm_raw}
+\begin{tabular}{lllrrrrrrrrrrlr}
+\toprule
+request\_id & level & mode & rep & passed & intent\_accurate & tool\_accurate & constraints\_satisfied & plan\_valid & cost\_ratio & tool\_calls & interventions & latency\_s & failure\_category & cached \\
+\midrule
+REQ-01 & single\_constraint & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-01 & single\_constraint & ReAct\_NoValidation & 1 & True & True & True & True & True & 1.000000 & 2 & 0 & 3.748961 & NaN & False \\
+REQ-01 & single\_constraint & ReAct\_WithValidation & 1 & True & True & True & True & True & 1.000000 & 3 & 0 & 3.997268 & NaN & False \\
+REQ-02 & single\_constraint & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-02 & single\_constraint & ReAct\_NoValidation & 1 & False & False & False & False & False & NaN & 0 & 0 & 0.000000 & wrong\_tool & False \\
+REQ-02 & single\_constraint & ReAct\_WithValidation & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 2.359958 & NaN & False \\
+REQ-03 & single\_constraint & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-03 & single\_constraint & ReAct\_NoValidation & 1 & False & False & False & False & False & NaN & 0 & 0 & 0.000000 & wrong\_tool & False \\
+REQ-03 & single\_constraint & ReAct\_WithValidation & 1 & True & True & True & True & True & 0.447368 & 1 & 0 & 2.477474 & NaN & False \\
+REQ-04 & single\_constraint & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-04 & single\_constraint & ReAct\_NoValidation & 1 & True & True & True & True & True & 1.000000 & 6 & 0 & 7.125642 & NaN & False \\
+REQ-04 & single\_constraint & ReAct\_WithValidation & 1 & True & True & True & True & True & 1.000000 & 2 & 0 & 3.373588 & NaN & False \\
+REQ-05 & multiple\_constraints & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-05 & multiple\_constraints & ReAct\_NoValidation & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 2.170789 & NaN & False \\
+REQ-05 & multiple\_constraints & ReAct\_WithValidation & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 2.191447 & NaN & False \\
+REQ-06 & multiple\_constraints & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-06 & multiple\_constraints & ReAct\_NoValidation & 1 & False & False & False & False & False & NaN & 0 & 0 & 0.000000 & wrong\_tool & False \\
+REQ-06 & multiple\_constraints & ReAct\_WithValidation & 1 & False & False & False & False & False & NaN & 0 & 0 & 0.000000 & wrong\_tool & False \\
+REQ-07 & multiple\_constraints & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-07 & multiple\_constraints & ReAct\_NoValidation & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 3.008277 & NaN & False \\
+REQ-07 & multiple\_constraints & ReAct\_WithValidation & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 2.609538 & NaN & False \\
+REQ-08 & multiple\_constraints & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-08 & multiple\_constraints & ReAct\_NoValidation & 1 & True & True & True & True & True & 0.405063 & 1 & 0 & 1.299650 & NaN & False \\
+REQ-08 & multiple\_constraints & ReAct\_WithValidation & 1 & True & True & True & True & True & 0.405063 & 1 & 0 & 1.339524 & NaN & False \\
+REQ-09 & twist\_specific & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-09 & twist\_specific & ReAct\_NoValidation & 1 & False & False & True & False & False & NaN & 1 & 0 & 1.605848 & invalid\_plan & False \\
+REQ-09 & twist\_specific & ReAct\_WithValidation & 1 & False & False & True & False & False & NaN & 1 & 0 & 1.205032 & invalid\_plan & False \\
+REQ-10 & twist\_specific & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-10 & twist\_specific & ReAct\_NoValidation & 1 & False & False & False & False & False & NaN & 0 & 0 & 0.000000 & wrong\_tool & False \\
+REQ-10 & twist\_specific & ReAct\_WithValidation & 1 & False & False & False & False & False & NaN & 0 & 0 & 0.000000 & wrong\_tool & False \\
+REQ-11 & twist\_specific & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-11 & twist\_specific & ReAct\_NoValidation & 1 & True & True & True & True & True & 1.000000 & 3 & 0 & 3.852639 & NaN & False \\
+REQ-11 & twist\_specific & ReAct\_WithValidation & 1 & False & False & False & False & False & NaN & 0 & 0 & 0.000000 & wrong\_tool & False \\
+REQ-12 & twist\_specific & Direct\_Planner & 1 & True & True & True & True & True & 1.000000 & 1 & 0 & 0.010000 & NaN & True \\
+REQ-12 & twist\_specific & ReAct\_NoValidation & 1 & True & True & True & True & True & 1.000000 & 2 & 0 & 2.996802 & NaN & False \\
+REQ-12 & twist\_specific & ReAct\_WithValidation & 1 & True & True & True & True & True & 1.000000 & 2 & 0 & 3.067022 & NaN & False \\
+REQ-13 & ambiguous & Direct\_Planner & 1 & True & True & True & True & True & NaN & 0 & 0 & 0.010000 & NaN & True \\
+REQ-13 & ambiguous & ReAct\_NoValidation & 1 & True & True & True & True & True & NaN & 0 & 0 & 3.733431 & NaN & False \\
+REQ-13 & ambiguous & ReAct\_WithValidation & 1 & True & True & True & True & True & NaN & 0 & 0 & 3.891326 & NaN & False \\
+REQ-14 & ambiguous & Direct\_Planner & 1 & True & True & True & True & True & NaN & 0 & 0 & 0.010000 & NaN & True \\
+REQ-14 & ambiguous & ReAct\_NoValidation & 1 & False & False & True & True & True & NaN & 0 & 0 & 0.000000 & ignored\_constraint & False \\
+REQ-14 & ambiguous & ReAct\_WithValidation & 1 & False & False & True & True & True & NaN & 0 & 0 & 0.000000 & ignored\_constraint & False \\
+REQ-15 & ambiguous & Direct\_Planner & 1 & True & True & True & True & True & NaN & 0 & 0 & 0.010000 & NaN & True \\
+REQ-15 & ambiguous & ReAct\_NoValidation & 1 & True & True & True & True & True & NaN & 0 & 0 & 3.321375 & NaN & False \\
+REQ-15 & ambiguous & ReAct\_WithValidation & 1 & True & True & True & True & True & NaN & 0 & 0 & 4.686159 & NaN & False \\
+REQ-16 & ambiguous & Direct\_Planner & 1 & True & True & True & True & True & NaN & 0 & 0 & 0.010000 & NaN & True \\
+REQ-16 & ambiguous & ReAct\_NoValidation & 1 & False & False & True & True & True & NaN & 0 & 0 & 0.000000 & ignored\_constraint & False \\
+REQ-16 & ambiguous & ReAct\_WithValidation & 1 & False & False & True & True & True & NaN & 0 & 0 & 0.000000 & ignored\_constraint & False \\
+REQ-17 & infeasible\_conflicting & Direct\_Planner & 1 & True & True & True & True & True & NaN & 1 & 0 & 0.010000 & NaN & True \\
+REQ-17 & infeasible\_conflicting & ReAct\_NoValidation & 1 & True & True & True & True & True & NaN & 0 & 0 & 1.025090 & NaN & False \\
+REQ-17 & infeasible\_conflicting & ReAct\_WithValidation & 1 & True & True & True & True & True & NaN & 1 & 0 & 2.923234 & NaN & False \\
+REQ-18 & infeasible\_conflicting & Direct\_Planner & 1 & True & True & True & True & True & NaN & 1 & 0 & 0.010000 & NaN & True \\
+REQ-18 & infeasible\_conflicting & ReAct\_NoValidation & 1 & True & True & True & True & True & NaN & 0 & 0 & 0.735960 & NaN & False \\
+REQ-18 & infeasible\_conflicting & ReAct\_WithValidation & 1 & True & True & True & True & True & NaN & 0 & 0 & 0.711581 & NaN & False \\
+REQ-19 & infeasible\_conflicting & Direct\_Planner & 1 & True & True & True & True & True & NaN & 1 & 0 & 0.010000 & NaN & True \\
+REQ-19 & infeasible\_conflicting & ReAct\_NoValidation & 1 & True & True & True & True & True & NaN & 1 & 0 & 1.994330 & NaN & False \\
+REQ-19 & infeasible\_conflicting & ReAct\_WithValidation & 1 & True & True & True & True & True & NaN & 0 & 1 & 1.724563 & NaN & False \\
+REQ-20 & infeasible\_conflicting & Direct\_Planner & 1 & True & True & True & True & True & NaN & 1 & 0 & 0.010000 & NaN & True \\
+REQ-20 & infeasible\_conflicting & ReAct\_NoValidation & 1 & True & True & True & True & True & NaN & 2 & 0 & 3.864666 & NaN & False \\
+REQ-20 & infeasible\_conflicting & ReAct\_WithValidation & 1 & True & True & True & True & True & NaN & 2 & 0 & 4.611715 & NaN & False \\
+\bottomrule
+\end{tabular}
+
+\end{table}

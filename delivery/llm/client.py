@@ -263,17 +263,25 @@ class OpenAICompatibleClient:
         timeout_seconds: float = 60.0,
     ):
         load_dotenv(PROJECT_ROOT / ".env", override=False)
+        self._api_key = (
+            os.environ.get("LLM_API_KEY")
+            or os.environ.get("OPENAI_API_KEY")
+            or os.environ.get("GROQ_API_KEY")
+            or ""
+        )
+        using_groq = bool(os.environ.get("GROQ_API_KEY") and not os.environ.get("LLM_API_KEY") and not os.environ.get("OPENAI_API_KEY"))
+        if provider == "openai-compat" and using_groq:
+            provider = "groq"
         self.provider = provider
         self.base_url = (
             base_url
             or os.environ.get("LLM_BASE_URL")
-            or "https://api.openai.com/v1"
+            or ("https://api.groq.com/openai/v1" if using_groq else "https://api.openai.com/v1")
         ).rstrip("/")
-        self.model = model or os.environ.get("LLM_MODEL") or "gpt-4o-mini"
-        self._api_key = (
-            os.environ.get("LLM_API_KEY")
-            or os.environ.get("OPENAI_API_KEY")
-            or ""
+        self.model = (
+            model
+            or os.environ.get("LLM_MODEL")
+            or ("openai/gpt-oss-120b" if using_groq else "gpt-4o-mini")
         )
         self.timeout_seconds = float(timeout_seconds)
         self.replay_cache = ReplayClient(
@@ -317,7 +325,11 @@ class OpenAICompatibleClient:
         if tools:
             body["tools"] = tools
 
-        headers = {"Content-Type": "application/json"}
+        headers = {
+            "Content-Type": "application/json",
+            "User-Agent": "oel-delivery-agent/1.0",
+            "Accept": "application/json",
+        }
         if self._api_key:
             headers["Authorization"] = f"Bearer {self._api_key}"
 

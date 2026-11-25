@@ -1,0 +1,24 @@
+**Part D Dispatcher Failure Log**
+
+*Group Stamp: Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)*
+
+| request_id | mode                 | rep | category           | tool_calls     | evidence                     | root_cause                                                                                                                                   |
+| ---------- | -------------------- | --- | ------------------ | -------------- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- |
+| REQ-02     | ReAct_NoValidation   | 1   | wrong_tool         | none           | No valid plan produced       | LLM request failed: The read operation timed out                                                                                             |
+| REQ-03     | ReAct_NoValidation   | 1   | wrong_tool         | none           | No valid plan produced       | LLM request failed: The read operation timed out                                                                                             |
+| REQ-06     | ReAct_NoValidation   | 1   | wrong_tool         | none           | No valid plan produced       | LLM HTTP 429: {"error":{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m31etz8tea59m7ypg0nbek92` servi |
+| REQ-06     | ReAct_WithValidation | 1   | wrong_tool         | none           | No valid plan produced       | LLM HTTP 429: {"error":{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m31etz8tea59m7ypg0nbek92` servi |
+| REQ-09     | ReAct_NoValidation   | 1   | invalid_plan       | inspect_twists | No valid plan produced       | {
+  "status": "INSPECTED",
+  "location": [4, 20],
+  "allowed_directions": ["NORTH", "EAST"],
+  "blocked_directions": ["SOUTH", "WEST"],
+  "a |
+| REQ-09     | ReAct_WithValidation | 1   | invalid_plan       | inspect_twists | No valid plan produced       | {"status":"INSPECTED","plan":null,"cost":0,"reason":"Depot at (4,20) permits movement only NORTH and EAST; one-way streets active, no fragil |
+| REQ-10     | ReAct_NoValidation   | 1   | wrong_tool         | none           | No valid plan produced       | LLM HTTP 400: {"error":{"message":"Tool call validation failed: tool call validation failed: parameters for tool plan_route did not match sc |
+| REQ-10     | ReAct_WithValidation | 1   | wrong_tool         | none           | No valid plan produced       | LLM HTTP 400: {"error":{"message":"Failed to parse tool call arguments as JSON","type":"invalid_request_error","code":"tool_use_failed","fai |
+| REQ-11     | ReAct_WithValidation | 1   | wrong_tool         | none           | No valid plan produced       | LLM HTTP 429: {"error":{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m31etz8tea59m7ypg0nbek92` servi |
+| REQ-14     | ReAct_NoValidation   | 1   | ignored_constraint | none           | Failed to identify ambiguity | LLM HTTP 400: {"error":{"message":"Tool call validation failed: tool call validation failed: parameters for tool plan_route did not match sc |
+| REQ-14     | ReAct_WithValidation | 1   | ignored_constraint | none           | Failed to identify ambiguity | LLM HTTP 400: {"error":{"message":"Tool call validation failed: tool call validation failed: parameters for tool plan_route did not match sc |
+| REQ-16     | ReAct_NoValidation   | 1   | ignored_constraint | none           | Failed to identify ambiguity | LLM HTTP 429: {"error":{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m31etz8tea59m7ypg0nbek92` servi |
+| REQ-16     | ReAct_WithValidation | 1   | ignored_constraint | none           | Failed to identify ambiguity | LLM HTTP 429: {"error":{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org_01m31etz8tea59m7ypg0nbek92` servi |

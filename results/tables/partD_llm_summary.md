@@ -1,0 +1,9 @@
+**Part D LLM Dispatcher vs Direct Planner (groq/openai/gpt-oss-120b, mode=live, R=1)**
+
+*Group Stamp: Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)*
+
+| Mode                 | Requests | Success Rate (95% Wilson CI) | Tool Accuracy | Constraint Sat. | Mean Cost Ratio | Mean Tool Calls | Interventions | Mean Latency (s) |
+| -------------------- | -------- | ---------------------------- | ------------- | --------------- | --------------- | --------------- | ------------- | ---------------- |
+| Direct_Planner       | 20       | 100.0% [83.9, 100.0]         | 100.0%        | 100.0%          | 1.000           | 0.80            | 0.00          | 0.01             |
+| ReAct_NoValidation   | 20       | 65.0% [43.3, 81.9]           | 80.0%         | 75.0%           | 0.915           | 1.00            | 0.00          | 2.02             |
+| ReAct_WithValidation | 20       | 70.0% [48.1, 85.5]           | 85.0%         | 80.0%           | 0.857           | 0.80            | 0.05          | 2.06             |

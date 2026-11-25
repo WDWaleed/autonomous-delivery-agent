@@ -237,6 +237,7 @@ def run_react_dispatcher(
             messages=messages,
             tools=TOOL_SCHEMAS,
             temperature=0.0,
+            max_tokens=2048,
             bypass_cache=bypass_cache,
         )
         reason_summary, tool_name, tool_args, final_answer, is_malformed = parse_llm_action(resp)

@@ -1,0 +1,31 @@
+% Muhammad Waleed Ahmed (513303) | Ahmad Raza (522356) | Ali Hamza (514549)
+\begin{table}[htbp]
+\centering
+\caption{Part D Dispatcher Failure Log | \stampline}
+\label{tab:partD_failures}
+\begin{tabular}{llrllll}
+\toprule
+request\_id & mode & rep & category & tool\_calls & evidence & root\_cause \\
+\midrule
+REQ-02 & ReAct\_NoValidation & 1 & wrong\_tool & none & No valid plan produced & LLM request failed: The read operation timed out \\
+REQ-03 & ReAct\_NoValidation & 1 & wrong\_tool & none & No valid plan produced & LLM request failed: The read operation timed out \\
+REQ-06 & ReAct\_NoValidation & 1 & wrong\_tool & none & No valid plan produced & LLM HTTP 429: \{"error":\{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org\_01m31etz8tea59m7ypg0nbek92` servi \\
+REQ-06 & ReAct\_WithValidation & 1 & wrong\_tool & none & No valid plan produced & LLM HTTP 429: \{"error":\{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org\_01m31etz8tea59m7ypg0nbek92` servi \\
+REQ-09 & ReAct\_NoValidation & 1 & invalid\_plan & inspect\_twists & No valid plan produced & \{
+  "status": "INSPECTED",
+  "location": [4, 20],
+  "allowed\_directions": ["NORTH", "EAST"],
+  "blocked\_directions": ["SOUTH", "WEST"],
+  "a \\
+REQ-09 & ReAct\_WithValidation & 1 & invalid\_plan & inspect\_twists & No valid plan produced & \{"status":"INSPECTED","plan":null,"cost":0,"reason":"Depot at (4,20) permits movement only NORTH and EAST; one-way streets active, no fragil \\
+REQ-10 & ReAct\_NoValidation & 1 & wrong\_tool & none & No valid plan produced & LLM HTTP 400: \{"error":\{"message":"Tool call validation failed: tool call validation failed: parameters for tool plan\_route did not match sc \\
+REQ-10 & ReAct\_WithValidation & 1 & wrong\_tool & none & No valid plan produced & LLM HTTP 400: \{"error":\{"message":"Failed to parse tool call arguments as JSON","type":"invalid\_request\_error","code":"tool\_use\_failed","fai \\
+REQ-11 & ReAct\_WithValidation & 1 & wrong\_tool & none & No valid plan produced & LLM HTTP 429: \{"error":\{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org\_01m31etz8tea59m7ypg0nbek92` servi \\
+REQ-14 & ReAct\_NoValidation & 1 & ignored\_constraint & none & Failed to identify ambiguity & LLM HTTP 400: \{"error":\{"message":"Tool call validation failed: tool call validation failed: parameters for tool plan\_route did not match sc \\
+REQ-14 & ReAct\_WithValidation & 1 & ignored\_constraint & none & Failed to identify ambiguity & LLM HTTP 400: \{"error":\{"message":"Tool call validation failed: tool call validation failed: parameters for tool plan\_route did not match sc \\
+REQ-16 & ReAct\_NoValidation & 1 & ignored\_constraint & none & Failed to identify ambiguity & LLM HTTP 429: \{"error":\{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org\_01m31etz8tea59m7ypg0nbek92` servi \\
+REQ-16 & ReAct\_WithValidation & 1 & ignored\_constraint & none & Failed to identify ambiguity & LLM HTTP 429: \{"error":\{"message":"Rate limit reached for model `openai/gpt-oss-120b` in organization `org\_01m31etz8tea59m7ypg0nbek92` servi \\
+\bottomrule
+\end{tabular}
+
+\end{table}

@@ -100,6 +100,7 @@ STAGE_ALIASES = {
     "partA_benchmark": "stage1_world_benchmark",
     "partA_reflex": "stage_reflex",
     "partB_heuristics": "stage_heuristics",
+    "partD": "stage6_llm_benchmark",
 }
 
 
@@ -160,6 +161,11 @@ def main():
             res = run_heuristics_benchmark(quick=args.quick)
             status = "COMPLETED"
             meta = {"n_scenarios": 5 if args.quick else 30}
+        elif stage_name == "stage6_llm_benchmark":
+            from delivery.experiments.stages.stage_llm import run_partD_evaluation
+            res = run_partD_evaluation(llm_mode=args.llm_mode, quick=args.quick)
+            status = "COMPLETED"
+            meta = {"provider": res.get("provider"), "model": res.get("model")}
         else:
             # Stubs for subsequent milestones
             status = "COMPLETED_STUB"
