@@ -1124,9 +1124,9 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [ ] M11.4 Optional remaining twists
 - [x] M11.5 README — **v0.9.0-rc.1**
 - [x] M12.1 Report setup
-- [ ] M12.2 Parts A and B
-- [ ] M12.3 Parts C, D and experiments
-- [ ] M12.4 Ethics, references
+- [x] M12.2 Parts A and B
+- [x] M12.3 Parts C, D and experiments
+- [x] M12.4 Ethics, references
 - [ ] M12.5 Build and check
 - [ ] M13.1 Code walkthrough
 - [ ] M13.2 Viva Q&A
