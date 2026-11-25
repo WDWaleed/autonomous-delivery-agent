@@ -65,3 +65,33 @@ def test_chaser_rival_deterministic_and_respects_one_way_and_obstacles():
     # Legal under obstacles and one-way restrictions
     legal = game.legal_actions(s, RIVAL)
     assert act1 in legal
+
+
+def test_chaser_routes_around_obstacle_wall_instead_of_getting_stuck():
+    """Verifies Chaser does not get stuck in a Manhattan local minimum behind a wall."""
+    grid = np.zeros((6, 6), dtype=np.int8)
+    # Wall blocking direct Manhattan path at col 2, rows 1..4
+    for r in range(1, 5):
+        grid[r, 2] = -1
+    inst = Instance(
+        id="WALL-TEST",
+        seed=1,
+        cms_ids=["513303"],
+        n=6,
+        grid=grid,
+        terrain_cost={"road": 3, "grass": 4, "mud": 5, "ford": 7},
+        obstacle_density=0.1,
+        start=(2, 0),
+        delivery_stops=[(5, 5)],
+        slip_probability=0.0,
+        adversary="chaser",
+        adversary_search_depth=4,
+        twists=[],
+    )
+    game = WindowGame(inst, window_radius=None)
+    rival = ChaserRival(depth=2)
+    # Agent at (2, 1), Rival at (2, 3) separated by wall at col 2
+    s = game.initial_state(agent_pos=(2, 1), rival_pos=(2, 3), turn=RIVAL)
+    act, _ = rival.choose_action(game, s)
+    # Chaser must move NORTH or SOUTH around the wall, NOT WAIT!
+    assert act in (NORTH, SOUTH)

@@ -7,7 +7,8 @@ to adversary_search_depth (default 6 plies) with chaser-specific evaluation
 
 from __future__ import annotations
 
-from typing import List, Optional, Tuple
+from collections import deque
+from typing import Dict, List, Optional, Tuple
 
 import numpy as np
 
@@ -15,22 +16,62 @@ from delivery.game.alphabeta import alphabeta_search
 from delivery.game.ordering import make_own_ordering
 from delivery.game.stats import EvalFn, OrderFn, SearchDecision
 from delivery.game.window import RIVAL, UTILITY_M, GameState, WindowGame
-from delivery.world.distance import distance_field
+from delivery.search.problem import ACTION_DELTAS, EAST, NORTH, SOUTH, WEST
+
+# Lightweight cache for reverse BFS step-distance fields: (id(game.world), agent_pos) -> np.ndarray
+_BFS_CACHE: Dict[Tuple[int, Tuple[int, int]], np.ndarray] = {}
+
+
+def _get_rival_dist_field(game: WindowGame, agent_pos: Tuple[int, int]) -> np.ndarray:
+    """Computes exact minimum legal rival steps from every cell TO agent_pos via reverse BFS."""
+    key = (id(game.world), agent_pos)
+    if key in _BFS_CACHE:
+        return _BFS_CACHE[key]
+
+    n = game.world.n
+    dist = np.full((n, n), -1, dtype=np.int32)
+    ar, ac = agent_pos
+    if not game.world.in_bounds(ar, ac) or not game.world.passable[ar, ac]:
+        return dist
+
+    dist[ar, ac] = 0
+    q = deque([(ar, ac)])
+    # Reverse edges: a move from (nr, nc) -> (cr, cc) in direction a is legal if twists allow (nr, nc) -> (cr, cc)
+    while q:
+        cr, cc = q.popleft()
+        cd = dist[cr, cc]
+        for a in (NORTH, EAST, SOUTH, WEST):
+            dr, dc = ACTION_DELTAS[a]
+            nr, nc = cr - dr, cc - dc  # predecessor cell that steps via 'a' into (cr, cc)
+            if (
+                game.world.in_bounds(nr, nc)
+                and game.world.passable[nr, nc]
+                and dist[nr, nc] == -1
+                and game.twists.is_action_legal((nr, nc), a, (cr, cc), (), game.world)
+            ):
+                dist[nr, nc] = cd + 1
+                q.append((nr, nc))
+
+    if len(_BFS_CACHE) > 256:
+        _BFS_CACHE.clear()
+    _BFS_CACHE[key] = dist
+    return dist
 
 
 def chaser_eval(state: GameState, game: WindowGame) -> float:
     """Chaser evaluation from MAX's (AGENT's) perspective (MIN minimizes this).
 
-    Lower values are better for the chaser:
-    - Primary term: Manhattan distance between agent and rival (closer = lower utility for MAX).
-    - Secondary term: agent progress toward undelivered stops (so chaser prefers states
-      where agent is further from completing deliveries).
+    Uses exact obstacle- and one-way-aware reverse BFS distance to agent_pos so
+    the Chaser navigates around walls instead of getting trapped in local minima.
     Strictly bounded within [-999.0, +999.0] << UTILITY_M (10,000.0).
     """
     ar, ac = state.agent_pos
     rr, rc = state.rival_pos
-    dist = abs(ar - rr) + abs(ac - rc)
-    max_d = max(1, 2 * game.world.n)
+    dist_field = _get_rival_dist_field(game, state.agent_pos)
+    bfs_d = int(dist_field[rr, rc])
+    manhattan_d = abs(ar - rr) + abs(ac - rc)
+    dist = float(bfs_d) if bfs_d >= 0 else float(2 * game.world.n + manhattan_d)
+    max_d = float(max(1, game.world.n * game.world.n // 2))
 
     # Closer rival -> more negative for MAX (better for MIN chaser)
     chase_term = 600.0 * (min(dist, max_d) / max_d) - 300.0

@@ -111,18 +111,25 @@ class DeliveryEnv:
         self.reset()
 
     def _default_rival_start(self) -> Tuple[int, int]:
-        """Selects a passable cell farthest from agent start."""
-        best_pos = self.start
-        best_dist = -1
+        """Selects a reachable passable cell farthest from agent start."""
+        from collections import deque
+
+        n = self.world.n
+        visited = np.zeros((n, n), dtype=bool)
         sr, sc = self.start
-        for r in range(self.world.n):
-            for c in range(self.world.n):
-                if self.world.passable[r, c] and (r, c) != self.start:
-                    d = abs(r - sr) + abs(c - sc)
-                    if d > best_dist:
-                        best_dist = d
-                        best_pos = (r, c)
-        return best_pos
+        visited[sr, sc] = True
+        q = deque([(sr, sc)])
+        farthest = self.start
+        while q:
+            r, c = q.popleft()
+            farthest = (r, c)
+            for a in (NORTH, EAST, SOUTH, WEST):
+                dr, dc = ACTION_DELTAS[a]
+                nr, nc = r + dr, c + dc
+                if self.world.in_bounds(nr, nc) and self.world.passable[nr, nc] and not visited[nr, nc]:
+                    visited[nr, nc] = True
+                    q.append((nr, nc))
+        return farthest
 
     def reset(
         self,
