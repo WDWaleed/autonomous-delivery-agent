@@ -6,6 +6,7 @@ from delivery.heuristics.baselines import (
     MaxRelaxedDistanceHeuristic,
 )
 from delivery.heuristics.own import CombinedMSTHeuristic
+from delivery.heuristics.variants import OverestimatingHeuristic, WeightedHeuristic
 
 __all__ = [
     "Heuristic",
@@ -13,4 +14,6 @@ __all__ = [
     "ManhattanNearestStopHeuristic",
     "MaxRelaxedDistanceHeuristic",
     "CombinedMSTHeuristic",
+    "WeightedHeuristic",
+    "OverestimatingHeuristic",
 ]
