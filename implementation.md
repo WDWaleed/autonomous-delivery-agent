@@ -1109,7 +1109,7 @@ The agent drafts the one-paragraph proposal; the user submits it and reports ins
 - [x] M8.2 Tools
 - [x] M8.3 ReAct loop and safe traces
 - [x] M8.4 Requests and checker
-- [ ] M8.5 Validation layer
+- [x] M8.5 Validation layer
 - [ ] M8.6 Evaluation/failures/traces — **v0.4.0**
 - [ ] M9.1 Ablation
 - [ ] M9.2 Failure analysis
