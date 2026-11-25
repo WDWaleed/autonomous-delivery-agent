@@ -175,6 +175,36 @@ def cmd_certify(args):
     print_stamped_table(cert_headers, cert_rows, title="INSTANCE SOLVABILITY CERTIFICATE")
 
 
+def cmd_rerun(args):
+    """Lightweight override-and-rerun parity command matching UI backend."""
+    from delivery.ui.backend import run_ui_plan
+
+    inst = get_canonical_instance()
+    if args.set:
+        overrides = parse_cli_overrides(args.set)
+        inst = apply_overrides(inst, overrides)
+
+    res = run_ui_plan(
+        inst,
+        algo=args.algo,
+        heuristic=args.heuristic,
+        depth_limit=args.depth_limit,
+    )
+    if args.json:
+        print(json.dumps(res, indent=2))
+        return
+
+    print(banner(f"LIVE-CHANGE RERUN: {args.algo.upper()}"))
+    rows = [
+        ["Status", res["status"]],
+        ["Cost", f"{res['cost']:.2f}" if res["cost"] is not None else "N/A"],
+        ["Actions", str(res["length"])],
+        ["Expanded", f"{res['expanded']:,}"],
+        ["Duration", f"{res['duration_s']:.4f} s"],
+    ]
+    print_stamped_table(["Metric", "Value"], rows, title="RERUN SUMMARY")
+
+
 def main():
     parser = argparse.ArgumentParser(description="Delivery Agent CLI")
     subparsers = parser.add_subparsers(dest="command", required=True)
@@ -204,6 +234,15 @@ def main():
     cert_parser.add_argument("--max-expanded", type=int, default=1_000_000, help="Max expanded nodes.")
     cert_parser.add_argument("--json", action="store_true", help="Output certificate in raw JSON format.")
     cert_parser.set_defaults(func=cmd_certify)
+
+    # Subcommand: rerun
+    rerun_parser = subparsers.add_parser("rerun", help="Apply live overrides and rerun planner (UI parity).")
+    rerun_parser.add_argument("--algo", choices=["bfs", "ucs", "dls", "ids", "greedy", "astar"], default="astar")
+    rerun_parser.add_argument("--heuristic", choices=["zero", "b1", "b2", "own"], default="own")
+    rerun_parser.add_argument("--depth-limit", type=int, default=80)
+    rerun_parser.add_argument("--set", nargs="*", help="Key=value overrides.")
+    rerun_parser.add_argument("--json", action="store_true", help="Output JSON.")
+    rerun_parser.set_defaults(func=cmd_rerun)
 
     args = parser.parse_args()
     args.func(args)
