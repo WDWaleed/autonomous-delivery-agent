@@ -106,8 +106,24 @@ def parse_cli_overrides(args: Sequence[str]) -> Dict[str, Any]:
             except StopIteration:
                 v = "true"
         k = k.replace("-", "_")
-        # Parse primitives
-        if v.lower() == "true":
+        # Parse structured list/coord strings for CLI convenience
+        if k == "start" and "," in v:
+            parts = [int(x.strip()) for x in v.strip("()[]").split(",")]
+            raw[k] = (parts[0], parts[1])
+        elif k == "delivery_stops" and (";" in v or "," in v):
+            stops_list = []
+            for item in v.split(";"):
+                item = item.strip().strip("()[]")
+                if item:
+                    r_s, c_s = item.split(",")
+                    stops_list.append((int(r_s.strip()), int(c_s.strip())))
+            raw[k] = stops_list
+        elif k == "twists":
+            if v.strip().lower() in ("", "none", "[]"):
+                raw[k] = []
+            else:
+                raw[k] = [t.strip() for t in v.split(",") if t.strip()]
+        elif v.lower() == "true":
             raw[k] = True
         elif v.lower() == "false":
             raw[k] = False
