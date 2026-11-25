@@ -227,10 +227,16 @@ class UISimSession:
         self.event_log.append(entry)
         return entry
 
-    def play_all(self, max_steps: int = 120) -> List[Dict[str, Any]]:
-        """Runs until done, captured, or max_steps."""
+    def play_all(
+        self,
+        max_steps: int = 120,
+        on_step: Optional[Any] = None,
+    ) -> List[Dict[str, Any]]:
+        """Runs until done, captured, or max_steps, invoking optional on_step(self, entry) callback."""
         while not self.env.is_done() and not self.env.captured and self.env.step_count < max_steps:
-            self.step_once()
+            entry = self.step_once()
+            if on_step is not None:
+                on_step(self, entry)
         return self.event_log
 
 
@@ -239,13 +245,13 @@ def run_ui_rival_game(
     window_radius: int = 4,
     use_tuned_weights: bool = True,
     max_steps: int = 150,
+    on_step: Optional[Any] = None,
 ) -> Dict[str, Any]:
     """Plays a full adversarial game against the assigned Chaser rival using HybridAgent."""
     import json
     from pathlib import Path
     from delivery.game.evaluation import EvalWeights, make_default_evaluator
     from delivery.game.window import WindowGame, compute_canonical_baseline
-    from delivery.sim.runner import run as run_sim
 
     world = GridWorld(instance)
     twists = build_twist_stack(instance, world)
@@ -291,21 +297,45 @@ def run_ui_rival_game(
         c_star=c_star,
         l_star=l_star,
     )
-    res = run_sim(agent, env, max_steps=max_steps)
 
-    if res.success:
+    trajectory: List[Tuple[int, int]] = [env.agent_pos]
+    failure_reason: Optional[str] = None
+    agent.reset()
+
+    for _ in range(max_steps):
+        if env.is_done() or env.captured:
+            break
+        percept = env.get_percept()
+        action, _ = agent.choose_action(percept)
+        env.step(action)
+        trajectory.append(env.agent_pos)
+
+        if env.captured:
+            failure_reason = "CAPTURED_BY_RIVAL"
+        elif not env.is_done():
+            env.step_rival()
+            if env.captured:
+                failure_reason = "CAPTURED_BY_RIVAL"
+
+        if on_step is not None:
+            on_step(env, trajectory, agent)
+
+    if not env.is_done() and not env.captured and failure_reason is None:
+        failure_reason = "STEP_CAP_EXCEEDED"
+
+    if env.is_done() and not env.captured:
         outcome = "WIN"
-    elif res.failure_reason == "CAPTURED_BY_RIVAL":
+    elif env.captured or failure_reason == "CAPTURED_BY_RIVAL":
         outcome = "LOSS (CAPTURED)"
     else:
-        outcome = f"DRAW ({res.failure_reason or 'STEP_CAP'})"
+        outcome = f"DRAW ({failure_reason or 'STEP_CAP'})"
 
     return {
         "outcome": outcome,
-        "success": res.success,
-        "total_cost": float(res.total_cost),
-        "total_steps": int(res.total_steps),
-        "trajectory": list(res.trajectory),
+        "success": bool(env.is_done() and not env.captured),
+        "total_cost": float(env.total_cost),
+        "total_steps": int(env.step_count),
+        "trajectory": trajectory,
         "rival_pos": env.rival_pos,
         "delivered_mask": env.delivered_mask,
         "replans": agent.replan_counts.to_dict(),

@@ -7,6 +7,7 @@ Run with:
 from __future__ import annotations
 
 import sys
+import time
 from pathlib import Path
 
 # Ensure project root is on sys.path when invoked via `streamlit run delivery/ui/app.py`
@@ -14,6 +15,7 @@ _PROJECT_ROOT = str(Path(__file__).resolve().parent.parent.parent)
 if _PROJECT_ROOT not in sys.path:
     sys.path.insert(0, _PROJECT_ROOT)
 
+import matplotlib.pyplot as plt
 import streamlit as st
 
 from delivery.instance import get_canonical_instance
@@ -169,44 +171,95 @@ def main() -> None:
 
             st.divider()
             st.subheader("2. Step-by-Step Execution")
+            anim_delay_ms = st.slider("Live Animation Delay (ms/step)", min_value=20, max_value=500, value=100, step=20)
             b1, b2, b3 = st.columns(3)
             if b1.button("Step"):
                 if st.session_state["sim_session"] is None:
                     st.session_state["sim_session"] = UISimSession(inst, enable_rival=False, window_radius=window_radius)
                 st.session_state["sim_session"].step_once()
                 st.rerun()
-            if b2.button("Play"):
-                if st.session_state["sim_session"] is None:
-                    st.session_state["sim_session"] = UISimSession(inst, enable_rival=False, window_radius=window_radius)
-                st.session_state["sim_session"].play_all(max_steps=120)
-                st.rerun()
+            play_clicked = b2.button("Play")
             if b3.button("Reset"):
                 st.session_state["sim_session"] = None
                 st.rerun()
 
+            sim_stats_placeholder = st.empty()
+            sim_log_placeholder = st.empty()
+
+            if play_clicked:
+                if st.session_state["sim_session"] is None:
+                    st.session_state["sim_session"] = UISimSession(inst, enable_rival=False, window_radius=window_radius)
+                sess = st.session_state["sim_session"]
+
+                def _on_sim_step(s: UISimSession, _entry: dict) -> None:
+                    live_fig = render_map_figure(
+                        inst,
+                        agent_pos=s.env.agent_pos,
+                        rival_pos=s.env.rival_pos,
+                        trajectory=s.trajectory,
+                        delivered_mask=s.env.delivered_mask,
+                        title=f"Live Execution ({inst.id} | Step {s.env.step_count})",
+                    )
+                    map_placeholder.pyplot(live_fig)
+                    plt.close(live_fig)
+                    sim_stats_placeholder.write(
+                        f"**Steps:** {s.env.step_count} | **Cost:** {s.env.total_cost:.1f} | "
+                        f"**Delivered:** {bin(s.env.delivered_mask).count('1')}/{len(inst.delivery_stops)} | "
+                        f"**Replans:** {s.agent.replan_counts.total_replans()}"
+                    )
+                    sim_log_placeholder.dataframe(s.event_log[-8:], use_container_width=True)
+                    time.sleep(anim_delay_ms / 1000.0)
+
+                sess.play_all(max_steps=120, on_step=_on_sim_step)
+
             sim_sess = st.session_state["sim_session"]
             if sim_sess is not None:
-                st.write(
+                sim_stats_placeholder.write(
                     f"**Steps:** {sim_sess.env.step_count} | **Cost:** {sim_sess.env.total_cost:.1f} | "
                     f"**Delivered:** {bin(sim_sess.env.delivered_mask).count('1')}/{len(inst.delivery_stops)} | "
                     f"**Replans:** {sim_sess.agent.replan_counts.total_replans()}"
                 )
                 if sim_sess.event_log:
-                    st.dataframe(sim_sess.event_log[-10:], use_container_width=True)
+                    sim_log_placeholder.dataframe(sim_sess.event_log[-10:], use_container_width=True)
 
     with tab_game:
         st.caption(f"Tab Stamp: {STAMP}")
         g_col1, g_col2 = st.columns([1.2, 1.0])
+        with g_col1:
+            game_map_placeholder = st.empty()
         with g_col2:
             st.subheader("Adversarial Game vs Chaser")
             use_tuned = st.checkbox("Use Tuned Evaluation Weights (config/tuned_weights.json)", value=True)
-            if st.button("Play Full Game vs Chaser", type="primary"):
-                with st.spinner("Simulating game against Chaser..."):
-                    st.session_state["game_result"] = run_ui_rival_game(
+            game_delay_ms = st.slider("Game Animation Delay (ms/step)", min_value=20, max_value=500, value=100, step=20)
+            play_game_clicked = st.button("Play Full Game vs Chaser", type="primary")
+            game_stats_placeholder = st.empty()
+
+            if play_game_clicked:
+                def _on_game_step(env, traj, ag) -> None:
+                    g_live_fig = render_map_figure(
                         inst,
-                        window_radius=window_radius,
-                        use_tuned_weights=use_tuned,
+                        agent_pos=env.agent_pos,
+                        rival_pos=env.rival_pos,
+                        trajectory=traj,
+                        delivered_mask=env.delivered_mask,
+                        title=f"Live Rival Game (Step {env.step_count} | Cost {env.total_cost:.1f})",
                     )
+                    game_map_placeholder.pyplot(g_live_fig)
+                    plt.close(g_live_fig)
+                    game_stats_placeholder.write(
+                        f"**Step:** {env.step_count} | **Cost:** {env.total_cost:.1f} | "
+                        f"**Delivered:** {bin(env.delivered_mask).count('1')}/{len(inst.delivery_stops)} | "
+                        f"**Replans:** {ag.replan_counts.total_replans()}"
+                    )
+                    time.sleep(game_delay_ms / 1000.0)
+
+                st.session_state["game_result"] = run_ui_rival_game(
+                    inst,
+                    window_radius=window_radius,
+                    use_tuned_weights=use_tuned,
+                    on_step=_on_game_step,
+                )
+
             g_res = st.session_state.get("game_result")
             if g_res:
                 st.metric("Game Outcome", g_res["outcome"])
@@ -217,7 +270,7 @@ def main() -> None:
                 st.json(g_res["replans"])
         with g_col1:
             g_res = st.session_state.get("game_result")
-            if g_res:
+            if g_res and not play_game_clicked:
                 g_fig = render_map_figure(
                     inst,
                     agent_pos=g_res["trajectory"][-1],
@@ -226,9 +279,10 @@ def main() -> None:
                     delivered_mask=g_res["delivered_mask"],
                     title=f"Rival Game Replay ({g_res['outcome']})",
                 )
-                st.pyplot(g_fig)
-            else:
-                st.info("Click 'Play Full Game vs Chaser' to run an adversarial episode.")
+                game_map_placeholder.pyplot(g_fig)
+                plt.close(g_fig)
+            elif not g_res:
+                game_map_placeholder.info("Click 'Play Full Game vs Chaser' to watch a live adversarial episode.")
 
     with tab_llm:
         st.caption(f"Tab Stamp: {STAMP}")
